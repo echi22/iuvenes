@@ -1,0 +1,203 @@
+/* 
+    Document   : style
+    Created on : 30/04/2012, 13:53:56
+    Author     : echi
+    Description:
+        Purpose of the stylesheet follows.
+*/
+ html, body { 
+     
+     padding: 0px; margin: 0px; height: 100%;width: 100%;
+         font:100%/150% "Trebuchet MS", "Lucida Grande", "Bitstream Vera Sans", Arial, Helvetica, sans-serif;
+		
+    background-color: #E4EBF0
+ 
+ }
+root { 
+    display: block;
+}
+.contenedor{
+    position: relative; width: 100%; top: 0px; margin: 0px;
+     background-color: #E4EBF0;
+    
+}
+.logo{
+    width: 100%;
+    max-height:40px;
+   
+    border-bottom: #0086C6 4px solid;
+    background-image: url("../images/fondo_menu.jpg");
+    
+}
+#insert_form{
+    width: 90%; margin: auto;
+}
+.row{
+    display: block; width: 100%;
+    height: 4em;
+}
+
+.columna1 .row{
+    height: 2em;
+}
+.telefono{
+    display:block; width: 100%;
+    float: left;
+}
+#insert_form label{
+    display: block;
+}
+.input{
+    float: left; width: 15em; display: inline;
+}
+.div_input_chico{
+    float: left; width: 7em; display: inline;
+}
+.input_chico{
+    width: 7em;
+}
+.titulo{    
+    font-weight: bold;
+    font-size: 1.7em;
+    margin: 0px 10px 25px 10px;
+    color: #002166;
+}
+.borrar{
+    max-height: 40px;
+    max-width: 20px;
+}
+.border_bottom{
+    border-bottom: #000000 solid 1px;
+}
+#index{
+    background-image: url("../images/background.jpg");
+   background-repeat: no-repeat;
+   background-size: cover
+    
+}
+#cabecera{
+    min-height: 60px;
+    padding-bottom: 30px;
+    background-color: #E4EBF0
+}
+#contenido{
+    background-color: #E4EBF0;
+    height: 100%;
+}
+.subtitle{
+    font-size: 1em;
+    font-weight:bold;
+    color: #002166;
+}
+.border_top{
+    border-top: #000000 solid 1px;
+}
+	
+button{
+        width:150px;
+        height:37px;
+        line-height:37px;		
+        border:none;
+        background:url(../images/form_button.gif) no-repeat 0 0;
+        color:#fff;
+        cursor:pointer;
+        text-align:center;
+        }
+        
+
+a{
+	text-decoration:none;
+	color:#f30;
+	}
+a:hover{
+	color:#999;
+	}			
+
+img{
+	border:none;
+	}			
+
+        
+        
+.tabs {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    display: block;
+}
+.tabs section {
+    float: left;
+    z-index: 1;
+}
+.tabs section h4 {
+    margin: 0 1px 0 0;
+    background: #E4EBF0;
+    padding: 3px 10px;
+    -moz-border-radius: 5px 5px 0 0;
+    cursor: hand;
+    cursor: pointer;
+    color: #002166;
+}
+
+.tabs section.current h4 { 
+    background: #eee; cursor: default; 
+    border: 1px #000 solid;
+    border-bottom: 0px;
+}
+
+.tabs section .div_tab {
+    padding-top: 25px;
+    padding-left: 10px;
+    position: absolute;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background: #eee;
+    display: none;
+    border: 1px #000 solid;
+}
+
+.tabs section.current div { display: block; }        
+
+.foto_alumno{
+    max-width: 150px;
+    max-height: 150px;
+}
+.columna1{
+    width: 50%;
+    float: left;
+}
+.columna_ajustada{
+    float:left;
+    padding-right: 20px;
+}
+.data{
+    display: inline;
+}
+.table_header{
+    color: #002166;   
+}
+.table_header td{
+    padding: 4px 4px 4px 4px;
+    background-color: #D3DCE3;
+}
+.table_row1 {
+     padding: 4px 4px 4px 4px;
+     background-color: #E4EBF0;
+}
+
+.table_row2 {
+     padding: 4px 4px 4px 4px;
+     background-color: #D3DCE3;
+}
+.table_row2:hover, .table_row1:hover{
+	color:white;
+	background-color: #91BAE3;
+}
+.centrado{
+    margin: auto;
+    clear: both;
+    width: 80%;
+}
