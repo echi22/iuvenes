@@ -52,7 +52,6 @@ class Personas extends CI_Controller {
                 else
                 {              
                     $p = $this->save_data();    
-                    echo $popup;
                     if(!$popup)
                         redirect("alumnos/alumno_data/".$p->id);
                     else
@@ -61,24 +60,13 @@ class Personas extends CI_Controller {
         }
         
         public function save_data(){
-             $target_path = "uploads/";
+            $target_path = "uploads/";
+            
             $target_path = $target_path . basename( $_FILES['image']['name']);                     
             move_uploaded_file($_FILES['image']['tmp_name'], $target_path);
 
             $country = new Country();
-            $country->where('id', $this->input->post('nacionalidad'))->get();
-
-            $dom = new Domicilio();                      
-            $pais_dom = new Country();
-            $pais_dom->where('id',$this->input->post('country'))->get();
-
-            $provincia = new State();
-            $provincia->where('id',$this->input->post('provincia'))->get();
-            $localidad = new Localidad();
-            $localidad->where('id',$this->input->post('localidad'))->get();
-            $dom->from_array($_POST, '', false);
-            $dom->save(array($provincia,$localidad, $pais_dom));
-
+            $country->where('id', $this->input->post('nacionalidad'))->get();          
             $estado_civil = new Estado_civil();
             $estado_civil->where('id', 1)->get();                        
             $sexo = new Sexo();
@@ -97,7 +85,23 @@ class Personas extends CI_Controller {
             $p = new Persona();
             $p->from_array($_POST,'',false);
             $p->foto = $target_path;
-            $p->save(array($estado_civil,$country,$dom,$sexo));
+            echo $p;
+            $p->save(array($estado_civil,$country,$sexo));
+            for($i = 0; $i < $_POST['cant_domicilio']; $i++){
+                $array = $_POST['domicilio_'.$i.'_'];
+                if(is_array($array)){
+                    $dom = new Domicilio();    
+                    $pais_dom = new Country();
+                    $pais_dom->where('id',$array['country'])->get();
+                    $provincia = new State();
+                    $provincia->where('id',$array['provincia'])->get();
+                    $localidad = new Localidad();
+                    $localidad->where('id',$array['localidad'])->get();
+                    $dom->from_array($array, '', false);
+                    $dom->save(array($provincia,$localidad, $pais_dom));
+                    $p->save($dom);
+                }
+            }
             for($i = 0; $i < count($cod_area); $i++){
                 if($tipo_tel[$i] != ""){
                     $t = new Telefono();
@@ -113,16 +117,6 @@ class Personas extends CI_Controller {
             $persona_identificacion->save(array($p,$identificacion));
             return $p;
         }
-        public function update_parent($p){
-            $this->load->helper('url');
-            $persona = new Persona();
-            $persona->where('id',$p)->get();
-            $data['persona'] = $persona;
-            
-            $this->load->view('templates/header');
-            $this->load->view('persona/update_parent',$data);
-            
-        }
         
         public function get_all(){
             $p = new Persona();
@@ -130,6 +124,33 @@ class Personas extends CI_Controller {
             $data['personas'] = $p;
             $this->load->view('templates/header');
             $this->load->view('persona/list_all',$data);
+        }
+        public function buscar(){
+             $this->load->helper('form');
+             $this->load->helper('url');
+             $this->load->model('Widentificacion');
+             $sql = new Widentificacion();
+             $data['identificacion'] = $sql->get();
+             
+             if($this->input->post('busqueda') == 'si'){
+                 $identificacion = new Persona_identificacion();
+                 if($this->input->post('cd_identificacion') <> "")
+                    $identificacion->where('widentificacion_id',$this->input->post('cd_identificacion'));
+                 if($this->input->post('numero_identificacion') <> "")
+                    $identificacion->where('numero_identificacion', $this->input->post('numero_identificacion'));
+                 $identificacion->get();
+                 $p = new Persona();
+                 if($this->input->post('apellidos') <> "")
+                    $p->where('apellidos',$this->input->post('apellidos'));
+                 if($this->input->post('nombres')<> "")
+                    $p->where('nombres',$this->input->post('nombres'));
+                 $p->where_related('persona_identificacion','id',$identificacion);
+                 $p->get();
+                 $data['personas'] = $p;
+             }
+             $this->load->view('templates/header');
+             $this->load->view('persona/buscar',$data);
+             $this->load->view('templates/footer');
         }
 }       
 ?>

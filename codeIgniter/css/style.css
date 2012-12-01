@@ -5,14 +5,40 @@
     Description:
         Purpose of the stylesheet follows.
 */
- html, body { 
+/* html, body { 
      
      padding: 0px; margin: 0px; height: 100%;width: 100%;
          font:100%/150% "Trebuchet MS", "Lucida Grande", "Bitstream Vera Sans", Arial, Helvetica, sans-serif;
 		
     background-color: #E4EBF0
- 
- }
+
+ } */
+ body{
+    max-width: 1150px;
+    margin: 0 auto;
+    font-family: Arial;
+    height: 100%;
+    background: none repeat scroll 0 0 #302F2F;
+    
+}
+#cuerpo{
+    width: 100%;
+    margin: auto;
+    height: auto;
+    float: left;
+    min-height: 500px;
+}
+#contenido_cuerpo {
+    margin:0 auto;
+    background-color: #ece5e5;
+    padding: 3% 1.5em;
+    height: auto;
+    -moz-border-radius-bottomleft:  15px;
+    -moz-border-radius-bottomright: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    min-height: 500px;
+}
 root { 
     display: block;
 }
@@ -29,16 +55,17 @@ root {
     background-image: url("../images/fondo_menu.jpg");
     
 }
-#insert_form{
+#insert_form, .content-center{
     width: 90%; margin: auto;
 }
+
 .row{
     display: block; width: 100%;
-    height: 4em;
+    min-height: 4em;
 }
 
 .columna1 .row{
-    height: 2em;
+    min-height: 2em;
 }
 .telefono{
     display:block; width: 100%;
@@ -48,7 +75,7 @@ root {
     display: block;
 }
 .input{
-    float: left; width: 15em; display: inline;
+    float: left; width: 12em; display: inline;
 }
 .div_input_chico{
     float: left; width: 7em; display: inline;
@@ -78,12 +105,9 @@ root {
 #cabecera{
     min-height: 60px;
     padding-bottom: 30px;
-    background-color: #E4EBF0
+    background-color: #ece5e5;
 }
-#contenido{
-    background-color: #E4EBF0;
-    height: 100%;
-}
+
 .subtitle{
     font-size: 1em;
     font-weight:bold;
@@ -181,23 +205,31 @@ img{
 }
 .table_header td{
     padding: 4px 4px 4px 4px;
-    background-color: #D3DCE3;
+    background-color: #ECE5E5;
 }
 .table_row1 {
      padding: 4px 4px 4px 4px;
-     background-color: #E4EBF0;
+     background-color: #f2f5f7;
 }
 
 .table_row2 {
      padding: 4px 4px 4px 4px;
-     background-color: #D3DCE3;
+     background-color: #ECE5E5;
 }
-.table_row2:hover, .table_row1:hover{
+/*.table_row2:hover, .table_row1:hover{
 	color:white;
 	background-color: #91BAE3;
-}
+}*/
 .centrado{
     margin: auto;
     clear: both;
     width: 80%;
+}
+#icons li {
+margin: 2px;
+position: relative;
+padding: 4px 0;
+cursor: pointer;
+float: left;
+list-style: none;
 }

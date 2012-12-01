@@ -1,5 +1,5 @@
     <div >
-        <table >
+        <table class="content-center">
             <tr class="table_header">
                 <td></td><td>Apellido</td> <td>Nombre</td> <td>Parentezco</td> <td>Identificación</td>
                 <td>Teléfonos</td> <td>Autorizado</td> <td>Observaciones</td><td></td>
@@ -36,15 +36,14 @@
             <?php } ?>
         </table>
     </div>
-    <div id="insert_form">
+    <div id="insert_form" >
         <div class="row">
         <?php echo form_open("alumnos/add_related/".$alumno->persona->id); ?>
                 <div class="input">
                     <label class="" for="persona">Familiar:</label>
-                    <input type="text" id="persona" name="persona" />
+                    <input type="text" id="persona" name="persona" readonly="true" />
                     <br>
-                    <a href="<?php echo base_url(); ?>personas/create/true" target="_blank">Nuevo</a> -
-                    <a href="<?php echo base_url(); ?>personas/get_all" target="_blank">Buscar</a>
+                    <a href="<?php echo base_url(); ?>alumnos/add_related_view" target="_blank">Seleccionar</a>                    
                     <input type="hidden" name="persona_id" id="persona_id" />
                 </div>
                 <div class="input">

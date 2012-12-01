@@ -1,3 +1,5 @@
-<strong>&copy; 2011</strong>	
-</body>
+                
+            </div> 
+        </div> 
+    </body>
 </html>

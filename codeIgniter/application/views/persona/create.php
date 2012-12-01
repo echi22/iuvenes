@@ -77,57 +77,65 @@ alumnosView = new AlumnosView();
         <div class="subtitle">
             Domicilio
         </div>
-        <div class="row">
-            <div class="input">
-                <label for="calle" >Calle:</label>
-                <input type="text" name="ds_calle" id="calle"/>
+         <div id="domicilios">
+            <div id="domicilio">
+                <div class="row">
+                    <div class="input">
+                        <label for="calle" >Calle:</label>
+                        <input type="text" name="domicilio_0_[ds_calle]" id="calle"/>
+                    </div>
+                    <div class="input">
+                        <label for="num_casa">Número:</label>
+                        <input type="number" name="domicilio_0_[ds_numeral]" id="num_casa"/>
+                    </div>
+                    <div class="input">
+                        <label for="entre1">Entre:</label>
+                        <input type="text"  name="domicilio_0_[ds_entre1]" id="entre1"/>
+                    </div>
+                    <div class="input">
+                        <label for="ds_entre2"> y </label>
+                        <input type="text" name="domicilio_0_[ds_entre2]"  id="entre2"/>
+                    </div>
+                    <div class="input" id="icons">
+                                    <li class="ui-state-default ui-corner-all" title="Agregar" id="agregar_domicilio" onclick="alumnosView.addRow('domicilio','domicilios');"><span class="ui-icon ui-icon-plus" style="margin: 0 4px;"></span></li>
+                                </div>
+                </div>
+                <div class="row border_bottom">
+                    <div class="input">                
+                        <label for="piso">Piso:</label>
+                        <input type="text" name="domicilio_0_[ds_piso]" id="piso"/>
+                    </div>
+                    <div class="input">
+                        <label for="depto">Depto:</label>
+                        <input type="text" name="domicilio_0_[ds_depto]" id="depto" />
+                    </div>
+                    <div class="input">
+                        <label for="country">País:</label>
+                        <select name="domicilio_0_[country]" id="country">
+                            {country}
+                            <option value="{id}">{ds_pais}</option>
+                            {/country}
+                        </select>
+                    </div>
+                    <div class="input">
+                        <label for="provincia">Provincia:</label>
+                        <select name="domicilio_0_[provincia]" id="provincia">
+                            {provincia}
+                            <option value="{id}">{ds_provincia}</option>
+                            {/provincia}
+                        </select>
+                    </div>
+                    <div class="input">
+                        <label for="localidad">Localidad:</label>
+                        <select id="localidad" name="domicilio_0_[localidad]">
+                            {localidad}
+                            <option value="{id}">{ds_localidad}</option>
+                            {/localidad}
+                        </select>
+                    </div>
+                </div>
             </div>
-            <div class="input">
-                <label for="num_casa">Número:</label>
-                <input type="number" name="ds_numeral" id="num_casa"/>
-            </div>
-            <div class="input">
-                <label for="entre1">Entre:</label>
-                <input type="text"  name="ds_entre1" id="entre1"/>
-            </div>
-            <div class="input">
-                <label for="ds_entre2"> y </label>
-                <input type="text" name="ds_entre2"  id="entre2"/>
-            </div>
-        </div>
-        <div class="row border_bottom">
-            <div class="input">                
-                <label for="piso">Piso:</label>
-                <input type="text" name="ds_piso" id="piso"/>
-            </div>
-            <div class="input">
-                <label for="depto">Depto:</label>
-                <input type="text" name="ds_depto" id="depto" />
-            </div>
-            <div class="input">
-                <label for="country">País:</label>
-                <select name="country" id="country">
-                    {country}
-                    <option value="{id}">{ds_pais}</option>
-                    {/country}
-                </select>
-            </div>
-            <div class="input">
-                <label for="provincia">Provincia:</label>
-                <select name="provincia" id="provincia">
-                    {provincia}
-                    <option value="{id}">{ds_provincia}</option>
-                    {/provincia}
-                </select>
-            </div>
-            <div class="input">
-                <label for="localidad">Localidad:</label>
-                <select id="localidad" name="localidad">
-                    {localidad}
-                    <option value="{id}">{ds_localidad}</option>
-                    {/localidad}
-                </select>
-            </div>
+            <input id="cant_domicilio" type="hidden" name="cant_domicilio" value="1"/>
         </div>
         <div class="subtitle">
             Información Laboral
@@ -152,44 +160,29 @@ alumnosView = new AlumnosView();
                 <input type="text" id="ocupacion" name="ocupacion"/>
             </div>
         </div>
-        <div class="subtitle">
+       <div class="subtitle">
             Teléfonos
         </div>
-        <div class="row">
-            <div class="div_input_chico">
-                <input type="number"  id="cod_area" class="input_chico" placeholder="Cod. Area" > 
-                <input type="hidden" name="cod_area" id="cod_area_hidden">
-            </div>
-            <div class="input">
-                <input type="number"  id="telefono" placeholder="Número" >
-                <input type="hidden" name="telefono" id="telefono_hidden">
-            </div>
-            <div class="input">
-                <select id="tipo_telefono" >
-                    {telefono}
-                    <option value="{id}">{tipo_telefono}</option>
-                    {/telefono}
-                </select>
-                <input type="hidden" name="tipo_tel" id="tipo_tel_hidden">
-            </div>
-
-            <div class="input">
-                <button type="button" onclick="alumnosView.addPhone();">Agregar</button>
-            </div>
-        </div>
-        
-            <div class="telefono">
-                <div class="div_input_chico">
-                    Cod. Area
-                </div>
-                <div class="div_input_chico">
-                    Número
-                </div>
-                <div class="div_input_chico">
-                    Tipo
+         <div id="telefonosContainer">
+            <div class="row" id="telefonoData"> 
+                    <div class="div_input_chico">
+                    <input type="number" name="cod_area[]" id="cod_area" class="input_chico" placeholder="Cod. Area" >                 
+                    </div>
+                    <div class="input">
+                        <input type="number" name="telefono[]"  id="telefono" placeholder="Número" >                
+                    </div>
+                    <div class="input">
+                        <select id="tipo_telefono" name="tipo_tel[]" >
+                            {telefono}
+                            <option value="{id}">{tipo_telefono}</option>
+                            {/telefono}
+                        </select>                
+                    </div>               
+                <div class="input" id="icons">
+                    <li class="ui-state-default ui-corner-all" title="Agregar" id="agregarTelefono" onclick="alumnosView.addPhone();"><span class="ui-icon ui-icon-plus" style="margin: 0 4px;"></span></li>
                 </div>
             </div>
-            <div id="telefonos"></div>
+        </div>  
             <div class="row">
                 <button onclick="alumnosView.sendPhones()">Guardar</button>
             </div>

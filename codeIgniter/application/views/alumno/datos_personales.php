@@ -1,7 +1,6 @@
 
      
         <div class="columna1"> 
-            <div class="">
                 <div class="columna_ajustada">
                     <div class="foto_alumno">
                         <img src="<?php echo base_url().$alumno->persona->foto; ?>" class="foto_alumno" alt="Foto del Alumno">
@@ -26,10 +25,9 @@
                         <p class="data" ><?php echo $alumno->establecimiento->ds_establecimiento; ?></p>
                     </div>
                 </div>
-            </div>
-            <div style="clear:both"></div>
-            
-            <div class="row">
+                
+            <div style="clear:both"></div>            
+            <div>
                 <label class="subtitle">Domicilios:</label>
                 <table>
                     <tr class="table_header">
@@ -178,7 +176,7 @@
             
             <div style="clear:both"></div>
             <div class="columna_ajustada">
-                 <label class="subtitle">Telefonos:</label>
+                 <label class="subtitle">Teléfonos:</label>
                 <table>
                     <tr class="table_header">
                         <td>
@@ -214,5 +212,5 @@
                 </table>
             </div>
         </div>
-
+<div style="clear: both;"></div>
    
