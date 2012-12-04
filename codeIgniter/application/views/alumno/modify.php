@@ -15,7 +15,7 @@ function init(){
         <input type="hidden" name="id_persona" value="<?php echo $alumno->persona->id; ?>" />
     <div id="insert_form">
         <div class="titulo">
-            Alta de Alumno
+            Modificación - <?php echo $alumno->persona->apellidos." ".$alumno->persona->nombres; ?>
         </div>
         <div class="subtitle border_top">
             Datos Personales

@@ -245,6 +245,15 @@ class Alumnos extends CI_Controller {
             $this->alumno_data($id);
         }
         
+        public function delete_related(){
+            $vinculo = new Persona_familiar();
+            echo $_POST['alumnoId'];
+            echo $_POST['relatedId'];
+            $vinculo->get_where(array('persona_id' => $_POST['alumnoId'], 'pariente_id' => $_POST['relatedId']));
+            echo $vinculo->persona_id;
+            echo "afdsaf";
+            $vinculo->delete();
+        }
         public function buscar(){
              $this->load->helper('form');
              $this->load->helper('url');

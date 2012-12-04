@@ -13,8 +13,8 @@
                             $class = "table_row2";
                         else
                             $class = "table_row1";
-            ?>
-            <tr class="<?php echo $class; ?>">
+            ?>            
+            <tr class="<?php echo $class; ?> familiar">
                 <td><?php echo $i; ?></td>
                 <td><?php echo $vinculo->pariente->apellidos; ?></td>
                 <td><?php echo $vinculo->pariente->nombres; ?></td>
@@ -32,18 +32,27 @@
                 </td>
                 <td><?php if($vinculo->autorizado) echo "Si"; else echo "No"; ?></td>
                 <td><textarea cols="10" rows="1"></textarea></td>
+                <td>
+                    <div id="icons">
+                        <li class="ui-state-default ui-corner-all" title="Eliminar" onclick="alumnosView.deleteRelated(this,<?php echo $alumno->persona->id; ?>,<?php echo $vinculo->pariente_id; ?>);"><span class="ui-icon ui-icon-minus" style="margin: 0 4px;"></span></li>
+                    </div>                    
+                </td>
             </tr>
             <?php } ?>
         </table>
     </div>
     <div id="insert_form" >
+        <div class="subtitle" style="margin-top: 20px">
+            Nuevo Vinculo
+        </div>
         <div class="row">
         <?php echo form_open("alumnos/add_related/".$alumno->persona->id); ?>
                 <div class="input">
                     <label class="" for="persona">Familiar:</label>
                     <input type="text" id="persona" name="persona" readonly="true" />
-                    <br>
-                    <a href="<?php echo base_url(); ?>alumnos/add_related_view" target="_blank">Seleccionar</a>                    
+                    <div id="icons">
+                        <a href="<?php echo base_url(); ?>alumnos/add_related_view" target="_blank"><li class="ui-state-default ui-corner-all" title="Seleccionar" ><span class="ui-icon ui-icon-search" style="margin: 0 4px;"></span></li></a>
+                    </div>                                        
                     <input type="hidden" name="persona_id" id="persona_id" />
                 </div>
                 <div class="input">
@@ -62,7 +71,7 @@
             <button onclick="add_related.submit()">Nuevo Vínculo</button>
             </form>
             
-            <button  />Modificar</button>
+<!--            <button  />Modificar</button>-->
         </div>
     </div>
     
