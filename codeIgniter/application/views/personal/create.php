@@ -5,39 +5,56 @@
 <script type="text/javascript">
 alumnosView = new AlumnosView();
 </script>
+
 <div id="contenido">
-    <form id="form" enctype="multipart/form-data" action="<?php echo base_url().'alumnos/create'; ?>" method="post">
-    <?php echo form_open_multipart('alumnos/create');  ?>
+    <?php echo form_open_multipart('personas/create/'.$popup);  ?>
     <div id="insert_form">
         <div class="titulo">
-            Alta de Personal
+            Alta de Persona
         </div>
         <div class="subtitle border_top">
             Datos Personales
         </div>
-        <div class="row">
+       <div class="row">
             <div class="input">
                 <label for="apellidos">Apellidos:</label>
-                <input type="text" id="apellidos" name="apellidos" class="required"/>
+                <input type="text" id="apellidos" name="apellidos"  class="required"/>
             </div>
             <div class="input">
                 <label for="nombres">Nombres:</label>
-                <input type="text" id="nombres" name="nombres" class="required"/>
+                <input type="text" id="nombres"  name="nombres" class="required"/>
             </div>
-            <div class="input">
-                <label for="cd_identificacion">Tipo Identificación:</label>
-                <select id="cd_identificacion" name="identificacion_0_[cd_identificacion]" class="required">
-                    {identificacion}
-                    <option value="{id}">{ds_identificacion}</option>
-                    {/identificacion}
-                </select>
+           <div class="input">
+                <label for="cuil">CUIL:</label>
+                <input type="text" id="cuil"  name="cuil" class="required"/>
             </div>
-            <div class="input">
-                <label for="ds_identificacion">Número:</label>
-                <input type="text" id="ds_identificacion" name="identificacion_0_[numero_identificacion]" class="required"/>
-            </div>          
-            <input type="hidden" name="cant_identificacion" value="1" />
-
+           <div class="input">
+                <label for="mail">Mail:</label>
+                <input type="text" id="mail"  name="mail" class="required"/>
+            </div>
+        </div>
+        <div  id="identificaciones">         
+                <div id="identificacion" class="row">
+                    <div class="input">
+                        <label for="cd_identificacion">Tipo Identificación:</label>
+                        <select id="cd_identificacion" name="identificacion_0_[cd_identificacion]" class="required">
+                            {identificacion}
+                            <option value="{id}">{ds_identificacion}</option>
+                            {/identificacion}
+                        </select>
+                    </div>
+                    <div class="input">
+                        <label for="ds_identificacion">Número:</label>
+                        <input type="text" id="ds_identificacion" name="identificacion_0_[numero_identificacion]" class="required"/>
+                    </div>     
+                    <div class="input" id="icons">
+                        <li class="ui-state-default ui-corner-all" title="Agregar" id="agregar_identificacion" onclick="alumnosView.addRow('identificacion','identificaciones');"><span class="ui-icon ui-icon-plus" style="margin: 0 4px;"></span></li>
+                    </div>                    
+                </div>
+                <input type="hidden" name="cant_identificacion" value="1" />
+                <script type="text/javascript">
+                    alumnosView.setSelectedIndexByValue('<?php echo $dom->country->id; ?>','dom_pais_<?php echo $i; ?>');           
+                </script>
         </div>
         <div class="row">
             <div class="input">
@@ -63,11 +80,10 @@ alumnosView = new AlumnosView();
                 </select>
             </div>
             <div class="input">
-                <label for="id_establecimiento">Establecimiento:</label>                
-                <select id="id_establecimiento" name="id_establecimiento">
-                    {establecimiento}
-                    <option value="{id_establecimiento}">{ds_establecimiento}</option>
-                    {/establecimiento}
+                <label for="vive">Vive:</label>                
+                <select id="vive" name="vive">
+                    <option value="S">Si</option>
+                    <option value="N">No</option>
                 </select>
             </div>            
         </div>
@@ -80,7 +96,7 @@ alumnosView = new AlumnosView();
         <div class="subtitle">
             Domicilio
         </div>
-        <div id="domicilios">
+         <div id="domicilios">
             <div id="domicilio">
                 <div class="row">
                     <div class="input">
@@ -99,6 +115,9 @@ alumnosView = new AlumnosView();
                         <label for="ds_entre2"> y </label>
                         <input type="text" name="domicilio_0_[ds_entre2]"  id="entre2"/>
                     </div>
+                    <div class="input" id="icons">
+                                    <li class="ui-state-default ui-corner-all" title="Agregar" id="agregar_domicilio" onclick="alumnosView.addRow('domicilio','domicilios');"><span class="ui-icon ui-icon-plus" style="margin: 0 4px;"></span></li>
+                                </div>
                 </div>
                 <div class="row border_bottom">
                     <div class="input">                
@@ -133,11 +152,34 @@ alumnosView = new AlumnosView();
                             {/localidad}
                         </select>
                     </div>
-                    <input id="cant_domicilio" type="hidden" name="cant_domicilio" value="1"/>
                 </div>
             </div>
+            <input id="cant_domicilio" type="hidden" name="cant_domicilio" value="1"/>
         </div>
         <div class="subtitle">
+            Estudios
+        </div>
+        <div  id="titulos">         
+                <div id="titulo" class="row">
+                    <div class="input">
+                        <label for="ds_titulo">Título</label>
+                        <input type="text" id="ds_titulo" name="titulo_0_[ds_titulo]" />
+                    </div>
+                    <div class="input">
+                        <label for="dt_titulo">Fecha:</label>
+                        <input type="date" id="dt_titulo" name="titulo_0_[dt_titulo]"/>
+                    </div>     
+                    <div class="input">
+                        <label for="institucion">Institución:</label>
+                        <input type="date" id="institucion" name="titulo_0_[institucion]"/>
+                    </div>  
+                    <div class="input" id="icons">
+                        <li class="ui-state-default ui-corner-all" title="Agregar" id="agregar_identificacion" onclick="alumnosView.addRow('identificacion','identificaciones');"><span class="ui-icon ui-icon-plus" style="margin: 0 4px;"></span></li>
+                    </div>                    
+                </div>
+                <input type="hidden" name="cant_identificacion" value="1" />             
+        </div>
+       <div class="subtitle">
             Teléfonos
         </div>
          <div id="telefonosContainer">
@@ -159,10 +201,13 @@ alumnosView = new AlumnosView();
                     <li class="ui-state-default ui-corner-all" title="Agregar" id="agregarTelefono" onclick="alumnosView.addPhone();"><span class="ui-icon ui-icon-plus" style="margin: 0 4px;"></span></li>
                 </div>
             </div>
-        </div>                   
+        </div>  
             <div class="row">
                 <button onclick="alumnosView.sendPhones()">Guardar</button>
             </div>
+        
+        
+        
     </div>
     </form>
 </div>        
