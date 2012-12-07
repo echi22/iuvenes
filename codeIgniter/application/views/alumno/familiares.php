@@ -41,7 +41,7 @@
             <?php } ?>
         </table>
     </div>
-    <div id="insert_form" >
+    <div id="insert_form" class="content-center" >
         <div class="subtitle" style="margin-top: 20px">
             Nuevo Vinculo
         </div>

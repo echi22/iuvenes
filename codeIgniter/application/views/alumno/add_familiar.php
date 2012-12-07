@@ -4,7 +4,7 @@
     alumnosView = new AlumnosView();
 </script>
     <form id="form" action="<?php echo base_url().'alumnos/add_related_view'; ?>" method="post">
-    <div id="insert_form">
+        <div id="insert_form" class="content-center">
         <div class="titulo">
             Agregar Familiar
         </div>

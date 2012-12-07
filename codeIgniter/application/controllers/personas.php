@@ -16,34 +16,7 @@ class Personas extends CI_Controller {
                 $this->load->library('form_validation');    
                 $this->form_validation->set_rules('nombres', 'Nombres', 'required');
                 $this->form_validation->set_rules('apellidos', 'Apellidos', 'required');
-                $this->load->model('Alumno');
-                $this->load->model('Establecimiento');
-                $this->load->model('Estado_civil');
-                $this->load->model('Widentificacion');
-                $this->load->model('Localidad');
-                $this->load->model('Country');
-                $this->load->model('Persona');
-                $this->load->model('State');
-                $this->load->model('Sexo');
-                $this->load->model('Domicilio');
-                $this->load->model('Wtipo_telefono');
-                
-                $data['estado_civil'] = new Estado_civil();
-                $data['estado_civil']->get();               
-                $data['sexo'] = new Sexo();
-                $data['sexo'] = $data['sexo']->get()->all_to_array();
-                $sql = new Country();
-                $data['nacionalidad'] = $sql->get()->all_to_array();                
-                $data['country'] = $sql->get()->all_to_array();
-                
-                $sql = new Widentificacion();
-                $data['identificacion'] = $sql->get()->all_to_array();
-                $sql = new State();
-                $data['provincia'] = $sql->get()->all_to_array();
-                $sql = new Localidad();
-                $data['localidad'] = $sql->get()->all_to_array();
-                $sql = new Wtipo_telefono();
-                $data['telefono'] = $sql->get()->all_to_array();
+                $data = $this->personalibrary->get_create_view_data();
                 $data['popup'] = $popup;             
                 if ($this->form_validation->run() === FALSE)
                 {

@@ -8,7 +8,7 @@ alumnosView = new AlumnosView();
 <div id="contenido">
     <form id="form" enctype="multipart/form-data" action="<?php echo base_url().'alumnos/create'; ?>" method="post">
     <?php echo form_open_multipart('alumnos/create');  ?>
-    <div id="insert_form">
+    <div id="insert_form" class="content-center">
         <div class="titulo">
             Alta de Alumno
         </div>
@@ -161,7 +161,7 @@ alumnosView = new AlumnosView();
             </div>
         </div>                   
             <div class="row">
-                <button onclick="alumnosView.sendPhones()">Guardar</button>
+                <button onclick="alumnosView.submitForm()">Guardar</button>
             </div>
     </div>
     </form>

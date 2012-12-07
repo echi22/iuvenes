@@ -12,8 +12,8 @@
  */
 class Persona extends DataMapper{
     var $table = 'persona'; 
-    var $has_one = array('country','estado_civil','alumno','establecimiento','sexo');
-    var $has_many = array('domicilio','persona_identificacion','telefono',
+    var $has_one = array('country','estado_civil','alumno','establecimiento','sexo','personal');
+    var $has_many = array('domicilio','titulo','persona_identificacion','telefono',
         'persona_es' => array(
             'class' => 'persona_familiar',
             'other_field' => 'persona'

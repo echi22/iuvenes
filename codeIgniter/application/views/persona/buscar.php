@@ -1,6 +1,6 @@
 <div id="contenido">
     <form id="form" action="<?php echo base_url().'personas/buscar'; ?>" method="post">
-    <div id="insert_form">
+    <div id="insert_form" class="content-center">
         <div class="titulo">
             Busqueda de Personas
         </div>

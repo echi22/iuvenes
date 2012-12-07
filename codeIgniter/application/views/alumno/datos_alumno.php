@@ -16,7 +16,7 @@
             <li><a href="#tabs-3">Trayecto Escolar</a></li>
         </ul>
         <div id="tabs-1">
-            <?php $this->load->view('alumno/datos_personales'); ?>   
+            <?php $this->load->view('alumno/modify'); ?>   
         </div>
         <div id="tabs-2">
             <?php $this->load->view('alumno/familiares'); ?>

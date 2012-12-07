@@ -1,37 +1,44 @@
 <?php 
       echo validation_errors(); 
 ?>
-<script type="text/javascript" src="<?php echo base_url(); ?>js/AlumnosView.js"></script>
 <script type="text/javascript">
-alumnosView = new AlumnosView();
 function init(){
-    alumnosView.setSelectedIndexByValue('<?php echo $alumno->persona->country_id; ?>','nacionalidad');
-    alumnosView.setSelectedIndexByValue('<?php echo $alumno->persona->sexo_id; ?>','sexo');
-    alumnosView.setSelectedIndexByValue('<?php echo $alumno->establecimiento_id; ?>','id_establecimiento');
+    alumnosView.setSelectedIndexByValue('<?php echo $personal->persona->country_id; ?>','nacionalidad');
+    alumnosView.setSelectedIndexByValue('<?php echo $personal->persona->sexo_id; ?>','sexo');
+    alumnosView.setSelectedIndexByValue('<?php echo $personal->establecimiento_id; ?>','id_establecimiento');
 }   
 </script>
-<div id="contenido">
-    <form id="form" enctype="multipart/form-data" action="<?php echo base_url().'alumnos/modify/'.$alumno->persona->id; ?>" method="post">
-        <input type="hidden" name="id_persona" value="<?php echo $alumno->persona->id; ?>" />
-    <div id="insert_form" >        
-        <div class="subtitle ">
+
+    <form id="form" enctype="multipart/form-data" action="<?php echo base_url().'personales/modify/'.$personal->persona->id; ?>" method="post">
+        <input type="hidden" name="persona_id" value="<?php echo $personal->persona->id; ?>" />
+    <div id="insert_form">
+       
+        <div class="subtitle border_top">
             Datos Personales
         </div>
         <div class="row">
             <div class="input">
                 <label for="apellidos">Apellidos:</label>
-                <input type="text" id="apellidos" name="apellidos" value="<?php echo $alumno->persona->apellidos; ?>" class="required"/>
+                <input type="text" id="apellidos" name="apellidos" value="<?php echo $personal->persona->apellidos; ?>" class="required"/>
             </div>
             <div class="input">
                 <label for="nombres">Nombres:</label>
-                <input type="text" id="nombres" value="<?php echo $alumno->persona->nombres; ?>" name="nombres" class="required"/>
+                <input type="text" id="nombres" value="<?php echo $personal->persona->nombres; ?>" name="nombres" class="required"/>
+            </div>
+            <div class="input">
+                <label for="cuil">CUIL:</label>
+                <input type="text" id="cuil" value="<?php echo $personal->CUIL; ?>"  name="cuil" class="required"/>
+            </div>
+            <div class="input">
+                <label for="mail">Mail:</label>
+                <input type="email" id="mail" value="<?php echo $personal->persona->mail; ?>"  name="mail" class="required"/>
             </div>
         </div>
-        <div  id="identificaciones">
+         <div  id="identificaciones">
             <?php 
             $i = 0;
-            if(count($alumno->persona->persona_identificacion->all) > 0){
-                foreach ($alumno->persona->persona_identificacion as $identificacion){ ?>
+            if(count($personal->persona->persona_identificacion->all) > 0){
+                foreach ($personal->persona->persona_identificacion as $identificacion){ ?>
                     <div id="identificacion" class="row">
                         <div class="input">
                             <label for="cd_identificacion">Tipo Identificación:</label>
@@ -96,7 +103,7 @@ function init(){
         <div class="row">
             <div class="input">
                 <label for="dt_nac">Fecha de Nacimiento:</label>
-                <input type="date" name="dt_nac" id="dt_nac" value="<?php echo $alumno->persona->dt_nac; ?>" class="required"/>
+                <input type="date" name="dt_nac" id="dt_nac" value="<?php echo $personal->persona->dt_nac; ?>" class="required"/>
             </div>
             <div class="input">
                 <label for="nacionalidad">Nacionalidad:</label>
@@ -137,7 +144,7 @@ function init(){
         <div id="domicilios">
             <?php 
                 $i = 0;
-                foreach($alumno->persona->domicilio as $dom){
+                foreach($personal->persona->domicilio as $dom){
             ?>
             <div id="domicilio">
                 <div class="row">
@@ -163,7 +170,7 @@ function init(){
                         </div>
                     <?php }else{ ?>
                         <div class="input" id="icons">
-                            <li class="ui-state-default ui-corner-all" title="Eliminar"  onclick="alumnosView.deleteRow(this,'domicilio');"><span class="ui-icon ui-icon-minus" style="margin: 0 4px;"></span></li>
+                            <li class="ui-state-default ui-corner-all" title="Eliminar"  onclick="alumnosView.deleteRow('domicilio');"><span class="ui-icon ui-icon-plus" style="margin: 0 4px;"></span></li>
                         </div>
                     <?php } ?>
                 </div>
@@ -212,13 +219,65 @@ function init(){
             <input type="hidden" id="cant_domicilio" name="cant_domicilio" value="<?php echo $i; ?>" />
         </div>
         <div class="subtitle">
+            Estudios
+        </div>
+        <div  id="titulos" class="border_bottom">   
+            <?php 
+            if(count($personal->persona->titulo) > 0){
+                foreach($personal->persona->titulo as $i=>$titulo){ ?>
+                <div id="titulo" class="row">
+                    <div class="input">
+                        <label for="ds_titulo">Título</label>
+                        <input type="text" id="ds_titulo" value="<?php echo $titulo->ds_titulo; ?>" name="titulo_0_[ds_titulo]" />
+                    </div>
+                    <div class="input">
+                        <label for="dt_titulo">Fecha:</label>
+                        <input type="date" id="dt_titulo" value="<?php echo $titulo->fecha; ?>" name="titulo_0_[fecha]"/>
+                    </div>     
+                    <div class="input">
+                        <label for="institucion">Institución:</label>
+                        <input type="text" id="institucion" value="<?php echo $titulo->institucion; ?>" name="titulo_0_[institucion]"/>
+                    </div>  
+                    
+                    <div class="input" id="icons">
+                        <?php if($i == 0){ ?>
+                            <li class="ui-state-default ui-corner-all" title="Agregar" id="agregar_titulo" onclick="alumnosView.addRow('titulo','titulos');"><span class="ui-icon ui-icon-plus" style="margin: 0 4px;"></span></li>
+                        <?php }else{ ?>
+                            <li class="ui-state-default ui-corner-all" title="Eliminar" id="eliminar_titulo" onclick="alumnosView.deleteRow(this,'titulo');"><span class="ui-icon ui-icon-minus" style="margin: 0 4px;"></span></li>                            
+                        <?php } ?>
+                    </div>                    
+                </div>
+            <input type="hidden" id="cant_titulo" name="cant_titulo" value="<?php echo count($personal->titulo); ?>" />      
+            <?php }
+            }else{ ?>
+                <div id="titulo" class="row">
+                    <div class="input">
+                        <label for="ds_titulo">Título</label>
+                        <input type="text" id="ds_titulo" name="titulo_0_[ds_titulo]" />
+                    </div>
+                    <div class="input">
+                        <label for="dt_titulo">Fecha:</label>
+                        <input type="date" id="dt_titulo" name="titulo_0_[fecha]"/>
+                    </div>     
+                    <div class="input">
+                        <label for="institucion">Institución:</label>
+                        <input type="text" id="institucion" name="titulo_0_[institucion]"/>
+                    </div>  
+                    <div class="input" id="icons">
+                        <li class="ui-state-default ui-corner-all" title="Agregar" id="agregar_titulo" onclick="alumnosView.addRow('titulo','titulos');"><span class="ui-icon ui-icon-plus" style="margin: 0 4px;"></span></li>
+                    </div>                    
+                </div>
+                <input type="hidden" id="cant_titulo" name="cant_titulo" value="1" />             
+            <?php } ?>
+        </div>
+        <div class="subtitle" >
             Teléfonos
         </div>
          <div id="telefonosContainer">
              <?php 
                 $i=0;
-                if(count($alumno->persona->telefono->all) > 0){
-                    foreach ($alumno->persona->telefono as $telefono){ ?>
+                if(count($personal->persona->telefono->all) > 0){
+                    foreach ($personal->persona->telefono as $telefono){ ?>
                         <div class="row" id="telefonoData"> 
                                 <div class="div_input_chico">
                                     <input type="number" name="cod_area[]" id="cod_area" class="input_chico" value="<?php echo $telefono->nu_area; ?>">                 
@@ -276,4 +335,3 @@ function init(){
             </div>
     </div>
     </form>
-</div>        

@@ -1,8 +1,41 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
 
 class PersonaLibrary {
+    
+    public function get_create_view_data(){
+        $CI =& get_instance();
+        $CI->load->model('Establecimiento');
+        $CI->load->model('Estado_civil');
+        $CI->load->model('Widentificacion');
+        $CI->load->model('Localidad');
+        $CI->load->model('Country');
+        $CI->load->model('Persona');
+        $CI->load->model('State');
+        $CI->load->model('Sexo');
+        $CI->load->model('Domicilio');
+        $CI->load->model('Wtipo_telefono');
 
-    public function save_data()
+        $data['estado_civil'] = new Estado_civil();
+        $data['estado_civil']->get();               
+        $data['sexo'] = new Sexo();
+        $data['sexo'] = $data['sexo']->get()->all_to_array();
+        $sql = new Country();
+        $data['nacionalidad'] = $sql->get()->all_to_array();                
+        $data['country'] = $sql->get()->all_to_array();
+        $sql = new Establecimiento();
+
+        $data['establecimiento'] = $sql->get()->all_to_array();
+        $sql = new Widentificacion();
+        $data['identificacion'] = $sql->get()->all_to_array();
+        $sql = new State();
+        $data['provincia'] = $sql->get()->all_to_array();
+        $sql = new Localidad();
+        $data['localidad'] = $sql->get()->all_to_array();
+        $sql = new Wtipo_telefono();
+        $data['telefono'] = $sql->get()->all_to_array();
+        return $data;
+    }
+    public function save_data($id = -1)
     {
         $CI =& get_instance();
         $target_path = "uploads/";
@@ -17,23 +50,21 @@ class PersonaLibrary {
         $sexo->where('id', $CI->input->post('sexo'))->get();  
 
         $establecimiento = new Establecimiento();
-        $establecimiento->where('id',$CI->input->post('id_establecimiento'))->get();
-
-        $identificacion = new Widentificacion();
-        $identificacion->where('id',$CI->input->post('cd_identificacion'))->get();        
+        $establecimiento->where('id',$CI->input->post('id_establecimiento'))->get();             
         $p = new Persona();        
-        if(isset($_POST['id_persona'])){            
-            $p->where('id',$_POST['id_persona'])->get();
+        if($id != -1){     
+            $p->where('id',$id)->get();
             $p->domicilio->delete_all();
             $p->persona_identificacion->delete_all();
             $p->telefono->delete_all();
+            $p->titulo->delete_all();
         }
         $p->from_array($_POST,'',false);
         $p->foto = $target_path;
         $p->save(array($estado_civil,$country, $establecimiento,$sexo));
         for($i = 0; $i < $_POST['cant_domicilio']; $i++){
-            $array = $_POST['domicilio_'.$i.'_'];
-            if(is_array($array)){
+            if (isset($_POST['domicilio_'.$i.'_'])){
+                $array = $_POST['domicilio_'.$i.'_'];            
                 $dom = new Domicilio();    
                 $pais_dom = new Country();
                 $pais_dom->where('id',$array['country'])->get();
@@ -57,8 +88,9 @@ class PersonaLibrary {
             $t->save($p);
         }
         for($i = 0; $i < $_POST['cant_identificacion']; $i++){
-            $array = $_POST['identificacion_'.$i.'_'];
-            if(is_array($array)){
+            
+            if(isset($_POST['identificacion_'.$i.'_'])){
+                $array = $_POST['identificacion_'.$i.'_'];
                 $identificacion = new Widentificacion();
                 $identificacion->where('id',$array['cd_identificacion'])->get();
                 $persona_identificacion = new Persona_identificacion();

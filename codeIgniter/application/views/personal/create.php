@@ -7,10 +7,10 @@ alumnosView = new AlumnosView();
 </script>
 
 <div id="contenido">
-    <?php echo form_open_multipart('personas/create/'.$popup);  ?>
-    <div id="insert_form">
+    <?php echo form_open_multipart('personales/create/');  ?>
+    <div id="insert_form" class="content-center">
         <div class="titulo">
-            Alta de Persona
+            Alta de Personal
         </div>
         <div class="subtitle border_top">
             Datos Personales
@@ -30,7 +30,7 @@ alumnosView = new AlumnosView();
             </div>
            <div class="input">
                 <label for="mail">Mail:</label>
-                <input type="text" id="mail"  name="mail" class="required"/>
+                <input type="email" id="mail"  name="mail" class="required"/>
             </div>
         </div>
         <div  id="identificaciones">         
@@ -51,10 +51,7 @@ alumnosView = new AlumnosView();
                         <li class="ui-state-default ui-corner-all" title="Agregar" id="agregar_identificacion" onclick="alumnosView.addRow('identificacion','identificaciones');"><span class="ui-icon ui-icon-plus" style="margin: 0 4px;"></span></li>
                     </div>                    
                 </div>
-                <input type="hidden" name="cant_identificacion" value="1" />
-                <script type="text/javascript">
-                    alumnosView.setSelectedIndexByValue('<?php echo $dom->country->id; ?>','dom_pais_<?php echo $i; ?>');           
-                </script>
+                <input type="hidden" id="cant_identificacion" name="cant_identificacion" value="1" />
         </div>
         <div class="row">
             <div class="input">
@@ -167,17 +164,17 @@ alumnosView = new AlumnosView();
                     </div>
                     <div class="input">
                         <label for="dt_titulo">Fecha:</label>
-                        <input type="date" id="dt_titulo" name="titulo_0_[dt_titulo]"/>
+                        <input type="date" id="dt_titulo" name="titulo_0_[fecha]"/>
                     </div>     
                     <div class="input">
                         <label for="institucion">Institución:</label>
-                        <input type="date" id="institucion" name="titulo_0_[institucion]"/>
+                        <input type="text" id="institucion" name="titulo_0_[institucion]"/>
                     </div>  
                     <div class="input" id="icons">
-                        <li class="ui-state-default ui-corner-all" title="Agregar" id="agregar_identificacion" onclick="alumnosView.addRow('identificacion','identificaciones');"><span class="ui-icon ui-icon-plus" style="margin: 0 4px;"></span></li>
+                        <li class="ui-state-default ui-corner-all" title="Agregar" id="agregar_titulo" onclick="alumnosView.addRow('titulo','titulos');"><span class="ui-icon ui-icon-plus" style="margin: 0 4px;"></span></li>
                     </div>                    
                 </div>
-                <input type="hidden" name="cant_identificacion" value="1" />             
+                <input type="hidden" id="cant_titulo" name="cant_titulo" value="1" />             
         </div>
        <div class="subtitle">
             Teléfonos
@@ -203,7 +200,7 @@ alumnosView = new AlumnosView();
             </div>
         </div>  
             <div class="row">
-                <button onclick="alumnosView.sendPhones()">Guardar</button>
+                <button onclick="alumnosView.submitForm()">Guardar</button>
             </div>
         
         

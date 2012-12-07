@@ -55,7 +55,7 @@ root {
     background-image: url("../images/fondo_menu.jpg");
     
 }
-#insert_form, .content-center{
+.content-center{
     width: 90%; margin: auto;
 }
 

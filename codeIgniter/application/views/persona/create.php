@@ -8,7 +8,7 @@ alumnosView = new AlumnosView();
 
 <div id="contenido">
     <?php echo form_open_multipart('personas/create/'.$popup);  ?>
-    <div id="insert_form">
+    <div id="insert_form" class="content-center">
         <div class="titulo">
             Alta de Persona
         </div>
@@ -184,7 +184,7 @@ alumnosView = new AlumnosView();
             </div>
         </div>  
             <div class="row">
-                <button onclick="alumnosView.sendPhones()">Guardar</button>
+                <button onclick="alumnosView.submitForm()">Guardar</button>
             </div>
         
         
