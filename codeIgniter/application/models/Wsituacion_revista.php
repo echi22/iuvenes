@@ -12,7 +12,7 @@
  */
 class Wsituacion_revista extends DataMapper {
     var $table = 'wsituacion_revista';
-    var $has_one = array("prestacion");
+    var $has_many = array("prestacion");
     
     function __construct($id = NULL)
     {

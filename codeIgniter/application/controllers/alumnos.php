@@ -156,19 +156,27 @@ class Alumnos extends CI_Controller {
                 $vinculo->autorizado = 1;
             else
                 $vinculo->autorizado = 0;
-            $vinculo->parentezco = $this->input->post('parentezco');
+            $vinculo->parentesco = $this->input->post('parentesco');
             $vinculo->save(array('persona' =>$a,'pariente'=>$p));    
             $this->alumno_data($id);
         }
         
         public function delete_related(){
             $vinculo = new Persona_familiar();
-            echo $_POST['alumnoId'];
-            echo $_POST['relatedId'];
-            $vinculo->get_where(array('persona_id' => $_POST['alumnoId'], 'pariente_id' => $_POST['relatedId']));
-            echo $vinculo->persona_id;
-            echo "afdsaf";
+            $vinculo->where('id', $_POST['vinculo_id'])->get();
             $vinculo->delete();
+        }
+        
+        public function edit_relative(){           
+            $vinculo = new Persona_familiar();
+            $vinculo->where('id', $_POST['vinculo_id'])->get();
+            $vinculo->parentesco = $_POST['parentesco'];
+            $vinculo->autorizado = $_POST['autorizado'] == 'true';
+            $data[0] = $vinculo->parentesco;
+            $data[1] = ($vinculo->autorizado) ? 'Si': 'No';
+            $vinculo->save();
+            echo json_encode($data);
+            
         }
         public function buscar(){
              $this->load->helper('form');

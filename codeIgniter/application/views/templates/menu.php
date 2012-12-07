@@ -28,8 +28,8 @@
             <div><ul>
                 <li><a href="#" class="parent"><span>Gestión</span></a>
                     <div><ul>
-                        <li><a href="/iuvenes/personal/nuevo.php"><span>Nuevo</span></a></li>
-                        <li><a href="/iuvenes/personal/consulta.php"><span>Consulta - Modificación</span></a></li>
+                        <li><a href="<?php echo base_url().'personales/create'; ?>"><span>Nuevo</span></a></li>
+                        <li><a href="<?php echo base_url().'personales/buscar'; ?>"><span>Consulta - Modificación</span></a></li>
                         <li><a href="/iuvenes/personal/baja.php"><span>Baja</span></a></li>
                     </ul></div>
                 </li>

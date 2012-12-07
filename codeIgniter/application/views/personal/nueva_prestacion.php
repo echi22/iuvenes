@@ -3,16 +3,25 @@
 ?>
 <script type="text/javascript" src="<?php echo base_url(); ?>js/AlumnosView.js"></script>
 <script type="text/javascript">
-alumnosView = new AlumnosView();
+      $(function() {
+    $( "#tabs" ).tabs();});
+    alumnosView = new AlumnosView();
+    
 </script>
-
-    <?php echo form_open_multipart('personales/add_prestacion');  ?>
-    <div id="insert_form" class="content-center">
-        <div class="titulo">
-            Nueva Prestación
+<div class="titulo">
+            Personal - <?php echo $personal->persona->apellidos." ".$personal->persona->nombres; ?>
         </div>
+    
+<div id="tabs" style="width: 100%">
+    <ul>
+            <li><a href="#tabs-1">Nueva Prestación</a></li>
+    </ul>
+    <div id="tabs-1">
+        <?php echo form_open_multipart('personales/add_prestacion/'.$persona_id);  ?>
+    <div id="insert_form" >        
         <div class="row">
             <div class="input">
+                <input type="hidden"  name="persona_id" value="<?php echo $persona_id; ?>" />
                 <label for="nombre_cargo">Nombre Cargo</label>
                 <select name="cargo" id="cargo">
                     <?php foreach ($cargo as $c){ ?>
@@ -32,11 +41,11 @@ alumnosView = new AlumnosView();
             </div>
             <div class="input">
                 <label for="carga_horaria">Carga Horaria:</label>
-                <input type="text" id="carga_horaria" name="carga_horaria" class="required"/>
+                <input type="text" id="carga_horaria" name="qt_horas" class="required"/>
             </div>      
             <div class="input">
-                <label for="activo">Estado</label>
-                <select id="vive" name="vive">
+                <label for="estado">Estado</label>
+                <select id="estado" name="estado">
                     <option value="S">Vigente</option>
                     <option value="N">No Vigente</option>
                 </select>
@@ -44,8 +53,8 @@ alumnosView = new AlumnosView();
         </div>
         <div class="row">
             <div class="input">
-                <label for="secuencia">N° Secuencia:</label>
-                <input type="text" name="secuencia" id="secuencia" class="required"/>
+                <label for="nu_secuencia">N° Secuencia:</label>
+                <input type="text" name="nu_secuencia" id="nu_secuencia" class="required"/>
             </div>
             <div class="input">
                 <label for="tp_liq_sueldo">Liquidación Sueldo:</label>
@@ -82,6 +91,7 @@ alumnosView = new AlumnosView();
             </div>
     </div>
     </form>
-       
+    </div>
+</div>
 
 

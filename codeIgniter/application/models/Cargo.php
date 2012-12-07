@@ -12,7 +12,7 @@
  */
 class Cargo extends DataMapper {
     var $table = 'cargo';
-    var $has_one = array("prestacion");
+    var $has_many = array("prestacion");
     
     function __construct($id = NULL)
     {

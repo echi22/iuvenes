@@ -1,8 +1,8 @@
 <div id="contenido">
-    <form id="form" action="<?php echo base_url().'alumnos/buscar'; ?>" method="post">
+    <form id="form" action="<?php echo base_url().'personales/buscar'; ?>" method="post">
     <div id="insert_form" class="content-center">
         <div class="titulo">
-            Busqueda de Alumnos
+            Busqueda de Personal
         </div>
         <div class="row border_top border_bottom" style="vertical-align: bottom">
             <div class="input">
@@ -32,8 +32,8 @@
         </div>
     </div>
     </form>
-    <?php if(isset($alumnos)){ ?>
-    
+    <?php if(isset($personales)){ ?>
+    <div class="row"style="width: 90%; margin: auto" >
         <table class="content-center">
             <tr class="table_header">
                 <td>Apellidos</td><td>Nombres</td><td>Identificación</td><td>Fecha de Nacimiento</td><td>Nacionalidad</td><tD></td>
@@ -41,7 +41,7 @@
             <?php 
             $class="table_row2";
 
-            foreach ($alumnos as $a){
+            foreach ($personales as $a){
                 if($class == "table_row2")
                     $class= "table_row1";
                 else
@@ -60,13 +60,12 @@
                 <td><?php echo $a->persona->dt_nac; ?></td>
                 <td><?php echo $a->persona->country->ds_pais; ?></td>
                 <td> <div id="icons">
-                        <a href="<?php echo base_url().'alumnos/alumno_data/'.$a->persona->id; ?>"><li class="ui-state-default ui-corner-all" title="Ver más" ><span class="ui-icon ui-icon-search" style="margin: 0 4px;"></span></li></a>
+                        <a href="<?php echo base_url().'personales/personal_data/'.$a->persona->id; ?>"><li class="ui-state-default ui-corner-all" title="Ver más" ><span class="ui-icon ui-icon-search" style="margin: 0 4px;"></span></li></a>
                     </div> </td>
-               
             </tr>
             <?php } ?>
         </table>
- 
+    </div>
     <?php }?> 
         
 </div>

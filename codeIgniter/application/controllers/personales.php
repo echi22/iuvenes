@@ -7,6 +7,7 @@ class Personales extends CI_Controller {
                 $this->load->library('parser');
                 $this->load->helper('form');
                 $this->load->library('personalibrary');
+                $this->load->library('form_validation'); 
                 $this->load->model('personal');
                 $this->load->model('titulo');
 	}
@@ -81,7 +82,7 @@ class Personales extends CI_Controller {
                         }
                     }
                          
-//                   redirect("personales/personal_data/".$personal->persona->id);
+                   redirect("personales/personal_data/".$personal->persona->id);
                 }
         }
         
@@ -91,30 +92,50 @@ class Personales extends CI_Controller {
             $a->where('persona_id',$id)->get();
             $data = $this->personalibrary->get_create_view_data();
             $data['personal'] = $a;
-            
             $this->load->view('templates/header');
             $this->parser->parse('personal/datos_personal',$data);
-             $this->load->view('templates/footer');
+            $this->load->view('templates/footer');
             
         }
         
-        public function add_prestacion(){
+        public function add_prestacion($id){
             $this->load->helper('form');
             $this->load->helper('url');
             $this->load->model('Prestacion');
             $this->load->model('Cargo');
             $this->load->model('Tipo_liquidacion_sueldo');
             $this->load->model('Wsituacion_revista');
+            $this->form_validation->set_rules('cargo', 'cargo', 'required');
+            $this->form_validation->set_rules('dt_inicio', 'dt_inicio', 'required');
             $data['liquidacion_sueldo'] = new Tipo_liquidacion_sueldo();
             $data['liquidacion_sueldo']->get();  
             $data['wsituacion_revista'] = new Wsituacion_revista();
             $data['wsituacion_revista']->get();     
             $data['cargo'] = new Cargo();
-            $data['cargo']->get();                          
-
-            $this->load->view('templates/header');
-            $this->load->view('personal/nueva_prestacion',$data);
-            $this->load->view('templates/footer');
+            $data['cargo']->get();            
+            $data['persona_id'] = $id;
+            $data['personal'] = new Personal();
+            $data['personal']->where('persona_id',$id)->get();
+            if ($this->form_validation->run() === FALSE)
+            {
+                $this->load->view('templates/header');
+                $this->load->view('personal/nueva_prestacion',$data);
+                $this->load->view('templates/footer');
+            }else{
+                $prestacion = new Prestacion();
+                $prestacion->from_array($_POST,'',false);
+                $cargo = new Cargo();
+                $cargo->where('id',$_POST['cargo'])->get();
+                $liquidacion_sueldo = new Tipo_liquidacion_sueldo();
+                $liquidacion_sueldo->where('id',$_POST['tp_liq_sueldo'])->get();
+                $revista = new Wsituacion_revista();
+                $revista->where('id',$_POST['revista'])->get();
+                $personal = new Personal();
+                $personal->where('persona_id',$_POST['persona_id'])->get();
+                $prestacion->asig_familiar = $_POST['asig_familiar'] == 'on';
+                $prestacion->save(array($personal,$cargo,$liquidacion_sueldo,$revista));
+                redirect("personales/personal_data/".$personal->persona->id);
+            }
         }
         public function add_related($id){
             $a = new Persona();
@@ -127,7 +148,7 @@ class Personales extends CI_Controller {
                 $vinculo->autorizado = 1;
             else
                 $vinculo->autorizado = 0;
-            $vinculo->parentezco = $this->input->post('parentezco');
+            $vinculo->parentesco = $this->input->post('parentesco');
             $vinculo->save(array('persona' =>$a,'pariente'=>$p));    
             $this->alumno_data($id);
         }
@@ -162,12 +183,12 @@ class Personales extends CI_Controller {
                     $p->where('nombres',$this->input->post('nombres'));
                  $p->where_related('persona_identificacion','id',$identificacion);
                  $p->get();
-                 $a = new Alumno();
+                 $a = new Personal();
                  $a->where_related('persona','id',$p)->get();
-                 $data['alumnos'] = $a;
+                 $data['personales'] = $a;
              }
              $this->load->view('templates/header');
-             $this->load->view('alumno/buscar',$data);
+             $this->load->view('personal/buscar',$data);
              $this->load->view('templates/footer');
         }
         

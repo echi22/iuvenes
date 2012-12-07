@@ -39,8 +39,14 @@ class PersonaLibrary {
     {
         $CI =& get_instance();
         $target_path = "uploads/";
-        $target_path = $target_path . basename( $_FILES['image']['name']);                     
-        move_uploaded_file($_FILES['image']['tmp_name'], $target_path);
+        if($_FILES['image']['name'] != ""){
+            $target_path = $target_path . basename( $_FILES['image']['name']);  
+            move_uploaded_file($_FILES['image']['tmp_name'], $target_path);
+        }
+        else
+            $target_path = $target_path. "default-avatar.gif";
+        
+        
 
         $country = new Country();
         $country->where('id', $CI->input->post('nacionalidad'))->get();
@@ -57,6 +63,8 @@ class PersonaLibrary {
             $p->domicilio->delete_all();
             $p->persona_identificacion->delete_all();
             $p->telefono->delete_all();
+            if($target_path == "uploads/default-avatar.gif")
+                $target_path = $p->foto;
             $p->titulo->delete_all();
         }
         $p->from_array($_POST,'',false);

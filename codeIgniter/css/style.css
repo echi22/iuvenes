@@ -77,6 +77,12 @@ root {
 .input{
     float: left; width: 12em; display: inline;
 }
+.input_grande{
+    float: left; width: 14em; display: inline;
+}
+.hidden{
+    display: none;
+}
 .div_input_chico{
     float: left; width: 7em; display: inline;
 }
@@ -188,6 +194,10 @@ img{
 .foto_alumno{
     max-width: 150px;
     max-height: 150px;
+    display: inline;
+}
+.foto_container{
+    float: right;
 }
 .columna1{
     width: 50%;
@@ -203,6 +213,7 @@ img{
 .table_header{
     color: #002166;   
 }
+
 .table_header td{
     padding: 4px 4px 4px 4px;
     background-color: #ECE5E5;

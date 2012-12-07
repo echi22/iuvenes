@@ -13,7 +13,7 @@ function init(){
         <input type="hidden" name="persona_id" value="<?php echo $personal->persona->id; ?>" />
     <div id="insert_form">
        
-        <div class="subtitle border_top">
+        <div class="subtitle ">
             Datos Personales
         </div>
         <div class="row">
@@ -33,6 +33,9 @@ function init(){
                 <label for="mail">Mail:</label>
                 <input type="email" id="mail" value="<?php echo $personal->persona->mail; ?>"  name="mail" class="required"/>
             </div>
+            <div class="foto_container">
+                        <img src="<?php echo base_url().$personal->persona->foto; ?>" class="foto_alumno" alt="Foto del Alumno">
+                    </div>
         </div>
          <div  id="identificaciones">
             <?php 
@@ -58,7 +61,7 @@ function init(){
                         </div>
                         <?php }else{ ?>
                         <div class="input" id="icons">
-                            <li class="ui-state-default ui-corner-all" title="Eliminar"  onclick="alumnosView.deleteRow(this,'identificacion');"><span class="ui-icon ui-icon-minus" style="margin: 0 4px;"></span></li>
+                            <li class="ui-state-default ui-corner-all" title="Eliminar"  onclick="alumnosView.deleteRow(this,'identificacion');"><span class="ui-icon ui-icon-close" style="margin: 0 4px;"></span></li>
                         </div>
                     <?php } ?>
                     </div>
@@ -90,7 +93,7 @@ function init(){
                     </div>
                     <?php }else{ ?>
                     <div class="input" id="icons">
-                        <li class="ui-state-default ui-corner-all" title="Eliminar"  onclick="alumnosView.deleteRow(this,'identificacion');"><span class="ui-icon ui-icon-minus" style="margin: 0 4px;"></span></li>
+                        <li class="ui-state-default ui-corner-all" title="Eliminar"  onclick="alumnosView.deleteRow(this,'identificacion');"><span class="ui-icon ui-icon-close" style="margin: 0 4px;"></span></li>
                     </div>
                     <?php } ?>
                 </div>
@@ -135,7 +138,7 @@ function init(){
         <div class="row border_bottom">
             <div class="input">
                 <label for="image">Foto:</label>
-                <input type="file" name="image" id="image"/>
+                <input type="file" name="image" id="image" />
             </div>           
         </div>       
         <div class="subtitle">
@@ -224,7 +227,8 @@ function init(){
         <div  id="titulos" class="border_bottom">   
             <?php 
             if(count($personal->persona->titulo) > 0){
-                foreach($personal->persona->titulo as $i=>$titulo){ ?>
+                $i = 0;
+                foreach($personal->persona->titulo as $titulo){ ?>
                 <div id="titulo" class="row">
                     <div class="input">
                         <label for="ds_titulo">Título</label>
@@ -243,13 +247,13 @@ function init(){
                         <?php if($i == 0){ ?>
                             <li class="ui-state-default ui-corner-all" title="Agregar" id="agregar_titulo" onclick="alumnosView.addRow('titulo','titulos');"><span class="ui-icon ui-icon-plus" style="margin: 0 4px;"></span></li>
                         <?php }else{ ?>
-                            <li class="ui-state-default ui-corner-all" title="Eliminar" id="eliminar_titulo" onclick="alumnosView.deleteRow(this,'titulo');"><span class="ui-icon ui-icon-minus" style="margin: 0 4px;"></span></li>                            
+                            <li class="ui-state-default ui-corner-all" title="Eliminar" id="eliminar_titulo" onclick="alumnosView.deleteRow(this,'titulo');"><span class="ui-icon ui-icon-close" style="margin: 0 4px;"></span></li>                            
                         <?php } ?>
                     </div>                    
                 </div>
-            <input type="hidden" id="cant_titulo" name="cant_titulo" value="<?php echo count($personal->titulo); ?>" />      
-            <?php }
-            }else{ ?>
+            <?php $i++; } ?>             <input type="hidden" id="cant_titulo" name="cant_titulo" value="<?php echo count($personal->persona->titulo); ?>" />      
+
+        <?php }else{ ?>
                 <div id="titulo" class="row">
                     <div class="input">
                         <label for="ds_titulo">Título</label>
@@ -298,7 +302,7 @@ function init(){
                                 </div>
                             <?php }else{ ?>
                                 <div class="input" id="icons">
-                                    <li class="ui-state-default ui-corner-all" title="Eliminar" id="eliminarTelefono" onclick="alumnosView.deletePhone(this);"><span class="ui-icon ui-icon-minus" style="margin: 0 4px;"></span></li>
+                                    <li class="ui-state-default ui-corner-all" title="Eliminar" id="eliminarTelefono" onclick="alumnosView.deletePhone(this);"><span class="ui-icon ui-icon-close" style="margin: 0 4px;"></span></li>
                                 </div>
                             <?php } ?>
                         </div>

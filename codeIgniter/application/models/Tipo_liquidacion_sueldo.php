@@ -12,7 +12,7 @@
  */
 class Tipo_liquidacion_sueldo extends DataMapper {
     var $table = 'tipo_liquidacion_sueldo';
-    var $has_one = array("prestacion");
+    var $has_many = array("prestacion");
     
     function __construct($id = NULL)
     {

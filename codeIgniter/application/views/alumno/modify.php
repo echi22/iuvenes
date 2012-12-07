@@ -26,6 +26,9 @@ function init(){
                 <label for="nombres">Nombres:</label>
                 <input type="text" id="nombres" value="<?php echo $alumno->persona->nombres; ?>" name="nombres" class="required"/>
             </div>
+           <div class="foto_container">
+                        <img src="<?php echo base_url().$alumno->persona->foto; ?>" class="foto_alumno" alt="Foto del Alumno">
+                    </div>
         </div>
         <div  id="identificaciones">
             <?php 
@@ -51,7 +54,7 @@ function init(){
                         </div>
                         <?php }else{ ?>
                         <div class="input" id="icons">
-                            <li class="ui-state-default ui-corner-all" title="Eliminar"  onclick="alumnosView.deleteRow(this,'identificacion');"><span class="ui-icon ui-icon-minus" style="margin: 0 4px;"></span></li>
+                            <li class="ui-state-default ui-corner-all" title="Eliminar"  onclick="alumnosView.deleteRow(this,'identificacion');"><span class="ui-icon ui-icon-close" style="margin: 0 4px;"></span></li>
                         </div>
                     <?php } ?>
                     </div>
@@ -83,7 +86,7 @@ function init(){
                     </div>
                     <?php }else{ ?>
                     <div class="input" id="icons">
-                        <li class="ui-state-default ui-corner-all" title="Eliminar"  onclick="alumnosView.deleteRow(this,'identificacion');"><span class="ui-icon ui-icon-minus" style="margin: 0 4px;"></span></li>
+                        <li class="ui-state-default ui-corner-all" title="Eliminar"  onclick="alumnosView.deleteRow(this,'identificacion');"><span class="ui-icon ui-icon-close" style="margin: 0 4px;"></span></li>
                     </div>
                     <?php } ?>
                 </div>
@@ -163,7 +166,7 @@ function init(){
                         </div>
                     <?php }else{ ?>
                         <div class="input" id="icons">
-                            <li class="ui-state-default ui-corner-all" title="Eliminar"  onclick="alumnosView.deleteRow(this,'domicilio');"><span class="ui-icon ui-icon-minus" style="margin: 0 4px;"></span></li>
+                            <li class="ui-state-default ui-corner-all" title="Eliminar"  onclick="alumnosView.deleteRow(this,'domicilio');"><span class="ui-icon ui-icon-close" style="margin: 0 4px;"></span></li>
                         </div>
                     <?php } ?>
                 </div>
@@ -239,7 +242,7 @@ function init(){
                                 </div>
                             <?php }else{ ?>
                                 <div class="input" id="icons">
-                                    <li class="ui-state-default ui-corner-all" title="Eliminar" id="eliminarTelefono" onclick="alumnosView.deletePhone(this);"><span class="ui-icon ui-icon-minus" style="margin: 0 4px;"></span></li>
+                                    <li class="ui-state-default ui-corner-all" title="Eliminar" id="eliminarTelefono" onclick="alumnosView.deletePhone(this);"><span class="ui-icon ui-icon-close" style="margin: 0 4px;"></span></li>
                                 </div>
                             <?php } ?>
                         </div>
