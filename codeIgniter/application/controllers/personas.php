@@ -26,8 +26,13 @@ class Personas extends CI_Controller {
                 else
                 {              
                     $p = $this->personalibrary->save_data();    
-                    if(!$popup)
+                    if(!$popup){
+                        $_SESSION['nombre'] = $_POST['nombre'];
+                        $_SESSION['apellido'] = $_POST['apellido'];
+                        $_SESSION['cd_identificacion'] = $_POST['cd_identificacion'];
+                        $_SESSION['nu_identificacion'] = $_POST['nu_identificacion'];
                         redirect("alumnos/alumno_data/".$p->id);
+                    }
                     else
                         redirect("personas/update_parent/".$p->id);
                 }

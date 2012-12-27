@@ -91,6 +91,16 @@ class Personales extends CI_Controller {
             $a = new Personal();
             $a->where('persona_id',$id)->get();
             $data = $this->personalibrary->get_create_view_data();
+            $this->load->model('Prestacion');
+            $this->load->model('Cargo');
+            $this->load->model('Tipo_liquidacion_sueldo');
+            $this->load->model('Wsituacion_revista');
+            $data['liquidacion_sueldo'] = new Tipo_liquidacion_sueldo();
+            $data['liquidacion_sueldo']->get();  
+            $data['wsituacion_revista'] = new Wsituacion_revista();
+            $data['wsituacion_revista']->get();     
+            $data['cargo'] = new Cargo();
+            $data['cargo']->get();            
             $data['personal'] = $a;
             $this->load->view('templates/header');
             $this->parser->parse('personal/datos_personal',$data);
@@ -123,45 +133,50 @@ class Personales extends CI_Controller {
                 $this->load->view('templates/footer');
             }else{
                 $prestacion = new Prestacion();
-                $prestacion->from_array($_POST,'',false);
-                $cargo = new Cargo();
-                $cargo->where('id',$_POST['cargo'])->get();
-                $liquidacion_sueldo = new Tipo_liquidacion_sueldo();
-                $liquidacion_sueldo->where('id',$_POST['tp_liq_sueldo'])->get();
-                $revista = new Wsituacion_revista();
-                $revista->where('id',$_POST['revista'])->get();
-                $personal = new Personal();
-                $personal->where('persona_id',$_POST['persona_id'])->get();
-                $prestacion->asig_familiar = $_POST['asig_familiar'] == 'on';
-                $prestacion->save(array($personal,$cargo,$liquidacion_sueldo,$revista));
-                redirect("personales/personal_data/".$personal->persona->id);
+                $this->save_prestacion_data($prestacion,$_POST);
+                redirect("personales/personal_data/".$prestacion->personal->persona->id);
             }
         }
-        public function add_related($id){
-            $a = new Persona();
-            $a->where('id',$id)->get();
-            $p = new Persona();
-            $p->where('id',$this->input->post('persona_id'))->get();
-           
-            $vinculo = new Persona_familiar();
-            if($this->input->post('autorizado') == 'on')                
-                $vinculo->autorizado = 1;
-            else
-                $vinculo->autorizado = 0;
-            $vinculo->parentesco = $this->input->post('parentesco');
-            $vinculo->save(array('persona' =>$a,'pariente'=>$p));    
-            $this->alumno_data($id);
+        
+        public function save_prestacion_data($prestacion,$data){
+            
+            $prestacion->from_array($data,'',false);
+            $cargo = new Cargo();
+            $cargo->where('id',$data['cargo'])->get();
+            $liquidacion_sueldo = new Tipo_liquidacion_sueldo();
+            $liquidacion_sueldo->where('id',$data['tp_liq_sueldo'])->get();
+            $revista = new Wsituacion_revista();
+            $revista->where('id',$data['revista'])->get();
+            $personal = new Personal();
+            $personal->where('persona_id',$data['persona_id'])->get();
+            $prestacion->asig_familiar = $data['asig_familiar'] == 'on';
+            $prestacion->save(array($personal,$cargo,$liquidacion_sueldo,$revista));
+            return $prestacion;
+        }
+        public function edit_prestacion(){           
+            $prestacion = new Prestacion();
+            $prestacion->where('id', $_POST['prestacion_id'])->get();
+            $prestacion = $this->save_prestacion_data($prestacion,$_POST);                     
+            $data['cargo'] = $prestacion->cargo->ds_cargo;
+            $data['dt_inicio'] = $prestacion->dt_inicio;
+            $data['dt_fin'] = $prestacion->dt_fin;
+            $data['estado'] = $prestacion->estado;
+            $data['qt_horas'] = $prestacion->qt_horas;
+            $data['nu_secuencia'] = $prestacion->nu_secuencia;
+            $data['tp_liq_sueldo'] = $prestacion->tipo_liquidacion_sueldo->detalle;
+            $data['revista'] = $prestacion->wsituacion_revista->ds_sit_revista;
+            $data['asig_familiar'] = ($prestacion->asig_familiar)? 'Si' : 'No';
+            $data['porc_asig_familiar'] = $prestacion->porc_asig_familiar;
+            echo json_encode($data);
+            
         }
         
-        public function delete_related(){
-            $vinculo = new Persona_familiar();
-            echo $_POST['alumnoId'];
-            echo $_POST['relatedId'];
-            $vinculo->get_where(array('persona_id' => $_POST['alumnoId'], 'pariente_id' => $_POST['relatedId']));
-            echo $vinculo->persona_id;
-            echo "afdsaf";
-            $vinculo->delete();
+        public function delete_prestacion(){
+            $prestacion = new Prestacion();
+            $prestacion->where('id', $_POST['prestacion_id'])->get();
+            $prestacion->delete();
         }
+        
         public function buscar(){
              $this->load->helper('form');
              $this->load->helper('url');
@@ -192,16 +207,6 @@ class Personales extends CI_Controller {
              $this->load->view('templates/footer');
         }
         
-        public function update_parent($p){
-            $this->load->helper('url');
-            $persona = new Persona();
-            $persona->where('id',$p)->get();
-            $data['persona'] = $persona;
-            
-            $this->load->view('templates/header');
-            $this->load->view('alumno/update_parent',$data);
-            $this->load->view('templates/footer');
-            
-        }
+        
 }       
 ?>

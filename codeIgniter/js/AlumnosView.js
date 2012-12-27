@@ -36,7 +36,21 @@ function  AlumnosView(){
                 }           
             });
         }
-    }
+    };
+    
+    this.deletePrestacion = function(elem,prestacion_id){
+        if(confirm('¿Está seguro que desea eliminar esta prestación?')){
+            $.ajax({
+                url : '../delete_prestacion',
+                type: "POST",
+                data : 'prestacion_id='+prestacion_id,
+                success : function(){
+                        $(elem).closest('.prestacion').remove();                   
+                }           
+            });
+        }
+    };
+    
      this.addRow = function(rowId,rowContainerId){
         var contenido = $("#"+rowId).clone();
         contenido.find("input").each(
@@ -56,27 +70,25 @@ function  AlumnosView(){
         $("#"+rowContainerId).append(contenido);
     };
     this.setSelectedIndex = function(value,selectBoxId){
-        var selectedIndex = 0;
+    
         $("#"+selectBoxId).find("option").each(function(i,elem){
             if(elem.label == value){
-                selectedIndex = i;
-
-                return;
+                elem.selected = true;             
             }
         });
-        $("#"+selectBoxId+" option:eq("+selectedIndex+")").attr('selected', 'selected');
+        
     };
     this.setSelectedIndexByValue = function(value,selectBoxId){
         $("#"+selectBoxId).val(value);
     };
     
     this.show_editable = function(id){
-        $(".edit"+id).show();
-        $(".no_edit"+id).hide();
+        $(".edit_"+id).show();
+        $(".no_edit_"+id).hide();
     };
     this.hide_editable = function(id){
-        $(".no_edit"+id).show();
-        $(".edit"+id).hide();
+        $(".no_edit_"+id).show();
+        $(".edit_"+id).hide();
     };
     this.edit_related = function(vinculo_id){
         var parentesco = $("#parentesco"+vinculo_id).val();
@@ -93,5 +105,49 @@ function  AlumnosView(){
                     av.hide_editable(vinculo_id);
                 }           
             });
+    };
+    this.edit_prestacion = function(prestacion_id,persona_id){
+        var cargo = $("#cargo_"+prestacion_id).val();
+        var dt_inicio = $("#dt_inicio_"+prestacion_id).val();
+        var dt_fin = $("#dt_fin_"+prestacion_id).val();
+        var estado = $("#estado_"+prestacion_id).val();
+        var carga_horaria = $("#carga_horaria_"+prestacion_id).val();
+        var nu_secuencia = $("#nu_secuencia_"+prestacion_id).val();
+        var tp_liq_sueldo = $("#tp_liq_sueldo_"+prestacion_id).val();
+        var revista = $("#revista_"+prestacion_id).val();
+        var asig_familiar = $("#asig_familiar_"+prestacion_id).val();
+        var porc_asig_familiar = $("#porc_asig_familiar_"+prestacion_id).val();
+        var av = this;
+         $.ajax({
+                url : '../edit_prestacion',
+                type: "POST",
+                data : 'prestacion_id='+prestacion_id+'&persona_id='+persona_id+'&cargo='+cargo+'&dt_inicio='+dt_inicio+'&dt_fin='+dt_fin+'&estado='+estado+'&qt_horas='+carga_horaria+'&nu_secuencia='+nu_secuencia+'&tp_liq_sueldo='+tp_liq_sueldo+'&revista='+revista+'&asig_familiar='+asig_familiar+'&porc_asig_familiar='+porc_asig_familiar,
+                success : function(data){
+                    data = jQuery.parseJSON(data);
+                    $("#cargo_no_edit_"+prestacion_id).html(data['cargo']);
+                    $("#dt_inicio_no_edit_"+prestacion_id).html(data['dt_inicio']);
+                    $("#dt_fin_no_edit_"+prestacion_id).html(data['dt_fin']);
+                    $("#estado_no_edit_"+prestacion_id).html(data['estado']);
+                    $("#carga_horaria_no_edit_"+prestacion_id).html(data['qt_horas']);
+                    $("#nu_secuencia_no_edit_"+prestacion_id).html(data['nu_secuencia']);
+                    $("#tp_liq_sueldo_no_edit_"+prestacion_id).html(data['tp_liq_sueldo']);
+                    $("#revista_no_edit_"+prestacion_id).html(data['revista']);
+                    $("#asig_familiar_no_edit_"+prestacion_id).html(data['asig_familiar']);
+                    $("#porc_asig_familiar_no_edit_"+prestacion_id).html(data['porc_asig_familiar']);
+                    
+                    av.hide_editable(prestacion_id);
+                }           
+            });
+    };
+    this.createRelative = function(){
+        var url = "../../presonas/create/true";
+        var form = $('<form action="' + url + '" method="post">' +
+        '<input type="text" name="nombre" value="' + $('nombre').val() + '" />' +
+        '<input type="text" name="apellido" value="' + $('apellido').val() + '" />' +
+        '<input type="text" name="cd_identificacion" value="' + $('cd_identificacion').val() + '" />' +
+        '<input type="text" name="nu_identificacion" value="' + $('nu_identificacion').val() + '" />' +
+        '</form>');
+        $('body').append(form);
+        $(form).submit();
     }
 }

@@ -38,10 +38,11 @@
     </form>
     
     <?php if(isset($personas)){ ?>
-<div class="ui-tabs-panel ui-widget-content ui-corner-bottom content-center">
-    <div>
+    <div class="content-center">
         Seleccione una persona existente de la siguiente lista o <a href="<?php echo base_url(); ?>personas/create/true">Cree una nueva persona</a>
     </div>
+<div class="ui-tabs-panel ui-widget-content ui-corner-bottom content-center">
+    
     <div>
         <table class="content-center">
         <tr class="table_header">

@@ -14,7 +14,7 @@
 
  } */
  body{
-    max-width: 1150px;
+    max-width: 1200px;
     margin: 0 auto;
     font-family: Arial;
     height: 100%;
@@ -136,8 +136,8 @@ button{
         
 
 a{
-	text-decoration:none;
-	color:#f30;
+	
+	color:#002166;
 	}
 a:hover{
 	color:#999;

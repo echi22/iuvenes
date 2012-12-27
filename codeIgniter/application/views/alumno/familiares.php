@@ -18,8 +18,8 @@
                 <td><?php echo $vinculo->pariente->apellidos; ?></td>
                 <td><?php echo $vinculo->pariente->nombres; ?></td>
                 <td>
-                    <p id="parentesco_no_edit<?php echo $vinculo->id; ?>" class="no_edit<?php echo $vinculo->id; ?>"> <?php echo $vinculo->parentesco; ?> </p>
-                    <input class="edit<?php echo $vinculo->id; ?> hidden" type="text" id="parentesco<?php echo $vinculo->id; ?>" value="<?php echo $vinculo->parentesco; ?>" />
+                    <p id="parentesco_no_edit<?php echo $vinculo->id; ?>" class="no_edit_<?php echo $vinculo->id; ?>"> <?php echo $vinculo->parentesco; ?> </p>
+                    <input class="edit_<?php echo $vinculo->id; ?> hidden" type="text" id="parentesco<?php echo $vinculo->id; ?>" value="<?php echo $vinculo->parentesco; ?>" />
                 </td>
                 <td><?php foreach ($vinculo->pariente->persona_identificacion as $identificacion){
                             if($identificacion->principal){
@@ -32,8 +32,8 @@
                             }
                             ?>
                 </td>
-                <td><p id="autorizado_no_edit<?php echo $vinculo->id; ?>" class="no_edit<?php echo $vinculo->id; ?>"><?php if($vinculo->autorizado) echo "Si"; else echo "No"; ?> </p>
-                    <input type="checkbox" <?php if($vinculo->autorizado) echo "checked"; ?>  class="edit<?php echo $vinculo->id; ?> hidden" id="autorizado<?php echo $vinculo->id; ?>"/></td>
+                <td><p id="autorizado_no_edit<?php echo $vinculo->id; ?>" class="no_edit_<?php echo $vinculo->id; ?>"><?php if($vinculo->autorizado) echo "Si"; else echo "No"; ?> </p>
+                    <input type="checkbox" <?php if($vinculo->autorizado) echo "checked"; ?>  class="edit_<?php echo $vinculo->id; ?> hidden" id="autorizado<?php echo $vinculo->id; ?>"/></td>
                 <td><textarea cols="10" rows="1"></textarea></td>
               
                 <td>

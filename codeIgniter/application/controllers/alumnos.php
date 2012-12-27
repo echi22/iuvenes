@@ -22,7 +22,7 @@ class Alumnos extends CI_Controller {
                 {
                         $this->load->view('templates/header');	
                         $this->parser->parse('alumno/create',$data);
-             $this->load->view('templates/footer');
+                        $this->load->view('templates/footer');
                 }
                 else
                 {              
