@@ -16,8 +16,8 @@ function  AlumnosView(){
         var highestCol = Math.max($('#'+klass+"1").height(),$('#'+klass+"2").height());
         $('.'+klass).height(highestCol);
     };
-    this.submitForm = function(){
-        $("#form").submit();
+    this.submitForm = function(id,enviar){
+        return this.verificar_form(id, enviar);
     };
     this.deleteRow = function(elem,rowId){
         $(elem).closest("#"+rowId).remove();
@@ -140,14 +140,57 @@ function  AlumnosView(){
             });
     };
     this.createRelative = function(){
-        var url = "../../presonas/create/true";
+        var url = "../personas/create/true";
         var form = $('<form action="' + url + '" method="post">' +
-        '<input type="text" name="nombre" value="' + $('nombre').val() + '" />' +
-        '<input type="text" name="apellido" value="' + $('apellido').val() + '" />' +
-        '<input type="text" name="cd_identificacion" value="' + $('cd_identificacion').val() + '" />' +
-        '<input type="text" name="nu_identificacion" value="' + $('nu_identificacion').val() + '" />' +
+        '<input type="text" name="nombres" value="' + $('#nombres').val() + '" />' +
+        '<input type="text" name="apellidos" value="' + $('#apellidos').val() + '" />' +
+        '<input type="text" name="cd_identificacion" value="' + $('#cd_identificacion').val() + '" />' +
+        '<input type="text" name="nu_identificacion" value="' + $('#numero_identificacion').val() + '" />' +
         '</form>');
         $('body').append(form);
         $(form).submit();
+    };
+    this.verificar_form = function(id, enviar){
+        var msg = 'Le falta llenar los siguientes campos:\n';
+        var av = this;
+        $('#'+id).find('.required').each(
+        function(){            
+            $(this).css("background-color", "white");
+            if ($(this).is("input") && ($(this).val() == '')){
+                msg = av.verificar_input(msg, this);
+            }else{
+                if($(this).is("select") && ($(this).val() == '-'))
+                    msg = av.verificar_selectbox(msg,this);
+            }                       
+        });
+        if(msg=='Le falta llenar los siguientes campos:\n'){
+            if (enviar)
+                $('#'+id).submit();
+            return true;
+        }else{
+            alert(msg);
+            return false;
+        }
+    };
+    this.verificar_input = function(msg,elem){
+        msg += ' - ';
+        msg += $(elem).siblings('label').text().replace(':', '')+'\n';        
+        $(elem).stop();
+        $(elem).effect("highlight",{
+            color : "#FF8484"
+        },200000);
+        return msg;
+    }
+    this.verificar_selectbox = function(msg,elem){    
+        if ($(elem).val() == '-'){
+            msg += ' - ';
+            msg += $(elem).siblings('label').text().replace(':', '')+'\n';            
+            $(elem).stop();
+            $(elem).animate({ backgroundColor: "#FF8484" }, 500);
+            $(elem).effect("highlight",{
+                color : "#FF8484"
+            },200000);
+        }        
+        return msg;
     }
 }

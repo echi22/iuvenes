@@ -7,7 +7,7 @@ alumnosView = new AlumnosView();
 </script>
 
 <div id="contenido">
-    <?php echo form_open_multipart('personales/create/');  ?>
+    <form id="form" enctype="multipart/form-data" action="<?php echo base_url().'personales/create'; ?>" id="form" method="post">   
     <div id="insert_form" class="content-center">
         <div class="titulo">
             Alta de Personal
@@ -30,7 +30,7 @@ alumnosView = new AlumnosView();
             </div>
            <div class="input">
                 <label for="mail">Mail:</label>
-                <input type="email" id="mail"  name="mail" class="required"/>
+                <input type="email" id="mail"  name="mail" />
             </div>
         </div>
         <div  id="identificaciones">         
@@ -60,7 +60,7 @@ alumnosView = new AlumnosView();
             </div>
             <div class="input">
                 <label for="nacionalidad">Nacionalidad:</label>
-                <select name="nacionalidad" id="nacionalidad">
+                <select name="nacionalidad" id="nacionalidad" class="required">
                     {nacionalidad}
                     <option value="{id}">{ds_pais}</option>
                     {/nacionalidad}
@@ -68,21 +68,14 @@ alumnosView = new AlumnosView();
             </div>
             <div class="input">
                 <label for="sexo">Sexo:</label>
-                <select name="sexo" id="sexo">
+                <select name="sexo" id="sexo" class="required">
                     {sexo}
                     <option value="{id}">
                         {ds_sexo}
                     </option>
                     {/sexo}
                 </select>
-            </div>
-            <div class="input">
-                <label for="vive">Vive:</label>                
-                <select id="vive" name="vive">
-                    <option value="S">Si</option>
-                    <option value="N">No</option>
-                </select>
-            </div>            
+            </div>                   
         </div>
         <div class="row border_bottom">
             <div class="input">
@@ -98,11 +91,11 @@ alumnosView = new AlumnosView();
                 <div class="row">
                     <div class="input">
                         <label for="calle" >Calle:</label>
-                        <input type="text" name="domicilio_0_[ds_calle]" id="calle"/>
+                        <input type="text" name="domicilio_0_[ds_calle]" id="calle" class="required"/>
                     </div>
                     <div class="input">
                         <label for="num_casa">Número:</label>
-                        <input type="number" name="domicilio_0_[ds_numeral]" id="num_casa"/>
+                        <input type="number" name="domicilio_0_[ds_numeral]" id="num_casa" class="required"/>
                     </div>
                     <div class="input">
                         <label for="entre1">Entre:</label>
@@ -200,7 +193,7 @@ alumnosView = new AlumnosView();
             </div>
         </div>  
             <div class="row">
-                <button onclick="alumnosView.submitForm()">Guardar</button>
+                <button onclick="return alumnosView.submitForm('form',true)">Guardar</button>
             </div>
         
         

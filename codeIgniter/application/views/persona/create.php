@@ -7,7 +7,7 @@ alumnosView = new AlumnosView();
 </script>
 
 <div id="contenido">
-    <?php echo form_open_multipart('personas/create/'.$popup);  ?>
+    <form id="form" enctype="multipart/form-data" action="<?php echo base_url().'personas/create/'.$popup; ?>" id="form" method="post">       
     <div id="insert_form" class="content-center">
         <div class="titulo">
             Alta de Persona
@@ -18,11 +18,11 @@ alumnosView = new AlumnosView();
         <div class="row">
             <div class="input">
                 <label for="apellidos">Apellidos:</label>
-                <input type="text" id="apellidos" name="apellidos" class="required"/>
+                <input type="text" id="apellidos" name="apellidos" value="<?php echo $apellidos; ?>" class="required"/>
             </div>
             <div class="input">
                 <label for="nombres">Nombres:</label>
-                <input type="text" id="nombres" name="nombres" class="required"/>
+                <input type="text" id="nombres" name="nombres" value="<?php echo $nombres; ?>" class="required"/>
             </div>
             <div class="input">
                 <label for="cd_identificacion">Tipo Identificación:</label>
@@ -31,10 +31,13 @@ alumnosView = new AlumnosView();
                     <option value="{id}">{ds_identificacion}</option>
                     {/identificacion}
                 </select>
+                <script type="text/javascript">
+                    alumnosView.setSelectedIndexByValue('<?php echo $cd_identificacion; ?>','cd_identificacion');           
+                </script>
             </div>
             <div class="input">
                 <label for="ds_identificacion">Número:</label>
-                <input type="text" id="numero_identificacion" name="numero_identificacion" class="required"/>
+                <input type="text" id="numero_identificacion" value="<?php echo $nu_identificacion; ?>" name="numero_identificacion" class="required"/>
             </div>                
         </div>
         <div class="row">
@@ -44,7 +47,7 @@ alumnosView = new AlumnosView();
             </div>
             <div class="input">
                 <label for="nacionalidad">Nacionalidad:</label>
-                <select name="nacionalidad" id="nacionalidad">
+                <select name="nacionalidad" id="nacionalidad" class="required">
                     {nacionalidad}
                     <option value="{id}">{ds_pais}</option>
                     {/nacionalidad}
@@ -82,11 +85,11 @@ alumnosView = new AlumnosView();
                 <div class="row">
                     <div class="input">
                         <label for="calle" >Calle:</label>
-                        <input type="text" name="domicilio_0_[ds_calle]" id="calle"/>
+                        <input type="text" name="domicilio_0_[ds_calle]" id="calle" class="required"/>
                     </div>
                     <div class="input">
                         <label for="num_casa">Número:</label>
-                        <input type="number" name="domicilio_0_[ds_numeral]" id="num_casa"/>
+                        <input type="number" name="domicilio_0_[ds_numeral]" id="num_casa" class="required"/>
                     </div>
                     <div class="input">
                         <label for="entre1">Entre:</label>

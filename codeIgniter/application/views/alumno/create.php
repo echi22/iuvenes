@@ -6,7 +6,7 @@
 alumnosView = new AlumnosView();
 </script>
 <div id="contenido">
-    <form id="form" enctype="multipart/form-data" action="<?php echo base_url().'alumnos/create'; ?>" method="post">
+    <form id="form" enctype="multipart/form-data" action="<?php echo base_url().'alumnos/create'; ?>" id="form" method="post">
     <?php echo form_open_multipart('alumnos/create');  ?>
     <div id="insert_form" class="content-center">
         <div class="titulo">
@@ -46,7 +46,7 @@ alumnosView = new AlumnosView();
             </div>
             <div class="input">
                 <label for="nacionalidad">Nacionalidad:</label>
-                <select name="nacionalidad" id="nacionalidad">
+                <select name="nacionalidad" id="nacionalidad" class="required">
                     {nacionalidad}
                     <option value="{id}">{ds_pais}</option>
                     {/nacionalidad}
@@ -54,7 +54,7 @@ alumnosView = new AlumnosView();
             </div>
             <div class="input">
                 <label for="sexo">Sexo:</label>
-                <select name="sexo" id="sexo">
+                <select name="sexo" id="sexo" class="required">                    
                     {sexo}
                     <option value="{id}">
                         {ds_sexo}
@@ -85,7 +85,7 @@ alumnosView = new AlumnosView();
                 <div class="row">
                     <div class="input">
                         <label for="calle" >Calle:</label>
-                        <input type="text" name="domicilio_0_[ds_calle]" id="calle"/>
+                        <input type="text" name="domicilio_0_[ds_calle]" id="calle" class="required"/>
                     </div>
                     <div class="input">
                         <label for="num_casa">Número:</label>
@@ -161,7 +161,7 @@ alumnosView = new AlumnosView();
             </div>
         </div>                   
             <div class="row">
-                <button onclick="alumnosView.submitForm()">Guardar</button>
+                <button onclick="return alumnosView.submitForm('form',true)">Guardar</button>
             </div>
     </div>
     </form>

@@ -140,6 +140,10 @@ class Alumnos extends CI_Controller {
                  $p->where_related('persona_identificacion','id',$identificacion);
                  $p->get();
                  $data['personas'] = $p;
+                 $data['cd_identificacion'] = $this->input->post('cd_identificacion');
+                 $data['numero_identificacion'] = $this->input->post('numero_identificacion');
+                 $data['apellidos'] = $this->input->post('apellidos');
+                 $data['nombres'] = $this->input->post('nombres');
              }
              $this->load->view('templates/header');
              $this->load->view('alumno/add_familiar',$data);

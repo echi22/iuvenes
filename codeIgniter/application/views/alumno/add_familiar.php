@@ -1,4 +1,4 @@
-<div id="contenido">
+<div id="contenido">    
 <script type="text/javascript" src="<?php echo base_url(); ?>js/AlumnosView.js"></script>
 <script type="text/javascript">
     alumnosView = new AlumnosView();
@@ -11,23 +11,26 @@
         <div class="row border_top border_bottom" style="vertical-align: bottom">
             <div class="input">
                 <label for="apellidos">Apellidos</label>
-                <input type="text" name="apellidos" id="apellidos" />
+                <input type="text" name="apellidos" id="apellidos" value="<?php echo $apellidos; ?>"/>
             </div>
             <div class="input">
                 <label for="nombres">Nombres</label>
-                <input type="text" name="nombres" id="nombres" />
+                <input type="text" name="nombres" id="nombres" value="<?php echo $nombres; ?>"/>
             </div>
             <div class="input">
                 <label for="cd_identificacion">Tipo Identificación:</label>
-                <select id="cd_identificacion" name="cd_identificacion" class="required">
+                <select id="cd_identificacion" name="cd_identificacion" >
                     <?php foreach ($identificacion as $i){ ?>
                     <option value="<?php echo $i->id; ?>"><?php echo $i->ds_identificacion; ?></option>
                     <?php } ?>
                 </select>
+                <script type="text/javascript">
+                    alumnosView.setSelectedIndexByValue('<?php echo $cd_identificacion; ?>','cd_identificacion');           
+                </script>
             </div>
             <div class="input">
                 <label for="ds_identificacion">Número:</label>
-                <input type="text" id="numero_identificacion" name="numero_identificacion" class="required"/>
+                <input type="text" id="numero_identificacion" name="numero_identificacion" value="<?php echo $numero_identificacion; ?>" />
             </div>    
             <div class="input" style="padding-top: 20px">
                 <input type="hidden" value="si" name="busqueda"/>
@@ -39,7 +42,7 @@
     
     <?php if(isset($personas)){ ?>
     <div class="content-center">
-        Seleccione una persona existente de la siguiente lista o <a href="<?php echo base_url(); ?>personas/create/true">Cree una nueva persona</a>
+        Seleccione una persona existente de la siguiente lista o <a href="#" onclick="alumnosView.createRelative()">Cree una nueva persona</a>
     </div>
 <div class="ui-tabs-panel ui-widget-content ui-corner-bottom content-center">
     

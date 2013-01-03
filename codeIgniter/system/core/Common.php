@@ -482,7 +482,8 @@ if ( ! function_exists('_exception_handler'))
 
 		// Should we display the error? We'll get the current error_reporting
 		// level and add its bits with the severity bits to find out.
-		if (($severity & error_reporting()) == $severity)
+                $config = get_config();
+		if (!in_array($severity,$config['exclude_logging']))
 		{
 			$_error->show_php_error($severity, $message, $filepath, $line);
 		}
