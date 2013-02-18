@@ -4,6 +4,33 @@ echo validation_errors();
 <script type="text/javascript" src="<?php echo base_url(); ?>js/CursosView.js"></script>
 <script type="text/javascript">
     cursosView = new CursosView();
+    //first, detect when initial DD changes
+ function init(){
+    $("#años_cursos").change(function() {
+        //get what they selected
+        var selected = $("option:selected",this).val();
+        
+        //no matter what, clear the other DD
+        //Tip taken from: http://stackoverflow.com/questions/47824/using-core-jquery-how-do-you-remove-all-the-options-of-a-select-box-then-add-on
+        $("#cursos").children().remove().end().append("<option value=\"\">Todos</option>");
+        //now load in new options if I picked a state
+        if(selected == "") return;                
+        $.ajax({
+                url : 'get_cursos_by_year',
+                type: "POST",
+                data : {"id_ciclo_lectivo":selected},
+                success : function(res) {
+                            res = jQuery.parseJSON(res);
+                            var newoptions = "";
+                            for(var i=0; i<res.length; i++) {
+                                //In our result, ID is what we will use for the value, and NAME for the label
+                                newoptions += "<option value=\"" + res[i]['id'] + "\">" + res[i]['name'] + "</option>";
+                            }
+                            $("#cursos").children().end().append(newoptions);
+                        }           
+            });
+    });
+}
 </script>
 <div id="contenido">
     <form name="form"  action="<?php echo base_url() . 'cursos/create'; ?>" id="form" method="post">    
@@ -56,10 +83,21 @@ echo validation_errors();
                     Alumnos:
                 </div>
                 <div class="row">
-                    
-                    <select id="cursos">
+                    <div class="columna_ajustada">
                         
-                    </select>
+                        <select id="años_cursos">
+                            {años_cursos}
+                                <option value="{id_ciclo_lectivo}">{id_ciclo_lectivo}</option>
+                            {/años_cursos}
+                        </select>
+                        
+                    </div>
+                    <div class="columna_ajustada">
+
+                        <select id="cursos">
+
+                        </select>
+                    </div>
                 </div>
             </div>
             <div >

@@ -20,7 +20,13 @@ class Cursos extends CI_Controller {
                 $data['orientacion'] = new Orientation();
                 $data['orientacion'] = $data['orientacion']->get()->all_to_array();                
                 $data['nivel_educativo'] = new Nivel_educativo();
-                $data['nivel_educativo'] = $data['nivel_educativo']->get()->all_to_array();                        
+                $data['nivel_educativo'] = $data['nivel_educativo']->get()->all_to_array();                              
+                $data['años_cursos'] = new Curso();                                
+                $data['años_cursos'] = $data['años_cursos']->get_all_cursos_years();                                           
+                array_unshift($data['años_cursos'], $data['años_cursos'][0]);
+                $data['años_cursos'][0]['id_ciclo_lectivo'] = 'Todos';
+                $data['curso'] = new Curso(); 
+                $data['curso'] = $data['curso']->get()->all_to_array();
                 $data['alumnos'] = new Alumno();                
                 $data['alumnos'] = $data['alumnos']->include_all_related()->order_by('persona_apellidos','persona_nombres')->get();
                 if ($this->form_validation->run() === FALSE)
@@ -42,6 +48,21 @@ class Cursos extends CI_Controller {
                          
                    redirect("cursos/curso_data/".$c->id);
                 }
+        }
+        
+        function get_cursos_by_year(){
+            $c = new Curso();
+            $c->where('id_ciclo_lectivo',$_POST['id_ciclo_lectivo'])->get();
+            $result = array();     
+            
+            foreach ($c as $curso) {                   
+                $city = array();
+                $city['name'] = $curso->detalle();
+                $city['id'] = $curso->id;
+                array_push($result,$city);               
+            }
+            echo json_encode($result);
+            
         }
 }
 ?>
