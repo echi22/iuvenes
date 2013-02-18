@@ -18,6 +18,7 @@ alumnosView = new AlumnosView();
         <div class="row">
             <div class="input">
                 <label for="apellidos">Apellidos:</label>
+                <input type="hidden" value="1" name="form_submited" id="form_submited"/>
                 <input type="text" id="apellidos" name="apellidos" value="<?php echo $apellidos; ?>" class="required"/>
             </div>
             <div class="input">
@@ -187,7 +188,8 @@ alumnosView = new AlumnosView();
             </div>
         </div>  
             <div class="row">
-                <button onclick="alumnosView.submitForm()">Guardar</button>
+                
+                <button onclick="return alumnosView.submitForm('form',true)">Guardar</button>
             </div>
         
         

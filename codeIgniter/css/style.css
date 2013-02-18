@@ -38,6 +38,7 @@
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 15px;
     min-height: 500px;
+    font-size: 0.95em
 }
 root { 
     display: block;
@@ -227,6 +228,9 @@ img{
      padding: 4px 4px 4px 4px;
      background-color: #ECE5E5;
 }
+.table_data{
+    font-size: 0.8em;
+}
 /*.table_row2:hover, .table_row1:hover{
 	color:white;
 	background-color: #91BAE3;
@@ -243,4 +247,19 @@ padding: 4px 0;
 cursor: pointer;
 float: left;
 list-style: none;
+}
+.multiple_select_box{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.select_box_alumnos{
+    min-height: 200px;
+    min-width: 300px;
+}
+
+.valign-middle{
+    vertical-align: middle;
+    min-height:100% !important;
+height:auto !important;
 }

@@ -9,39 +9,40 @@ class Personas extends CI_Controller {
                 $this->load->library('personalibrary');
                 
 	}
+        
         public function create($popup = false)
         {
                 $this->load->helper('form');
                 $this->load->helper('url');
                 $this->load->library('form_validation');    
                 $this->form_validation->set_rules('nombres', 'Nombres', 'required');
-                $this->form_validation->set_rules('apellidos', 'Apellidos', 'required');
-                $this->form_validation->set_rules('dt_nacimiento', 'dt_nacimiento', 'required');
+                $this->form_validation->set_rules('apellidos', 'Apellidos', 'required');                
                 $data = $this->personalibrary->get_create_view_data();
-                $data['popup'] = $popup;      
-                if($popup){
-                    $data['nombres'] = $_POST['nombres'];
-                    $data['apellidos'] = $_POST['apellidos'];
-                    $data['cd_identificacion'] = $_POST['cd_identificacion'];
-                    $data['nu_identificacion'] = $_POST['nu_identificacion'];
-                    $this->load->view('templates/header');	
-                    $this->parser->parse('persona/create',$data);
-                }else{
-                    if ($this->form_validation->run() === FALSE)
+                $data['popup'] = $popup;                      
+                $data['nombres'] = $_POST['nombres'];
+                $data['apellidos'] = $_POST['apellidos'];
+                $data['cd_identificacion'] = $_POST['cd_identificacion'];
+                $data['nu_identificacion'] = $_POST['nu_identificacion'];                          
+                if($_POST[form_submited] == 1){                     
+                    if ($this->form_validation->run() === FALSE  )
                     {
                             $this->load->view('templates/header');	
                             $this->parser->parse('persona/create',$data);
-                    }
-                    else
-                    {              
+                    }else{
                         $p = $this->personalibrary->save_data();    
                         if(!$popup){                       
                             redirect("alumnos/alumno_data/".$p->id);
                         }
                         else
-                            redirect("personas/update_parent/".$p->id);
+                            redirect("alumnos/update_parent/".$p->id);
                     }
-                }
+                }else{                    
+                    $this->load->view('templates/header');	
+                    $this->parser->parse('persona/create',$data);
+                }              
+                
+
+                
         }        
         
         public function get_all(){

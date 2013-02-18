@@ -146,6 +146,7 @@ function  AlumnosView(){
         '<input type="text" name="apellidos" value="' + $('#apellidos').val() + '" />' +
         '<input type="text" name="cd_identificacion" value="' + $('#cd_identificacion').val() + '" />' +
         '<input type="text" name="nu_identificacion" value="' + $('#numero_identificacion').val() + '" />' +
+        '<input type="text" name="form_submited" value="0" />' +
         '</form>');
         $('body').append(form);
         $(form).submit();

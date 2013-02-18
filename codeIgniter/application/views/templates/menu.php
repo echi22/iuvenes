@@ -41,7 +41,7 @@
             <div><ul>
                 <li><a href="#" class="parent"><span>Gestión</span></a>
                     <div><ul>
-                        <li><a href="/iuvenes/cursos/nuevo.php"><span>Nuevo</span></a></li>
+                        <li><a href="<?php echo base_url().'cursos/create'; ?>"><span>Nuevo</span></a></li>
                         <li><a href="/iuvenes/cursos/consulta.php"><span>Consulta - Modificación</span></a></li>
                         <li><a href="/iuvenes/cursos/baja.php"><span>Baja</span></a></li>
                     </ul></div>
