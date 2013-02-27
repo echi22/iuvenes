@@ -44,8 +44,8 @@ echo validation_errors();
                     <input type="text" id="ciclo_lectivo" name="id_ciclo_lectivo" class="required"/>
                 </div>
                 <div class="input">
-                    <label for="anio">Año:</label>
-                    <input type="text" id="anio" name="anio" class="required"/>
+                    <label for="year">Año:</label>
+                    <input type="text" id="year" name="year" class="required"/>
                 </div>
 
                 <div class="input">
@@ -94,7 +94,7 @@ echo validation_errors();
                     </div>
                     <div class="columna_ajustada">
 
-                        <select id="cursos">
+                        <select id="cursos" onchange="cursosView.actualizarAlumnos(this,$('#alumnos'))">
 
                         </select>
                     </div>

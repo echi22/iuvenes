@@ -19,11 +19,11 @@ class Curso extends DataMapper{
            parent::__construct($id);
        }
     function detalle(){
-        $det = $this->anio." ".$this->ds_seccion." ";
+        $det = $this->year." ".$this->ds_seccion." ";
         if($this->orientation != null){
             $det .= $this->orientation->ds_orientacion;
         }
-        $det .= " - ".$this->nivel_educativo->ds_nivel;
+        $det .= " - ".$this->nivel_educativo->ds_nivel;        
         return $det;
     }
     

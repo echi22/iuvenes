@@ -64,5 +64,27 @@ class Cursos extends CI_Controller {
             echo json_encode($result);
             
         }
+        
+        function get_alumnos_from_curso(){
+            $c = new Curso();
+            if($_POST['id'] == ""){
+                $get_alumnos = new Alumno();
+                $alumnos = $get_alumnos->include_all_related()->order_by('persona_apellidos','persona_nombres')->get();                
+            }else{
+                $c->where('id',$_POST['id'])->get();
+                $c->alumno->include_all_related()->order_by('persona_apellidos','persona_nombres')->get();
+                $alumnos = $c->alumno;
+            }
+            
+            $result = array();     
+            
+            foreach ($alumnos as $alumno) {                   
+                $a = array();
+                $a['detalle'] = $alumno->detalle();
+                $a['id'] = $alumno->id;
+                array_push($result,$a);               
+            }
+            echo json_encode($result);
+        }
 }
 ?>

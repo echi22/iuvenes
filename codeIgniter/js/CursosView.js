@@ -9,11 +9,14 @@ function  CursosView(){
         {
             if (SS1.options[i].selected == true)
             {
-                SelID=SS1.options[i].value;
-                SelText=SS1.options[i].text;
-                var newRow = new Option(SelText,SelID);
-                SS2.options[SS2.length]=newRow;
-                SS1.options[i]=null;
+               if(this.alumnoIsInList(SS1.options[i].value,this.listadoAlumnos)){
+                    SelID=SS1.options[i].value;
+                    SelText=SS1.options[i].text;
+                    var newRow = new Option(SelText,SelID);
+                    SS2.options[SS2.length]=newRow;
+                    
+               }
+               SS1.options[i]=null;
             }
         }
         this.selectSort(SS2);
@@ -39,4 +42,30 @@ function  CursosView(){
             }
         }
     };
+    this.actualizarAlumnos = function(selectbox, multiple_selectbox){
+        $(multiple_selectbox).children().remove();
+        var cv = this;
+        $.ajax({
+                url : 'get_alumnos_from_curso',
+                type: "POST",
+                data : {"id":$(selectbox).val()},
+                success : function(res) {
+                            res = jQuery.parseJSON(res);
+                            var newoptions = "";
+                            for(var i=0; i<res.length; i++) {                                
+                                newoptions += "<option value=\"" + res[i]['id'] + "\">" + res[i]['detalle'] + "</option>";
+                            }
+                            $(multiple_selectbox).children().end().append(newoptions);
+                            cv.listadoAlumnos = res;
+                        }           
+            });
+        
+    };
+    this.alumnoIsInList = function(id_alumno,list){
+        for(var i=0; i <list.length; i++) {                                
+            if(list[i]['id'] == id_alumno)
+                return true;
+        }
+        return false;
+    }
 }
