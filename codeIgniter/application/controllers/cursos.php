@@ -45,8 +45,14 @@ class Cursos extends CI_Controller {
                    $ne->where(id,$_POST['nivel'])->get();
                    $c->establecimiento_id = 1;
                    $c->save(array($o,$ne));
-                         
-                   redirect("cursos/curso_data/".$c->id);
+                   var_dump($_POST);
+                   foreach ($_POST['alumnos_seleccionados'] as $alumno) {
+                       echo $alumno;
+                       $a = new Alumno();
+                       $a->where('id',$alumno)->get();
+                       $c->save($a);
+                   }      
+//                   redirect("cursos/curso_data/".$c->id);
                 }
         }
         

@@ -30,6 +30,7 @@ echo validation_errors();
                         }           
             });
     });
+    cursosView.actualizarAlumnos($("#cursos"),$('#alumnos'));
 }
 </script>
 <div id="contenido">
@@ -122,7 +123,7 @@ echo validation_errors();
                 </div>
                 <div class="columna_ajustada">
 
-                    <select multiple="true" name="alumnos_seleccionados" id="alumnos_seleccionados" class="multiple_select_box select_box_alumnos">
+                    <select multiple="true" name="alumnos_seleccionados[]" id="alumnos_seleccionados" class="multiple_select_box select_box_alumnos">
 
                     </select>
                 </div>

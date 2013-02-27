@@ -1,7 +1,8 @@
 function  CursosView(){
-
+    this.alumnosSelected = new Array();
+    this.listadoAlumnos = new Array();
     this.selectMoveRows = function(SS1,SS2)
-    {
+    {        
         var SelID='';
         var SelText='';
         // Move rows from SS1 to SS2 from bottom to top
@@ -9,12 +10,16 @@ function  CursosView(){
         {
             if (SS1.options[i].selected == true)
             {
-               if(this.alumnoIsInList(SS1.options[i].value,this.listadoAlumnos)){
+               if(this.alumnoIsInArray(SS1.options[i].value,this.listadoAlumnos)){
                     SelID=SS1.options[i].value;
                     SelText=SS1.options[i].text;
                     var newRow = new Option(SelText,SelID);
                     SS2.options[SS2.length]=newRow;
-                    
+                    if(SS1.id == 'alumnos'){
+                        this.alumnosSelected.push(SS1.options[i].value);
+                    }else{
+                        this.alumnosSelected.splice(this.alumnosSelected.indexOf(SS1.options[i].value), 1);
+                    }
                }
                SS1.options[i]=null;
             }
@@ -50,20 +55,23 @@ function  CursosView(){
                 type: "POST",
                 data : {"id":$(selectbox).val()},
                 success : function(res) {
-                            res = jQuery.parseJSON(res);
+                            cv.listadoAlumnos = new Array();
+                            res = jQuery.parseJSON(res);                            
                             var newoptions = "";
-                            for(var i=0; i<res.length; i++) {                                
-                                newoptions += "<option value=\"" + res[i]['id'] + "\">" + res[i]['detalle'] + "</option>";
+                            for(var i=0; i<res.length; i++) {
+                                cv.listadoAlumnos[i] = res[i]['id'];                            
+                                if(!cv.alumnoIsInArray(res[i]['id'],cv.alumnosSelected))
+                                    newoptions += "<option value=\"" + res[i]['id'] + "\">" + res[i]['detalle'] + "</option>";
                             }
                             $(multiple_selectbox).children().end().append(newoptions);
-                            cv.listadoAlumnos = res;
+                            
                         }           
             });
-        
+       
     };
-    this.alumnoIsInList = function(id_alumno,list){
+    this.alumnoIsInArray = function(id_alumno,list){
         for(var i=0; i <list.length; i++) {                                
-            if(list[i]['id'] == id_alumno)
+            if(list[i] == id_alumno)
                 return true;
         }
         return false;
