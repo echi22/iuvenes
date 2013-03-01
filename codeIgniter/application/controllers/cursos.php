@@ -9,6 +9,7 @@ class Cursos extends CI_Controller {
                 $this->load->model('orientation');
                 $this->load->model('nivel_educativo');
                 $this->load->model('alumno');
+                $this->load->library('cursolibrary');
 	}
         
         public function create()
@@ -27,8 +28,6 @@ class Cursos extends CI_Controller {
                 $data['años_cursos'][0]['id_ciclo_lectivo'] = 'Todos';
                 $data['curso'] = new Curso(); 
                 $data['curso'] = $data['curso']->get()->all_to_array();
-                $data['alumnos'] = new Alumno();                
-                $data['alumnos'] = $data['alumnos']->include_all_related()->order_by('persona_apellidos','persona_nombres')->get();
                 if ($this->form_validation->run() === FALSE)
                 {
                         $this->load->view('templates/header');	
@@ -52,7 +51,7 @@ class Cursos extends CI_Controller {
                        $a->where('id',$alumno)->get();
                        $c->save($a);
                    }      
-//                   redirect("cursos/curso_data/".$c->id);
+                   redirect("cursos/curso_data/".$c->id);
                 }
         }
         
@@ -91,6 +90,18 @@ class Cursos extends CI_Controller {
                 array_push($result,$a);               
             }
             echo json_encode($result);
+        }
+         public function curso_data($id){
+            $this->load->helper('url');
+            $c = new Curso();
+            $c->where('id',$id)->get();
+            $data = $this->cursolibrary->get_create_view_data();
+            $data['curso'] = $c;
+            
+            $this->load->view('templates/header');
+            $this->parser->parse('cursos/datos_curso',$data);
+             $this->load->view('templates/footer');
+            
         }
 }
 ?>

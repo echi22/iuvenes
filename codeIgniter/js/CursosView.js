@@ -54,13 +54,14 @@ function  CursosView(){
                 url : 'get_alumnos_from_curso',
                 type: "POST",
                 data : {"id":$(selectbox).val()},
+                async: false,
                 success : function(res) {
                             cv.listadoAlumnos = new Array();
                             res = jQuery.parseJSON(res);                            
                             var newoptions = "";
                             for(var i=0; i<res.length; i++) {
                                 cv.listadoAlumnos[i] = res[i]['id'];                            
-                                if(!cv.alumnoIsInArray(res[i]['id'],cv.alumnosSelected))
+                                if((!cv.alumnoIsInArray(res[i]['id'],cv.alumnosSelected)) && ($("#filtro_alumno").val() == "" || (res[i]['detalle'].toUpperCase().indexOf($("#filtro_alumno").val().toUpperCase()) !== -1)))
                                     newoptions += "<option value=\"" + res[i]['id'] + "\">" + res[i]['detalle'] + "</option>";
                             }
                             $(multiple_selectbox).children().end().append(newoptions);
@@ -75,5 +76,11 @@ function  CursosView(){
                 return true;
         }
         return false;
-    }
+    };
+    this.selectAllOptionsFromSelectbox = function(selectbox_id){
+        $("#"+selectbox_id+">option").each(function(){
+            this.selected = true;
+        })
+    };
+
 }

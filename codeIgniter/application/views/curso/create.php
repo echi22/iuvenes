@@ -104,6 +104,7 @@ echo validation_errors();
             <div >
                 <div class="columna_ajustada">
                     <div class="columna_ajustada">
+                        
                         <select multiple="true" id="alumnos" name="alumnos" class="multiple_select_box select_box_alumnos">
                             <?php
                             foreach ($alumnos as $alumno) {
@@ -115,6 +116,9 @@ echo validation_errors();
                                 </option>
 <?php } ?>   
                         </select>
+                        <div style="clear: both"></div>
+                        <label for="filtro_alumno" style="display: inline">Nombre o DNI:</label><input id="filtro_alumno" type="text" onkeyup="cursosView.actualizarAlumnos($('#cursos'),$('#alumnos'))" onchange="cursosView.actualizarAlumnos($('#cursos'),$('#alumnos'))">
+                        
                     </div>
                     <div class="columna_ajustada valign-middle">
                         <input type="button" onclick="cursosView.selectMoveRows(document.form.alumnos,document.form.alumnos_seleccionados)" value="Agregar >>" style="display: block;"/>
@@ -130,7 +134,7 @@ echo validation_errors();
             </div>      
             <div style="clear: both"></div>
             <div class="row">
-                <button onclick="return alumnosView.submitForm('form',true)">Guardar</button>
+                <button onclick="cursosView.selectAllOptionsFromSelectbox('alumnos_seleccionados');return alumnosView.submitForm('form',true)">Guardar</button>
             </div>
         </div>
     </form>
