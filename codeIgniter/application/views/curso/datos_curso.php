@@ -1,4 +1,4 @@
-<script type="text/javascript" src="<?php echo base_url(); ?>js/AlumnosView.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>js/CursosView.js"></script>
 <script type="text/javascript">
       $(function() {
     $( "#tabs" ).tabs();});
@@ -15,7 +15,7 @@
             
         </ul>
         <div id="tabs-1">
-            <?php $this->load->view('alumno/modify'); ?>   
+            <?php $this->load->view('curso/modify'); ?>   
         </div>
         
     </div>

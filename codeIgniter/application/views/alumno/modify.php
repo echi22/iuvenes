@@ -70,7 +70,7 @@ function init(){
                 <div id="identificacion" class="row">
                     <div class="input">
                         <label for="cd_identificacion">Tipo Identificación:</label>
-                        <select id="cd_identificacion" name="identificacion_0_[cd_identificacion]" class="required">
+                        <select id="cd_identificacion" name="identificacion_0_[cd_identificacion]" class="required cd_identificacion">
                             {identificacion}
                             <option value="{id}">{ds_identificacion}</option>
                             {/identificacion}
@@ -78,7 +78,7 @@ function init(){
                     </div>
                     <div class="input">
                         <label for="ds_identificacion">Número:</label>
-                        <input type="text" id="ds_identificacion" name="identificacion_0_[numero_identificacion]" class="required"/>
+                        <input type="text" id="ds_identificacion" name="identificacion_0_[numero_identificacion]" class="required nu_identificacion"/>
                     </div>     
                     <?php if($i == 0){?>
                     <div class="input" id="icons">
@@ -275,7 +275,7 @@ function init(){
         </div>
                     
             <div class="row">
-                <button onclick="alumnosView.submitForm()">Guardar</button>
+                <button onclick="return alumnosView.submitForm('form',true)">Guardar</button>
             </div>
     </div>
     </form>

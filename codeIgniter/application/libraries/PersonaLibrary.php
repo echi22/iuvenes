@@ -109,4 +109,12 @@ class PersonaLibrary {
         }
         return $p;
     }
+    
+    public function person_exists($cd_identificacion,$nu_identificacion,$id_persona){
+        $p = new Persona();
+        $p->where_related('persona_identificacion','widentificacion_id',$cd_identificacion);
+        $p->where_related('persona_identificacion','numero_identificacion',$nu_identificacion);
+        $p->get();
+        return ($p != null && $p->id_persona != $id_persona);
+    }
 }

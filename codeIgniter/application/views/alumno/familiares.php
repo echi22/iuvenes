@@ -37,7 +37,7 @@
                 <td><textarea cols="10" rows="1"></textarea></td>
               
                 <td>
-                    <div class="no_edit<?php echo $vinculo->id; ?> ">
+                    <div class="no_edit_<?php echo $vinculo->id; ?> ">
                         <div id="icons" style="float: left">
                             <li class="ui-state-default ui-corner-all" title="Modificar" onclick="alumnosView.show_editable(<?php echo $vinculo->id; ?>);"><span class="ui-icon ui-icon-pencil" style="margin: 0 4px;"></span></li>
                         </div> 
@@ -45,7 +45,7 @@
                             <li class="ui-state-default ui-corner-all" title="Eliminar" onclick="alumnosView.deleteRelated(this,<?php echo $vinculo->id; ?>);"><span class="ui-icon ui-icon-trash" style="margin: 0 4px;"></span></li>
                         </div>    
                     </div>
-                    <div class="edit<?php echo $vinculo->id; ?> hidden">
+                    <div class="edit_<?php echo $vinculo->id; ?> hidden">
                         <div id="icons" style="float: left">
                             <li class="ui-state-default ui-corner-all" title="Guardar" onclick="alumnosView.edit_related(<?php echo $vinculo->id; ?>,<?php echo $alumno->persona->id; ?>);"><span class="ui-icon ui-icon-check" style="margin: 0 4px;"></span></li>
                         </div> 

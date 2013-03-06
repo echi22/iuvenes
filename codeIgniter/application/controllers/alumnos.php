@@ -15,20 +15,18 @@ class Alumnos extends CI_Controller {
                 $this->load->library('form_validation');    
                 $this->form_validation->set_rules('nombres', 'Nombres', 'required');
                 $this->form_validation->set_rules('apellidos', 'Apellidos', 'required');
-                $data = $this->personalibrary->get_create_view_data();
-                
-                
-                if ($this->form_validation->run() === FALSE)
-                {
-                        $this->load->view('templates/header');	
-                        $this->parser->parse('alumno/create',$data);
-                        $this->load->view('templates/footer');
+                $data = $this->personalibrary->get_create_view_data();  
+                $exists = $this->personalibrary->person_exists($_POST['identificacion_0_']['cd_identificacion'],$_POST['identificacion_0_']['nu_identificacion'],-1);
+                if ($this->form_validation->run() === FALSE || $exists)
+                {                    
+                    $this->load->view('templates/header');	
+                    $this->parser->parse('alumno/create',$data);
+                    $this->load->view('templates/footer');
                 }
                 else
-                {              
-                   $a = $this->save_data();
-                         
-                   redirect("alumnos/alumno_data/".$a->persona->id);
+                {                            
+                    $a = $this->save_data();                         
+                    redirect("alumnos/alumno_data/".$a->persona->id);
                 }
         }
         public function modify($id)
@@ -105,6 +103,7 @@ class Alumnos extends CI_Controller {
             $a->save($p);
             return $a;
         }
+                
         public function alumno_data($id){
             $this->load->helper('url');
             $a = new Alumno();
@@ -222,6 +221,10 @@ class Alumnos extends CI_Controller {
             $this->load->view('alumno/update_parent',$data);
             $this->load->view('templates/footer');
             
+        }
+        
+        public function alumno_exists($cd_identificacion,$nu_identificacion,$id_persona){             
+            echo $this->personalibrary->person_exists($cd_identificacion,$nu_identificacion,$id_persona);                                
         }
 }       
 ?>

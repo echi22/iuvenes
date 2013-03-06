@@ -181,17 +181,57 @@ function  AlumnosView(){
             color : "#FF8484"
         },200000);
         return msg;
+    };
+    this.alumno_exists = function(id_persona){
+        var cd_identificaciones = $(".cd_identificacion");
+        var nu_identificaciones = $(".nu_identificacion");
+        var exists = false;
+        for(var i = 0; i < cd_identificaciones.length; i++){
+            $.ajax({
+                url : '../alumno_exists/'+cd_identificaciones[i]+'/'+nu_identificaciones[i]+'/'+id_persona,
+                type: "POST",                
+                success : function(data){                                        
+                    exists = data == 'true';
+                }
+            });
+            if(exists)
+                break;
+        }
     }
     this.verificar_selectbox = function(msg,elem){    
         if ($(elem).val() == '-'){
             msg += ' - ';
             msg += $(elem).siblings('label').text().replace(':', '')+'\n';            
             $(elem).stop();
-            $(elem).animate({ backgroundColor: "#FF8484" }, 500);
+            $(elem).animate({backgroundColor: "#FF8484"}, 500);
             $(elem).effect("highlight",{
                 color : "#FF8484"
             },200000);
         }        
         return msg;
+    };
+    this.filtrarPrestaciones = function(){
+        var num_prestacion = 0;
+        for(var i = 0; i < parseInt($('#cant_prestaciones').val()); i++){
+            var hide = false;
+            num_prestacion = $('#prestacion'+i+'_id').val();
+            $(".filtro_igual").each(function(index,elm){
+                if((($(elm).val() !== $("#"+elm.id+"_"+num_prestacion).val()) || (hide)) && ($(elm).val() !== ""))
+                    hide = true;
+            })
+            $(".filtro_menor").each(function(index,elm){
+                if((($(elm).val() <= $("#"+elm.id+"_"+num_prestacion).val()) || (hide)) && (($("#"+elm.id+"_"+num_prestacion).val() !== '') && ($(elm).val() !== '')))
+                    hide = true;
+            })
+            $(".filtro_mayor").each(function(index,elm){
+                if(($(elm).val() >= $("#"+elm.id+"_"+num_prestacion).val()) || (hide))
+                    hide = true;
+            })
+            if(hide)
+                $("#prestacion"+i).hide();
+            else
+                $("#prestacion"+i).show();
+        }
     }
+    
 }

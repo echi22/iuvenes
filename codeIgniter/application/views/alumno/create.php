@@ -26,7 +26,7 @@ alumnosView = new AlumnosView();
             </div>
             <div class="input">
                 <label for="cd_identificacion">Tipo Identificación:</label>
-                <select id="cd_identificacion" name="identificacion_0_[cd_identificacion]" class="required">
+                <select id="cd_identificacion" name="identificacion_0_[cd_identificacion]" class="required cd_identificacion">
                     {identificacion}
                     <option value="{id}">{ds_identificacion}</option>
                     {/identificacion}
@@ -34,7 +34,7 @@ alumnosView = new AlumnosView();
             </div>
             <div class="input">
                 <label for="ds_identificacion">Número:</label>
-                <input type="text" id="ds_identificacion" name="identificacion_0_[numero_identificacion]" class="required"/>
+                <input type="text" id="ds_identificacion" name="identificacion_0_[numero_identificacion]" class="required nu_identificacion"/>
             </div>          
             <input type="hidden" name="cant_identificacion" value="1" />
 
@@ -89,7 +89,7 @@ alumnosView = new AlumnosView();
                     </div>
                     <div class="input">
                         <label for="num_casa">Número:</label>
-                        <input type="number" name="domicilio_0_[ds_numeral]" id="num_casa"/>
+                        <input type="number" name="domicilio_0_[ds_numeral]" id="num_casa" class="required"/>
                     </div>
                     <div class="input">
                         <label for="entre1">Entre:</label>
