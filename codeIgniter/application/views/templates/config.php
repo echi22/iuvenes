@@ -3,4 +3,7 @@ $this->load->helper('url');
 $img_path=base_url()."images/";
 $js_path=base_url()."js/";
 $css_path=base_url()."css/";
+define('IMG_PATH',$img_path);
+define('JS_PATH',$js_path);
+define('CSS_PATH',$css_path);
 ?>
