@@ -1,3 +1,10 @@
+<script type="text/javascript">
+    $(document).ready(function() 
+    { 
+        $("#myTable").tablesorter().tablesorterPager({container: $("#pager")}); 
+    } 
+); 
+</script>
 <div id="contenido">
     <form id="form" action="<?php echo base_url() . 'alumnos/buscar'; ?>" method="post">
         <div id="insert_form" class="content-center">
@@ -34,7 +41,7 @@
     </form>
     <?php if (isset($alumnos)) { ?>
 
-        <table class="content-center">
+    <table class="content-center tablesorter" id="myTable">
             <thead>
                 <tr class="table_header">
                     <th>Apellidos</th><th>Nombres</th><th>Identificación</th><th>Fecha de Nacimiento</th><th>Nacionalidad</th><th></th>
@@ -42,8 +49,8 @@
             </thead>
             <tbody>
                 <?php
-                $class = Array("odd","even");
-                foreach ($alumnos as $i=>$a) {                    
+                $class = Array("odd", "even");
+                foreach ($alumnos as $i => $a) {                    
                     ?>
                     <tr class="<?php echo $class[($i % 2)]; ?>">
                         <td><?php echo $a->persona->apellidos; ?></td>
@@ -54,7 +61,8 @@
                                 if ($identificacion->principal) {
                                     ?>                   
                                     <?php echo $identificacion->widentificacion->ds_identificacion . " " . $identificacion->numero_identificacion; ?></br>
-                                <?php }
+                                <?php
+                                }
                             }
                             ?>
                         </td>
@@ -68,7 +76,8 @@
     <?php } ?>
             </tbody>
         </table>
-
+        <div style="clear: both"></div>
+        <?php include('application/views/templates/pager.php'); ?>
 <?php } ?> 
 
 </div>

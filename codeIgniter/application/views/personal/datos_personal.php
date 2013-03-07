@@ -21,6 +21,6 @@
             <?php $this->load->view('personal/prestaciones'); ?>
         </div>
         <div id="tabs-3">
-            <?php //$this->load->view('personas_vinculadas'); ?>
+            <?php $this->load->view('personal/licencias'); ?>
         </div>
     </div>
