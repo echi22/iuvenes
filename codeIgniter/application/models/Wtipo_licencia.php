@@ -12,7 +12,6 @@
  */
 class Wtipo_licencia extends DataMapper{
      var $table = 'wtipo_licencia';
-     var $has_many = array('licencia');
      function __construct($id = NULL)
         {
             parent::__construct($id);

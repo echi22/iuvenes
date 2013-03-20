@@ -12,7 +12,7 @@
  */
 class Orientation extends DataMapper{
     var $table = 'orientation';
-    var $has_many= array('curso');
+    var $has_many= array('anio_nivel');
      function __construct($id = NULL)
         {
             parent::__construct($id);

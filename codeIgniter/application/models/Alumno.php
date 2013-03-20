@@ -11,31 +11,32 @@
  * @author echi
  */
 class Alumno extends DataMapper {
+
     var $table = 'alumno';
-    var $has_one = array("persona","establecimiento");
+    var $has_one = array("persona", "establecimiento");
     var $has_many = array("curso");
-    
-    function __construct($id = NULL)
-    {
+
+    function __construct($id = NULL) {
         parent::__construct($id);
     }
-    
-    function get_identificacion_principal(){
-         return $this->persona->persona_identificacion->where('principal',1)->get();
+
+    function get_identificacion_principal() {
+        return $this->persona->persona_identificacion->where('principal', 1)->get();
     }
-    
-     function include_all_related(){
-        foreach($this->has_one as $h){
+
+    function include_all_related() {
+        foreach ($this->has_one as $h) {
             $this->include_related($h['class']);
         }
-        
+
         return $this;
     }
-    
-    function detalle(){
+
+    function detalle() {
         $identificacion = $this->get_identificacion_principal();
         return $this->persona->apellidos . " " . $this->persona->nombres . " - " . $identificacion->widentificacion->ds_identificacion . " " . $identificacion->numero_identificacion;
     }
+
 }
 
 ?>

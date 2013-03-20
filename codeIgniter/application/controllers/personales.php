@@ -83,18 +83,22 @@ class Personales extends CI_Controller {
     public function personal_data($id) {
         $this->load->helper('url');
         $a = new Personal();
-        $a->where('persona_id', $id)->get();
+        $a->where('persona_id', $id)->include_all_related()->get();
         $data = $this->personalibrary->get_create_view_data();
         $this->load->model('Prestacion');
         $this->load->model('Cargo');
         $this->load->model('Tipo_liquidacion_sueldo');
         $this->load->model('Wsituacion_revista');
+        $this->load->model('Personal_licencia');
+        $this->load->model('Wtipo_licencia');
         $data['liquidacion_sueldo'] = new Tipo_liquidacion_sueldo();
         $data['liquidacion_sueldo']->get();
         $data['wsituacion_revista'] = new Wsituacion_revista();
         $data['wsituacion_revista']->get();
         $data['cargo'] = new Cargo();
         $data['cargo']->get();
+        $data['tipo_licencia'] = new Wtipo_licencia();
+        $data['tipo_licencia']->get();
         $data['personal'] = $a;
         $this->load->view('templates/header');
         $this->parser->parse('personal/datos_personal', $data);
@@ -133,7 +137,7 @@ class Personales extends CI_Controller {
     public function addLicencia($id) {
         $this->load->helper('form');
         $this->load->helper('url');
-        $this->load->model('Licencium');
+        $this->load->model('Personal_licencia');
         $this->load->model('Wtipo_licencia');
         $this->form_validation->set_rules('dt_inicio', 'dt_inicio', 'required');
         $data['tipo_licencia'] = new Wtipo_licencia();
@@ -146,28 +150,25 @@ class Personales extends CI_Controller {
             $this->load->view('personal/nueva_licencia', $data);
             $this->load->view('templates/footer');
         } else {
-            $licencia = new Licencium();
+            $licencia = new Personal_licencia();
             $this->save_licencia_data($licencia, $_POST);
             redirect("personales/personal_data/" . $prestacion->personal->persona->id);
         }
     }
-    
+
     public function save_licencia_data($licencia, $data) {
 
-        $licencia->from_array($data, '', false);        
-        $tipo_licencia = new Wtipo_licencia();
-        $tipo_licencia->where('id', $data['tp_licencia'])->get();        
+        $licencia->from_array($data, '', false);
         $personal = new Personal();
         $personal->where('persona_id', $data['persona_id'])->get();
-        $licencia->save(array($personal, $tipo_licencia));
-        foreach ($prestaciones as $i => $value) {
-            $prestacion = new Prestacion();
-            $prestacion->where('id',$i)->get();
-            $licencia->save($prestacion);
+        $licencia->save(array($personal));
+        foreach ($_POST['prestacion'] as $i => $value) {
+            $sql = "INSERT INTO personal_licencia_prestacion_personal (personal_licencium_id, prestacion_id) values (" . $licencia->id . "," . $i . ")";
+            $query = mysql_query($sql);
         }
         return $licencia;
     }
-    
+
     public function save_prestacion_data($prestacion, $data) {
 
         $prestacion->from_array($data, '', false);
@@ -201,10 +202,26 @@ class Personales extends CI_Controller {
         echo json_encode($data);
     }
 
+    public function edit_licencia() {
+        $licencia = new Personal_licencia();
+        $licencia->where('id', $_POST['licencia_id'])->get();
+        $licencia = $this->save_licencia_data($licencia, $_POST);
+        $data['dt_inicio'] = $licencia->dt_inicio;
+        $data['dt_fin'] = $licencia->dt_fin;
+        $data['tipo_licencia'] = $licencia->getTipoLicencia()->detalle;
+        echo json_encode($data);
+    }
+
     public function delete_prestacion() {
         $prestacion = new Prestacion();
         $prestacion->where('id', $_POST['prestacion_id'])->get();
         $prestacion->delete();
+    }
+
+    public function delete_licencia() {
+        $licencia = new Personal_licencia();
+        $licencia->where('id', $_POST['licencia_id'])->get();
+        $licencia->delete();
     }
 
     public function buscar() {

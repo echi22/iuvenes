@@ -10,10 +10,9 @@
  *
  * @author echi
  */
-class Licencia extends DataMapper {
-    var $table = 'personal_licencia';
-    var $has_one = array("personal","wtipo_licencia");
-    var $has_many = array("prestacion");
+class Anio_nivel extends DataMapper {
+    var $table = 'anio_nivel';
+    var $has_one = array("nivel_educativo","orientation");
     
     function __construct($id = NULL)
     {

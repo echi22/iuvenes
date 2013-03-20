@@ -12,7 +12,7 @@
  */
 class Wtipo_telefono extends DataMapper{
      var $table = 'wtipo_telefono';
-     var $has_many = array('telefono');
+     var $has_many = array('telefono','personal_licencia');
      function __construct($id = NULL)
         {
             parent::__construct($id);

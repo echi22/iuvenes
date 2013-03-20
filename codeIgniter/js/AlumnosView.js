@@ -4,9 +4,9 @@ function  AlumnosView(){
         contenido.find("input").each(
             function(){
                 $(this).val("");
-        });
+            });
         contenido.find("#agregarTelefono").replaceWith(
-                    '<li class="ui-state-default ui-corner-all" title="Eliminar" id="eliminarTelefono" onclick="alumnosView.deletePhone(this);"><span class="ui-icon ui-icon-close" style="margin: 0 4px;"></span></li>');
+            '<li class="ui-state-default ui-corner-all" title="Eliminar" id="eliminarTelefono" onclick="alumnosView.deletePhone(this);"><span class="ui-icon ui-icon-close" style="margin: 0 4px;"></span></li>');
         $("#telefonosContainer").append(contenido);
     };
     this.deletePhone = function(elem){
@@ -32,7 +32,7 @@ function  AlumnosView(){
                 type: "POST",
                 data : 'vinculo_id='+vinculo_id,
                 success : function(){
-                        $(elem).closest('.familiar').remove();                   
+                    $(elem).closest('.familiar').remove();                   
                 }           
             });
         }
@@ -45,28 +45,39 @@ function  AlumnosView(){
                 type: "POST",
                 data : 'prestacion_id='+prestacion_id,
                 success : function(){
-                        $(elem).closest('.prestacion').remove();                   
+                    $(elem).closest('.prestacion').remove();                   
                 }           
             });
         }
     };
-    
-     this.addRow = function(rowId,rowContainerId){
+    this.delete_licencia = function(elem,licencia_id){
+        if(confirm('¿Está seguro que desea eliminar esta licencia?')){
+            $.ajax({
+                url : '../delete_licencia',
+                type: "POST",
+                data : 'licencia_id='+licencia_id,
+                success : function(){
+                    $(elem).closest('.licencia').remove();                   
+                }           
+            });
+        }
+    };
+    this.addRow = function(rowId,rowContainerId){
         var contenido = $("#"+rowId).clone();
         contenido.find("input").each(
             function(){
                 $(this).val("");
-        });
+            });
         contenido.find('input, textarea, select').each(function(){
             var splitedName = $(this).attr('name').split("_");
             var nameForward = splitedName[0];
             var nameBack = splitedName.slice(2).join("_");
-           $(this).attr('name', nameForward+'_'+$('#cant_'+rowId).val()+'_'+nameBack);
-           $(this).val('');
+            $(this).attr('name', nameForward+'_'+$('#cant_'+rowId).val()+'_'+nameBack);
+            $(this).val('');
         });
         $('#cant_'+rowId).val(parseInt($('#cant_'+rowId).val()) +1);
         contenido.find("#agregar_"+rowId).replaceWith(
-                    '<li class="ui-state-default ui-corner-all" title="Eliminar"  onclick="alumnosView.deleteRow(this,\''+rowId+'\');"><span class="ui-icon ui-icon-close" style="margin: 0 4px;"></span></li>');
+            '<li class="ui-state-default ui-corner-all" title="Eliminar"  onclick="alumnosView.deleteRow(this,\''+rowId+'\');"><span class="ui-icon ui-icon-close" style="margin: 0 4px;"></span></li>');
         $("#"+rowContainerId).append(contenido);
     };
     this.setSelectedIndex = function(value,selectBoxId){
@@ -94,17 +105,17 @@ function  AlumnosView(){
         var parentesco = $("#parentesco"+vinculo_id).val();
         var autorizado = $("#autorizado"+vinculo_id).is(':checked');
         var av = this;
-         $.ajax({
-                url : '../edit_relative',
-                type: "POST",
-                data : 'vinculo_id='+vinculo_id+'&parentesco='+parentesco+'&autorizado='+autorizado,
-                success : function(data){
-                    data = jQuery.parseJSON(data);
-                    $("#parentesco_no_edit"+vinculo_id).html(data[0]);
-                    $("#autorizado_no_edit"+vinculo_id).html(data[1]);
-                    av.hide_editable(vinculo_id);
-                }           
-            });
+        $.ajax({
+            url : '../edit_relative',
+            type: "POST",
+            data : 'vinculo_id='+vinculo_id+'&parentesco='+parentesco+'&autorizado='+autorizado,
+            success : function(data){
+                data = jQuery.parseJSON(data);
+                $("#parentesco_no_edit"+vinculo_id).html(data[0]);
+                $("#autorizado_no_edit"+vinculo_id).html(data[1]);
+                av.hide_editable(vinculo_id);
+            }           
+        });
     };
     this.edit_prestacion = function(prestacion_id,persona_id){
         var cargo = $("#cargo_"+prestacion_id).val();
@@ -118,36 +129,55 @@ function  AlumnosView(){
         var asig_familiar = $("#asig_familiar_"+prestacion_id).val();
         var porc_asig_familiar = $("#porc_asig_familiar_"+prestacion_id).val();
         var av = this;
-         $.ajax({
-                url : '../edit_prestacion',
-                type: "POST",
-                data : 'prestacion_id='+prestacion_id+'&persona_id='+persona_id+'&cargo='+cargo+'&dt_inicio='+dt_inicio+'&dt_fin='+dt_fin+'&estado='+estado+'&qt_horas='+carga_horaria+'&nu_secuencia='+nu_secuencia+'&tp_liq_sueldo='+tp_liq_sueldo+'&revista='+revista+'&asig_familiar='+asig_familiar+'&porc_asig_familiar='+porc_asig_familiar,
-                success : function(data){
-                    data = jQuery.parseJSON(data);
-                    $("#cargo_no_edit_"+prestacion_id).html(data['cargo']);
-                    $("#dt_inicio_no_edit_"+prestacion_id).html(data['dt_inicio']);
-                    $("#dt_fin_no_edit_"+prestacion_id).html(data['dt_fin']);
-                    $("#estado_no_edit_"+prestacion_id).html(data['estado']);
-                    $("#carga_horaria_no_edit_"+prestacion_id).html(data['qt_horas']);
-                    $("#nu_secuencia_no_edit_"+prestacion_id).html(data['nu_secuencia']);
-                    $("#tp_liq_sueldo_no_edit_"+prestacion_id).html(data['tp_liq_sueldo']);
-                    $("#revista_no_edit_"+prestacion_id).html(data['revista']);
-                    $("#asig_familiar_no_edit_"+prestacion_id).html(data['asig_familiar']);
-                    $("#porc_asig_familiar_no_edit_"+prestacion_id).html(data['porc_asig_familiar']);
+        $.ajax({
+            url : '../edit_prestacion',
+            type: "POST",
+            data : 'prestacion_id='+prestacion_id+'&persona_id='+persona_id+'&cargo='+cargo+'&dt_inicio='+dt_inicio+'&dt_fin='+dt_fin+'&estado='+estado+'&qt_horas='+carga_horaria+'&nu_secuencia='+nu_secuencia+'&tp_liq_sueldo='+tp_liq_sueldo+'&revista='+revista+'&asig_familiar='+asig_familiar+'&porc_asig_familiar='+porc_asig_familiar,
+            success : function(data){
+                data = jQuery.parseJSON(data);
+                $("#cargo_no_edit_"+prestacion_id).html(data['cargo']);
+                $("#dt_inicio_no_edit_"+prestacion_id).html(data['dt_inicio']);
+                $("#dt_fin_no_edit_"+prestacion_id).html(data['dt_fin']);
+                $("#estado_no_edit_"+prestacion_id).html(data['estado']);
+                $("#carga_horaria_no_edit_"+prestacion_id).html(data['qt_horas']);
+                $("#nu_secuencia_no_edit_"+prestacion_id).html(data['nu_secuencia']);
+                $("#tp_liq_sueldo_no_edit_"+prestacion_id).html(data['tp_liq_sueldo']);
+                $("#revista_no_edit_"+prestacion_id).html(data['revista']);
+                $("#asig_familiar_no_edit_"+prestacion_id).html(data['asig_familiar']);
+                $("#porc_asig_familiar_no_edit_"+prestacion_id).html(data['porc_asig_familiar']);
                     
-                    av.hide_editable(prestacion_id);
-                }           
-            });
+                av.hide_editable(prestacion_id);
+            }           
+        });
+    };
+    this.edit_licencia = function(licencia_id,persona_id){        
+        var dt_inicio = $("#dt_inicio_"+licencia_id).val();
+        var dt_fin = $("#dt_fin_"+licencia_id).val();
+        var tipo_licencia = $("#tp_licencia_"+licencia_id).val();
+        var av = this;
+        $.ajax({
+            url : '../edit_licencia',
+            type: "POST",
+            data : 'licencia_id='+licencia_id+'&persona_id='+persona_id+'&dt_inicio='+dt_inicio+'&dt_fin='+dt_fin+'&tipo_licencia='+tipo_licencia,
+            success : function(data){
+                data = jQuery.parseJSON(data);
+                $("#dt_inicio_no_edit_"+licencia_id).html(data['dt_inicio']);
+                $("#dt_fin_no_edit_"+licencia_id).html(data['dt_fin']);                   
+                $("#tp_licencia_no_edit_"+licencia_id).html(data['tipo_licencia']);
+                    
+                av.hide_editable(licencia_id);
+            }           
+        });
     };
     this.createRelative = function(){
         var url = "../personas/create/true";
         var form = $('<form action="' + url + '" method="post">' +
-        '<input type="text" name="nombres" value="' + $('#nombres').val() + '" />' +
-        '<input type="text" name="apellidos" value="' + $('#apellidos').val() + '" />' +
-        '<input type="text" name="cd_identificacion" value="' + $('#cd_identificacion').val() + '" />' +
-        '<input type="text" name="nu_identificacion" value="' + $('#numero_identificacion').val() + '" />' +
-        '<input type="text" name="form_submited" value="0" />' +
-        '</form>');
+            '<input type="text" name="nombres" value="' + $('#nombres').val() + '" />' +
+            '<input type="text" name="apellidos" value="' + $('#apellidos').val() + '" />' +
+            '<input type="text" name="cd_identificacion" value="' + $('#cd_identificacion').val() + '" />' +
+            '<input type="text" name="nu_identificacion" value="' + $('#numero_identificacion').val() + '" />' +
+            '<input type="text" name="form_submited" value="0" />' +
+            '</form>');
         $('body').append(form);
         $(form).submit();
     };
@@ -155,15 +185,15 @@ function  AlumnosView(){
         var msg = 'Le falta llenar los siguientes campos:\n';
         var av = this;
         $('#'+id).find('.required').each(
-        function(){            
-            $(this).css("background-color", "white");
-            if ($(this).is("input") && ($(this).val() == '')){
-                msg = av.verificar_input(msg, this);
-            }else{
-                if($(this).is("select") && ($(this).val() == '-'))
-                    msg = av.verificar_selectbox(msg,this);
-            }                       
-        });
+            function(){            
+                $(this).css("background-color", "white");
+                if ($(this).is("input") && ($(this).val() == '')){
+                    msg = av.verificar_input(msg, this);
+                }else{
+                    if($(this).is("select") && ($(this).val() == '-'))
+                        msg = av.verificar_selectbox(msg,this);
+                }                       
+            });
         if(msg=='Le falta llenar los siguientes campos:\n'){
             if (enviar)
                 $('#'+id).submit();
@@ -203,7 +233,9 @@ function  AlumnosView(){
             msg += ' - ';
             msg += $(elem).siblings('label').text().replace(':', '')+'\n';            
             $(elem).stop();
-            $(elem).animate({backgroundColor: "#FF8484"}, 500);
+            $(elem).animate({
+                backgroundColor: "#FF8484"
+            }, 500);
             $(elem).effect("highlight",{
                 color : "#FF8484"
             },200000);

@@ -13,17 +13,17 @@
 class Curso extends DataMapper{
     var $table = 'curso';
     var $has_many = array('alumno','personal');
-    var $has_one = array('establecimiento','orientation','nivel_educativo');
+    var $has_one = array('establecimiento','anio_nivel');
     function __construct($id = NULL)
        {
            parent::__construct($id);
        }
     function detalle(){
-        $det = $this->year." ".$this->ds_seccion." ";
-        if($this->orientation != null){
-            $det .= $this->orientation->ds_orientacion;
+        $det = $this->anio_nivel->ds_anio." ".$this->ds_seccion." ";
+        if($this->anio_nivel->orientation != null){
+            $det .= $this->anio_nivel->orientation->ds_orientacion;
         }
-        $det .= " - ".$this->nivel_educativo->ds_nivel;        
+        $det .= " - ".$this->anio_nivel->id_nivel->ds_nivel;        
         return $det;
     }
     
