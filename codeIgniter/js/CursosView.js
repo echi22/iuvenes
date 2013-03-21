@@ -47,13 +47,13 @@ function  CursosView(){
             }
         }
     };
-    this.actualizarAlumnos = function(selectbox, multiple_selectbox){
+    this.actualizarAlumnos = function(selectbox, multiple_selectbox,current_curso){
         $(multiple_selectbox).children().remove();
         var cv = this;
         $.ajax({
-                url : 'get_alumnos_from_curso',
+                url : '../get_alumnos_from_curso',
                 type: "POST",
-                data : {"id":$(selectbox).val()},
+                data : {"id":$(selectbox).val(),'current_curso':current_curso},
                 async: false,
                 success : function(res) {
                             cv.listadoAlumnos = new Array();
@@ -81,6 +81,30 @@ function  CursosView(){
         $("#"+selectbox_id+">option").each(function(){
             this.selected = true;
         })
+    };
+     this.setSelectedIndex = function(value,selectBoxId){
+    
+        $("#"+selectBoxId).find("option").each(function(i,elem){
+            if(elem.label == value){
+                elem.selected = true;             
+            }
+        });
+        
+    };
+    this.setSelectedIndexByValue = function(value,selectBoxId){
+        $("#"+selectBoxId).val(value);
+    };
+    this.deleteAlumno = function(elem,alumno_id,curso_id){
+        if(confirm('¿Está seguro que desea eliminar al alumno de este curso?')){
+            $.ajax({
+                url : '../delete_alumno',
+                type: "POST",
+                data : {'alumno_id':alumno_id,'curso_id':curso_id},
+                success : function(){
+                    $(elem).closest('.alumno').remove();                   
+                }           
+            });
+        }
     };
 
 }

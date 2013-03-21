@@ -23,7 +23,7 @@ class Curso extends DataMapper{
         if($this->anio_nivel->orientation != null){
             $det .= $this->anio_nivel->orientation->ds_orientacion;
         }
-        $det .= " - ".$this->anio_nivel->id_nivel->ds_nivel;        
+        $det .= " - ".$this->anio_nivel->nivel_educativo->ds_nivel;        
         return $det;
     }
     
