@@ -15,8 +15,8 @@ class Alumnos extends CI_Controller {
                 $this->load->library('form_validation');    
                 $this->form_validation->set_rules('nombres', 'Nombres', 'required');
                 $this->form_validation->set_rules('apellidos', 'Apellidos', 'required');
-                $data = $this->personalibrary->get_create_view_data();  
-                $exists = $this->personalibrary->person_exists($_POST['identificacion_0_']['cd_identificacion'],$_POST['identificacion_0_']['nu_identificacion'],-1);
+                $data = $this->personalibrary->get_create_view_data();                  
+                $exists = $this->personalibrary->person_exists($_POST['identificacion_0_']['cd_identificacion'],$_POST['identificacion_0_']['numero_identificacion'],-1);                
                 if ($this->form_validation->run() === FALSE || $exists)
                 {                    
                     $this->load->view('templates/header');	

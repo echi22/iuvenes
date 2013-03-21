@@ -30,16 +30,16 @@
                     $("#cursos").children().end().append(newoptions);
                 }           
             });
-            cursosView.actualizarAlumnos($("#cursos"),$('#alumnos'),<?php echo $curso->id; ?>);
+            cursosView.actualizarAlumnos($("#años_cursos").val(),$("#cursos"),$('#alumnos'),<?php echo $curso->id; ?>);
         });
-        cursosView.actualizarAlumnos($("#cursos"),$('#alumnos'),<?php echo $curso->id; ?>);
+        cursosView.actualizarAlumnos($("#años_cursos").val(),$("#cursos"),$('#alumnos'),<?php echo $curso->id; ?>);
     }
 </script>
 <form name="form1"  action="<?php echo base_url() . 'cursos/save_alumnos/' . $curso->id; ?>" id="form1" method="post">    
 
     <div >
         <div class="subtitle">
-            Alumnos:
+            Cursos:
         </div>
         <div class="row">
             <div class="columna_ajustada">
@@ -53,7 +53,7 @@
             </div>
             <div class="columna_ajustada">
 
-                <select id="cursos" onchange="cursosView.actualizarAlumnos(this,$('#alumnos'))">
+                <select id="cursos" onchange="cursosView.actualizarAlumnos($('#años_cursos').val(),$('#cursos'),$('#alumnos'),<?php echo $curso->id; ?>)">
 
                 </select>
             </div>
@@ -75,12 +75,12 @@
                     <?php } ?>   
                 </select>
                 <div style="clear: both"></div>
-                <label for="filtro_alumno" style="display: inline">Nombre o DNI:</label><input id="filtro_alumno" type="text" onkeyup="cursosView.actualizarAlumnos($('#cursos'),$('#alumnos'),<?php echo $curso->id; ?>)" onchange="cursosView.actualizarAlumnos($('#cursos'),$('#alumnos'))">
+                <label for="filtro_alumno" style="display: inline">Nombre o DNI:</label><input id="filtro_alumno" type="text" onkeyup="cursosView.actualizarAlumnos($('#años_cursos').val(),$('#cursos'),$('#alumnos'),<?php echo $curso->id; ?>)" onchange="cursosView.actualizarAlumnos($('#cursos'),$('#alumnos'))">
 
             </div>
             <div class="columna_ajustada valign-middle">
-                <input type="button" onclick="cursosView.selectMoveRows(document.getElementById('alumnos'),document.getElementById('alumnos_seleccionados'))" value="Agregar >>" style="display: block;"/>
-                <input type="button" onclick="cursosView.selectMoveRows(document.getElementById('alumnos_seleccionados'),document.getElementById('alumnos'))" value="<< Quitar" style="display: block;"/>
+                <input type="button" onclick="cursosView.selectMoveRows(document.getElementById('alumnos'),document.getElementById('alumnos_seleccionados'),cursosView.alumnosSelected,cursosView.listadoAlumnos)" value="Agregar >>" style="display: block;"/>
+                <input type="button" onclick="cursosView.selectMoveRows(document.getElementById('alumnos_seleccionados'),document.getElementById('alumnos'),cursosView.alumnosSelected,cursosView.listadoAlumnos)" value="<< Quitar" style="display: block;"/>
             </div>
         </div>
         <div class="columna_ajustada">

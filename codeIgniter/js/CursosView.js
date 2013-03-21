@@ -1,7 +1,9 @@
 function  CursosView(){
     this.alumnosSelected = new Array();
     this.listadoAlumnos = new Array();
-    this.selectMoveRows = function(SS1,SS2)
+    this.prestacionesSelected = new Array();
+    this.listadoPrestaciones = new Array();
+    this.selectMoveRows = function(SS1,SS2,selected,listado)
     {        
         var SelID='';
         var SelText='';
@@ -10,18 +12,18 @@ function  CursosView(){
         {
             if (SS1.options[i].selected == true)
             {
-               if(this.alumnoIsInArray(SS1.options[i].value,this.listadoAlumnos)){
+                if(this.isInArray(SS1.options[i].value,listado)){
                     SelID=SS1.options[i].value;
                     SelText=SS1.options[i].text;
                     var newRow = new Option(SelText,SelID);
                     SS2.options[SS2.length]=newRow;
                     if(SS1.id == 'alumnos'){
-                        this.alumnosSelected.push(SS1.options[i].value);
+                        selected.push(SS1.options[i].value);
                     }else{
-                        this.alumnosSelected.splice(this.alumnosSelected.indexOf(SS1.options[i].value), 1);
+                        selected.splice(selected.indexOf(SS1.options[i].value), 1);
                     }
-               }
-               SS1.options[i]=null;
+                }
+                SS1.options[i]=null;
             }
         }
         this.selectSort(SS2);
@@ -47,30 +49,56 @@ function  CursosView(){
             }
         }
     };
-    this.actualizarAlumnos = function(selectbox, multiple_selectbox,current_curso){
+    this.actualizarAlumnos = function(años_cursos,selectbox, multiple_selectbox,current_curso){
         $(multiple_selectbox).children().remove();
         var cv = this;
         $.ajax({
-                url : '../get_alumnos_from_curso',
-                type: "POST",
-                data : {"id":$(selectbox).val(),'current_curso':current_curso},
-                async: false,
-                success : function(res) {
-                            cv.listadoAlumnos = new Array();
-                            res = jQuery.parseJSON(res);                            
-                            var newoptions = "";
-                            for(var i=0; i<res.length; i++) {
-                                cv.listadoAlumnos[i] = res[i]['id'];                            
-                                if((!cv.alumnoIsInArray(res[i]['id'],cv.alumnosSelected)) && ($("#filtro_alumno").val() == "" || (res[i]['detalle'].toUpperCase().indexOf($("#filtro_alumno").val().toUpperCase()) !== -1)))
-                                    newoptions += "<option value=\"" + res[i]['id'] + "\">" + res[i]['detalle'] + "</option>";
-                            }
-                            $(multiple_selectbox).children().end().append(newoptions);
+            url : '../get_alumnos_from_curso',
+            type: "POST",
+            data : {
+                "id":$(selectbox).val(),
+                'current_curso':current_curso,
+                'anio_cursos':años_cursos
+            },
+            async: false,
+            success : function(res) {
+                cv.listadoAlumnos = new Array();
+                res = jQuery.parseJSON(res);                            
+                var newoptions = "";
+                for(var i=0; i<res.length; i++) {
+                    cv.listadoAlumnos[i] = res[i]['id'];                            
+                    if((!cv.isInArray(res[i]['id'],cv.alumnosSelected)) && ($("#filtro_alumno").val() == "" || (res[i]['detalle'].toUpperCase().indexOf($("#filtro_alumno").val().toUpperCase()) !== -1)))
+                        newoptions += "<option value=\"" + res[i]['id'] + "\">" + res[i]['detalle'] + "</option>";
+                }
+                $(multiple_selectbox).children().end().append(newoptions);
                             
-                        }           
-            });
+            }           
+        });
        
     };
-    this.alumnoIsInArray = function(id_alumno,list){
+    this.actualizarPrestaciones = function(prestaciones){
+        $(prestaciones).children().remove();
+        var cv = this;
+        $.ajax({
+            url : '../get_prestaciones',
+            type: "POST",           
+            async: false,
+            success : function(res) {
+                cv.listadoPrestaciones = new Array();
+                res = jQuery.parseJSON(res);                            
+                var newoptions = "";
+                for(var i=0; i<res.length; i++) {
+                    cv.listadoPrestaciones[i] = res[i]['id'];                            
+                    if((!cv.isInArray(res[i]['id'],cv.prestacionesSelected)) && ($("#filtro_prestacion").val() == "" || (res[i]['detalle'].toUpperCase().indexOf($("#filtro_prestacion").val().toUpperCase()) !== -1)))
+                        newoptions += "<option value=\"" + res[i]['id'] + "\">" + res[i]['detalle'] + "</option>";
+                }
+                $(prestaciones).children().end().append(newoptions);
+                            
+            }           
+        });
+       
+    };
+    this.isInArray = function(id_alumno,list){
         for(var i=0; i <list.length; i++) {                                
             if(list[i] == id_alumno)
                 return true;
@@ -82,7 +110,7 @@ function  CursosView(){
             this.selected = true;
         })
     };
-     this.setSelectedIndex = function(value,selectBoxId){
+    this.setSelectedIndex = function(value,selectBoxId){
     
         $("#"+selectBoxId).find("option").each(function(i,elem){
             if(elem.label == value){
@@ -99,7 +127,10 @@ function  CursosView(){
             $.ajax({
                 url : '../delete_alumno',
                 type: "POST",
-                data : {'alumno_id':alumno_id,'curso_id':curso_id},
+                data : {
+                    'alumno_id':alumno_id,
+                    'curso_id':curso_id
+                },
                 success : function(){
                     $(elem).closest('.alumno').remove();                   
                 }           

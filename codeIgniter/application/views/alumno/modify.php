@@ -230,7 +230,7 @@ function init(){
                                     <input type="number" name="telefono[]"  id="telefono" value="<?php echo $telefono->nu_tel; ?>" >                
                                 </div>
                                 <div class="input">
-                                    <select id="tipo_telefono<?php echo $i; ?>" name="tipo_tel[]" >
+                                    <select id="tipo_telefono_<?php echo $i; ?>" name="tipo_tel[]" >
                                         {telefono}
                                         <option value="{id}">{tipo_telefono}</option>
                                         {/telefono}
@@ -247,7 +247,7 @@ function init(){
                             <?php } ?>
                         </div>
                         <script type="text/javascript">
-                            alumnosView.setSelectedIndexByValue('<?php echo $telefono->wtipo_telefono->tipo_telefono; ?>','tipo_telefono_<?php echo $i; ?>');
+                            alumnosView.setSelectedIndexByValue('<?php echo $telefono->wtipo_telefono->id; ?>','tipo_telefono_<?php echo $i; ?>');
                         </script>
              <?php $i++;
              

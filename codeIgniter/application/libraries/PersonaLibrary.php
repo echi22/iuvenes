@@ -90,7 +90,7 @@ class PersonaLibrary {
         $telefono = $CI->input->post('telefono');
         for($i = 0; $i < count($cod_area); $i++){
             $t = new Telefono();
-            $t->wtipo_telefono_id = $tipo_tel[$i];
+            $t->wtipo_telefono_id = $tipo_tel[$i];            
             $t->nu_area = $cod_area[$i];
             $t->nu_tel  = $telefono[$i];
             $t->save($p);
@@ -115,6 +115,6 @@ class PersonaLibrary {
         $p->where_related('persona_identificacion','widentificacion_id',$cd_identificacion);
         $p->where_related('persona_identificacion','numero_identificacion',$nu_identificacion);
         $p->get();
-        return ($p != null && $p->id_persona != $id_persona);
+        return ($p->id != null && $p->id_persona != $id_persona);
     }
 }

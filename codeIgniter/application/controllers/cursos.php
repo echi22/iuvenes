@@ -127,8 +127,16 @@ class Cursos extends CI_Controller {
     function get_alumnos_from_curso() {
         $c = new Curso();
         if ($_POST['id'] == "") {
-            $get_alumnos = new Alumno();
-            $alumnos = $get_alumnos->not_like_related('curso','id',$_POST['current_curso'])->include_all_related()->order_by('persona_apellidos', 'persona_nombres')->get();
+            if($_POST['anio_cursos'] == "Todos"){
+                $get_alumnos = new Alumno();
+                $subq = new Alumno();
+                $subq->select('id')->where_related('curso','id',$_POST['current_curso']);
+                $alumnos = $get_alumnos->include_all_related()->where_not_in_subquery('id',$subq)->order_by('persona_apellidos', 'persona_nombres')->get();            
+            }else{
+                $c->where('id_ciclo_lectivo',$_POST['anio_cursos'])->where('id !=',$_POST[current_curso])->get();
+                $c->alumno->include_all_related()->order_by('persona_apellidos', 'persona_nombres')->get();
+                $alumnos = $c->alumno;
+            }
         } else {
             $c->where('id', $_POST['id'])->get();
             $c->alumno->include_all_related()->order_by('persona_apellidos', 'persona_nombres')->get();
