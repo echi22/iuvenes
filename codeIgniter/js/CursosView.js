@@ -137,5 +137,35 @@ function  CursosView(){
             });
         }
     };
-
+    this.deletePrestacion = function(elem,alumno_id,curso_id){
+        var cv = this;
+        if(confirm('¿Está seguro que desea eliminar la prestación de este curso?')){
+            $.ajax({
+                url : '../delete_prestacion',
+                type: "POST",
+                data : {
+                    'prestacion_id':alumno_id,
+                    'curso_id':curso_id
+                },
+                success : function(){
+                    $(elem).closest('.prestacion').remove();
+                    cv.actualizarPrestaciones($("#prestaciones"));
+                }           
+            });
+        }
+    };
+   
+    this.saveHorarios = function(curso_id){
+        $.ajax({
+                url : '../save_horarios',
+                type: "POST",
+                data : {
+                    'table':$("#table").html(),
+                    'curso_id':curso_id
+                },
+                success : function(){
+                    alert("Horarios guardados exitosamente");
+                }           
+            });
+    }
 }

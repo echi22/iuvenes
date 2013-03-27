@@ -236,13 +236,13 @@ class Personales extends CI_Controller {
             if ($this->input->post('cd_identificacion') <> "")
                 $identificacion->where('widentificacion_id', $this->input->post('cd_identificacion'));
             if ($this->input->post('numero_identificacion') <> "")
-                $identificacion->where('numero_identificacion', $this->input->post('numero_identificacion'));
+                $identificacion->like('numero_identificacion', $this->input->post('numero_identificacion'));
             $identificacion->get();
             $p = new Persona();
             if ($this->input->post('apellidos') <> "")
-                $p->where('apellidos', $this->input->post('apellidos'));
+                $p->like('apellidos', $this->input->post('apellidos'));
             if ($this->input->post('nombres') <> "")
-                $p->where('nombres', $this->input->post('nombres'));
+                $p->like('nombres', $this->input->post('nombres'));
             $p->where_related('persona_identificacion', 'id', $identificacion);
             $p->get();
             $a = new Personal();

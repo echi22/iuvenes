@@ -22,25 +22,6 @@
             <?php $this->load->view('alumno/familiares'); ?>
         </div>
         <div id="tabs-3">
-            <?php //$this->load->view('personas_vinculadas'); ?>
+            <?php $this->load->view('alumno/trayecto_escolar'); ?>
         </div>
     </div>
-<!--    <article class="tabs">
-        <section class="current">
-            <h4>Datos personales</h4>
-            <div class="div_tab">
-               
-            </div>
-        </section>
-        <section >
-            <h4>Personas vinculadas</h4>
-            <div class="div_tab">
-            </div>
-        </section>
-        <section>
-            <h4>Trayecto escolar</h4>
-            <div class="div_tab">
-            </div>
-        </section>
-    </article>-->
-    <!-- /HTML5 TABS CODE -->

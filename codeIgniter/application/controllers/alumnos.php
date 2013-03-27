@@ -67,8 +67,8 @@ class Alumnos extends CI_Controller {
                 $sql = new Wtipo_telefono();
                 $data['telefono'] = $sql->get()->all_to_array();
                 $a = new Alumno();
-                $a->where('persona_id',$id)->get();
-
+                $a->where('persona_id',$id)->include_all_related()->get();
+                $data['cursos'] = $a->cursos;
                 $data['alumno'] = $a;
             
                 
@@ -107,10 +107,11 @@ class Alumnos extends CI_Controller {
         public function alumno_data($id){
             $this->load->helper('url');
             $a = new Alumno();
-            $a->where('persona_id',$id)->get();
+            $a->where('persona_id',$id)->include_all_related()->get();
+            
             $data = $this->personalibrary->get_create_view_data();
             $data['alumno'] = $a;
-            
+            $data['cursos'] = $a->cursos->order_by('id_ciclo_lectivo');
             $this->load->view('templates/header');
             $this->parser->parse('alumno/datos_alumno',$data);
              $this->load->view('templates/footer');
@@ -193,13 +194,13 @@ class Alumnos extends CI_Controller {
                  if($this->input->post('cd_identificacion') <> "")
                     $identificacion->where('widentificacion_id',$this->input->post('cd_identificacion'));
                  if($this->input->post('numero_identificacion') <> "")
-                    $identificacion->where('numero_identificacion', $this->input->post('numero_identificacion'));
+                    $identificacion->like('numero_identificacion', $this->input->post('numero_identificacion'));
                  $identificacion->get();
                  $p = new Persona();
                  if($this->input->post('apellidos') <> "")
-                    $p->where('apellidos',$this->input->post('apellidos'));
+                    $p->like('apellidos',$this->input->post('apellidos'));
                  if($this->input->post('nombres')<> "")
-                    $p->where('nombres',$this->input->post('nombres'));
+                    $p->like('nombres',$this->input->post('nombres'));
                  $p->where_related('persona_identificacion','id',$identificacion);
                  $p->get();
                  $a = new Alumno();

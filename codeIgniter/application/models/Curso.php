@@ -12,8 +12,8 @@
  */
 class Curso extends DataMapper{
     var $table = 'curso';
-    var $has_many = array('alumno','personal');
-    var $has_one = array('establecimiento','anio_nivel');
+    var $has_many = array('alumno','prestacion');
+    var $has_one = array('establecimiento','anio_nivel','scheduletable');
     function __construct($id = NULL)
        {
            parent::__construct($id);
@@ -34,6 +34,13 @@ class Curso extends DataMapper{
             $data[] = $row;
         }
         return $data;
+    }
+    
+    function turno(){
+        if($this->cd_turno == 'm')
+            return 'Mañana';
+        else
+            return 'Tarde';
     }
 }
 

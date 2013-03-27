@@ -44,7 +44,7 @@ echo validation_errors();
                     </script>
                 </div>                      
             </div>
-            <div class="row border_bottom">
+            <div class="row">
                 <div class="input">
                     <label for="turno">Turno:</label>
                     <select name="cd_turno" id="turno" class="required">

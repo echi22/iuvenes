@@ -13,7 +13,7 @@
 class Personal extends DataMapper {
     var $table = 'personal';
     var $has_one = array("persona");
-    var $has_many = array("prestacion","curso","personal_licencia");
+    var $has_many = array("prestacion","personal_licencia");
     
     function __construct($id = NULL)
     {

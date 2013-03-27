@@ -1,4 +1,8 @@
-<div id="pager" class="pager" >
+<?php 
+    if ($pagerName == "")
+        $pagerName = "pager";        
+?>
+<div id="<?php echo $pagerName; ?>" class="pager" >
     <form>
         <img src="<?php echo CSS_PATH; ?>blue/first.png" class="first">
         <img src="<?php echo CSS_PATH; ?>blue/prev.png" class="prev">
