@@ -108,7 +108,7 @@
                 <li><a href="/iuvenes/gestion/tablas_auxiliares.php" ><span>Tablas Auxiliares</span></a></li>
                 <li><a href="#" class="parent"><span>Ley de Educación</span></a>
                     <div><ul>
-                        <li><a href="/iuvenes/gestion/vehiculos_nuevo.php"><span>Ley</span></a></li>
+                        <li><a href="<?php echo base_url().'plan_estudios/create'; ?>"><span>Ley</span></a></li>
                         <li><a href="/iuvenes/gestion/vehiculos_consulta.php"><span>Nivel</span></a></li>
                         <li><a href="/iuvenes/gestion/vehiculos_baja.php"><span>Orientacion</span></a></li>
                     </ul></div>

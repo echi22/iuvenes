@@ -4,6 +4,10 @@
     
     $(document).ready(function() 
     { 
+         $("#OpenDialog").click(function () {
+                $("#prueba").dialog({modal: true, height: 590, width: 1005 });
+                cursosView.getMateriasFromCurso(<?php $curso->id; ?>);
+            });
         cursosView.actualizarPrestaciones($("#prestaciones"));
         $( "#tabs-docentes" ).tabs();
 
@@ -14,7 +18,7 @@
 <div id="tabs-docentes" style="width: 100%">
     <ul>
         <li><a href="#tabs-docentes-1">Listado Prestaciones</a></li>
-        <li><a href="#tabs-docentes-2">Agregar Nuevas</a></li>
+        <li><a href="#tabs-docentes-2">Agregar Nuevas</a></li>        
     </ul>
     <div id="tabs-docentes-2">
         <form name="form2"  action="<?php echo base_url() . 'cursos/save_prestaciones/' . $curso->id; ?>" id="form2" method="post">    
@@ -80,12 +84,11 @@
     </div>
     <div id="tabs-docentes-1">
 
-        <table id="myTable" class="table_data tablesorter">
+        <table id="docentes" class="table_data tablesorter">
             <thead>
                 <tr class="table_header">
-                    <th>Apellido</th> <th>Nombre</th><th>Nombre Cargo</th> <th>Establecimiento</th> <th>Inicio Vigencia</th> <th>Fin Vigencia</th>
-                    <th>Estado</th> <th>Carga Horaria</th> <th>Secuencia</th><th>Liq. Sueldo</th> <th>Sit. Revista</th>
-                    <th>Asig. Familiar</th><th>% Asig. Familiar</th>
+                    <th>Apellido</th> <th>Nombre</th><th>Nombre Cargo</th><th>Inicio Vigencia</th> <th>Fin Vigencia</th>
+                    <th>Estado</th> <th>Carga Horaria</th>
                 </tr>
             </thead>
             <tbody>
@@ -115,13 +118,6 @@
                         cursosView.setSelectedIndex('<?php echo $prestacion->cargo->ds_cargo; ?>','cargo_<?php echo $prestacion->id; ?>');
                     </script>
                 </td>
-                <td>-<?php // echo $prestacion->establecimiento->ds_establecimiento;            ?>
-                    <select class="edit_<?php echo $prestacion->id; ?>" id="id_establecimiento_<?php echo $prestacion->id; ?>" >
-                        {establecimiento}
-                        <option value="{id_establecimiento}">{ds_establecimiento}</option>
-                        {/establecimiento}
-                    </select>
-                </td>
                 <td>
                     <p class="no_edit_<?php echo $prestacion->id; ?>" id="dt_inicio_no_edit_<?php echo $prestacion->id; ?>"><?php echo $prestacion->dt_inicio; ?> </p>
                     <input class="edit_<?php echo $prestacion->id; ?> hidden" size="5" type="date" id="dt_inicio_<?php echo $prestacion->id; ?>" value="<?php echo $prestacion->dt_inicio; ?>" />
@@ -144,45 +140,7 @@
                     <p class="no_edit_<?php echo $prestacion->id; ?>" id="carga_horaria_no_edit_<?php echo $prestacion->id; ?>"><?php echo $prestacion->qt_horas; ?></p>
                     <input class="edit_<?php echo $prestacion->id; ?> hidden" size="5" type="text" id="carga_horaria_<?php echo $prestacion->id; ?>" value="<?php echo $prestacion->qt_horas; ?>" class="required"/>
                 </td>
-                <td>
-                    <p class="no_edit_<?php echo $prestacion->id; ?>" id="nu_secuencia_no_edit_<?php echo $prestacion->id; ?>"><?php echo $prestacion->nu_secuencia; ?></p>
-                    <input type="text" class="edit_<?php echo $prestacion->id; ?> hidden" size="5"  id="nu_secuencia_<?php echo $prestacion->id; ?>" value="<?php echo $prestacion->nu_secuencia; ?>" class="required"/>
-                </td>
-                <td>
-                    <p class="no_edit_<?php echo $prestacion->id; ?>" id="tp_liq_sueldo_no_edit_<?php echo $prestacion->id; ?>"><?php echo $prestacion->tipo_liquidacion_sueldo->detalle; ?></p>
-                    <select class="edit_<?php echo $prestacion->id; ?> hidden"  id="tp_liq_sueldo_<?php echo $prestacion->id; ?>">
-                        <?php foreach ($liquidacion_sueldo as $tp) { ?>
-                            <option value="<?php echo $tp->id; ?>">
-                                <?php echo $tp->detalle; ?>
-                            </option>
-                        <?php } ?>
-                    </select>
-                    <script type="text/javascript">
-                        cursosView.setSelectedIndex('<?php echo $prestacion->tipo_liquidacion_sueldo->detalle; ?>','tp_liq_sueldo_<?php echo $prestacion->id; ?>');
-                    </script>
-                </td>
-                <td>
-                    <p class="no_edit_<?php echo $prestacion->id; ?>" id="revista_no_edit_<?php echo $prestacion->id; ?>"><?php echo $prestacion->wsituacion_revista->ds_sit_revista; ?></p>
-                    <select id="revista_<?php echo $prestacion->id; ?>"  class="edit_<?php echo $prestacion->id; ?> hidden">
-                        <?php foreach ($wsituacion_revista as $rev) { ?>
-                            <option value="<?php echo $rev->id; ?>">
-                                <?php echo $rev->ds_sit_revista; ?>
-                            </option>
-                        <?php } ?>
-                    </select>
-                    <script type="text/javascript">
-                        cursosView.setSelectedIndex('<?php echo $prestacion->wsituacion_revista->ds_sit_revista; ?>','revista_<?php echo $prestacion->id; ?>');
-                    </script>
-                </td>
-                <td>
-                    <p class="no_edit_<?php echo $prestacion->id; ?>" id="asig_familiar_no_edit_<?php echo $prestacion->id; ?>"><?php echo ($prestacion->asig_familiar) ? 'Sí' : 'No'; ?></p>
-                    <input type="checkbox" id="asig_familiar_<?php echo $prestacion->id; ?>"   class="hidden edit_<?php echo $prestacion->id; ?>" value="<?php echo ($prestacion->asig_familiar) ? 'Sí' : 'No'; ?>"/>                        
-                </td>
-                <td>
-                    <p class="no_edit_<?php echo $prestacion->id; ?>" id="porc_asig_no_edit_<?php echo $prestacion->id; ?>"><?php echo $prestacion->porc_asig_familiar; ?></p>
-                    <input type="text" id="porc_asig_familiar_<?php echo $prestacion->id; ?>" size="5" class="hidden edit_<?php echo $prestacion->id; ?>" value="<?php echo $prestacion->porc_asig_familiar; ?>"/>
-
-                </td>
+               
                 <td>
                     <div class="no_edit_<?php echo $prestacion->id; ?> "> 
                         <div id="icons" style="float: left">
@@ -207,4 +165,8 @@
             ?>
         </div>
     </div>
+</div>
+
+<div id="prueba"> 
+    <div class="titulo">Seleccionar Materias para <span id="prestacion_detalle"></span></div>    
 </div>

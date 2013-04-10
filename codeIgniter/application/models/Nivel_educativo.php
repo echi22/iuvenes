@@ -12,7 +12,7 @@
  */
 class Nivel_educativo extends DataMapper{
     var $table = 'nivel_educativo';
-    var $has_one = array('ley');
+    var $has_one = array('ley_educacion');
     var $has_many = array('anio_nivel');
      function __construct($id = NULL)
         {

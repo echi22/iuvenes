@@ -33,7 +33,8 @@
             cursosView.actualizarAlumnos($("#años_cursos").val(),$("#cursos"),$('#alumnos'),<?php echo $curso->id; ?>);
         });
         cursosView.actualizarAlumnos($("#años_cursos").val(),$("#cursos"),$('#alumnos'),<?php echo $curso->id; ?>);
-        $("#myTable").tablesorter().tablesorterPager({container: $("#pager")}); 
+        if($("#myTable tr").length > 1)
+            $("#myTable").tablesorter().tablesorterPager({container: $("#pager")}); 
     }); 
 </script>
 <div id="tabs-alumnos" style="width: 100%">

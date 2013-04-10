@@ -167,5 +167,18 @@ function  CursosView(){
                     alert("Horarios guardados exitosamente");
                 }           
             });
+    };
+    this.getMateriasFromCurso = function(curso_id){
+        $.ajax({
+                url : '../get_materias_from_curso',
+                type: "POST",
+                data : {                    
+                    'curso_id':curso_id
+                },
+                success : function(data){
+                    data = jQuery.parseJSON(res);  
+                    
+                }           
+            });
     }
 }
