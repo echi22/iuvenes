@@ -45,26 +45,14 @@ echo validation_errors();
                     <input type="text" id="ciclo_lectivo" name="id_ciclo_lectivo" class="required"/>
                 </div>
                 <div class="input">
-                    <label for="year">Año:</label>
-                    <input type="text" id="year" name="year" class="required"/>
-                </div>
-
-                <div class="input">
                     <label for="nivel">Nivel:</label>
-                    <select id="nivel" name="nivel" class="required">
-                        {nivel_educativo}
-                        <option value="{id}">{ds_nivel}</option>
-                        {/nivel_educativo}
+                    <select id="anio_nivel" name="anio_nivel" class="required">
+                        {anios_niveles}
+                        <option value="{id}">{detalle}</option>
+                        {/anios_niveles}
                     </select>
                 </div>
-                <div class="input">
-                    <label for="orientacion">Orientacion:</label>
-                    <select id="orientacion" name="orientacion" class="required">
-                        {orientacion}
-                        <option value="{id}">{ds_orientacion}</option>
-                        {/orientacion}
-                    </select>
-                </div>                      
+                               
             </div>
             <div class="row border_bottom">
                 <div class="input">

@@ -81,29 +81,14 @@
     <div class="left">
         <table>
             <tr>
-                <td><div class="item" id="english" ondragstart="drag(event)" draggable="true"  >Inglés</div></td>
-            </tr>
+                <td><div class="" draggable="false"  >Materias</div></td>
+            </tr>     
+            <?php                         
+            foreach ($curso->anio_nivel->materiums->get() as $materia) { ?>
             <tr>
-                <td><div class="item" id="Science" ondragstart="drag(event)" draggable="true">Cs. Sociales</div></td>
-            </tr>
-            <tr>
-                <td><div class="item" id="Music" ondragstart="drag(event)" draggable="true">Música</div></td>
-            </tr>
-            <tr>
-                <td><div class="item" id="History"  ondragstart="drag(event)" draggable="true">Historia</div></td>
-            </tr>
-            <tr>
-                <td><div class="item" id="Computer" ondragstart="drag(event)" draggable="true">Computación</div></td>
-            </tr>
-            <tr>
-                <td><div class="item" id="Mathematics" ondragstart="drag(event)" draggable="true">Matemática</div></td>
-            </tr>
-            <tr>
-                <td><div class="item" id="Arts" ondragstart="drag(event)" draggable="true">Lengua</div></td>
-            </tr>
-            <tr>
-                <td><div class="item" id="Ethics" ondragstart="drag(event)" draggable="true">Cs.Naturales</div></td>
-            </tr>
+                <td><div class="item" id="<?php echo $materia->nombre; ?>" ondragstart="drag(event)" draggable="true"  ><?php echo $materia->nombre; ?></div></td>
+            </tr>            
+            <?php } ?>
         </table>
     </div>
     <div class="right">
@@ -113,11 +98,11 @@
             <?php if ($curso->scheduletable->html == "") { ?>
                 <tr>
                     <td class="blank"></td>
-                    <td class="title">Monday</td>
-                    <td class="title">Tuesday</td>
-                    <td class="title">Wednesday</td>
-                    <td class="title">Thursday</td>
-                    <td class="title">Friday</td>
+                    <td class="title">Lunes</td>
+                    <td class="title">Martes</td>
+                    <td class="title">Miercoles</td>
+                    <td class="title">Jueves</td>
+                    <td class="title">Viernes</td>
                 </tr>
                 <tr>
                     <td class="time">08:00</td>
@@ -164,6 +149,14 @@
                     <td class="lunch" colspan="5">Lunch</td>
                 </tr>-->
                 <tr>
+                    <td class="time" >13:00</td>
+                    <td class="drop" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                    <td class="drop" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                    <td class="drop" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                    <td class="drop" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                    <td class="drop" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                </tr>
+                <tr>
                     <td class="time" >14:00</td>
                     <td class="drop" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
                     <td class="drop" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
@@ -181,6 +174,14 @@
                 </tr>
                 <tr>
                     <td class="time">16:00</td>
+                    <td class="drop" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                    <td class="drop" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                    <td class="drop" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                    <td class="drop" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                    <td class="drop" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
+                </tr>
+                 <tr>
+                    <td class="time">17:00</td>
                     <td class="drop" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
                     <td class="drop" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
                     <td class="drop" ondrop="drop(event)" ondragover="allowDrop(event)"></td>

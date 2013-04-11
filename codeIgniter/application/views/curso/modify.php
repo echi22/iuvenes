@@ -16,31 +16,14 @@ echo validation_errors();
                     <input type="text" id="ciclo_lectivo" name="id_ciclo_lectivo" value="<?php echo $curso->id_ciclo_lectivo; ?>" class="required"/>
                 </div>
                 <div class="input">
-                    <label for="year">Año:</label>
-                    <input type="text" id="year" name="year" value="<?php echo $curso->anio_nivel->ds_anio; ?>" class="required"/>
-                </div>
-
-                <div class="input">
                     <label for="nivel">Nivel:</label>
-                    <select id="nivel" name="nivel" class="required">
-                        {nivel_educativo}
-                        <option value="{id}">{ds_nivel}</option>
-                        {/nivel_educativo}
-                    </select>
+                    <select id="anio_nivel" name="anio_nivel" class="required">
+                        <?php foreach ($anios_niveles as $anio) {?>
+                            <option value="<?php echo $anio['id']; ?>"><?php echo $anio['detalle']; ?></option>
+                        <?php } ?>
+                    </select>                
                     <script type="text/javascript">
-                        cursosView.setSelectedIndexByValue('<?php echo $curso->anio_nivel->nivel_educativo->id; ?>','nivel');           
-                    </script>
-                </div>
-
-                <div class="input">
-                    <label for="orientacion">Orientacion:</label>
-                    <select id="orientacion" name="orientacion" class="required">
-                        {orientacion}
-                        <option value="{id}">{ds_orientacion}</option>
-                        {/orientacion}
-                    </select>
-                    <script type="text/javascript">
-                        cursosView.setSelectedIndexByValue('<?php echo $curso->anio_nivel->orientation->id; ?>','orientacion');           
+                        cursosView.setSelectedIndexByValue('<?php echo $curso->anio_nivel->id; ?>','anio_nivel');           
                     </script>
                 </div>                      
             </div>

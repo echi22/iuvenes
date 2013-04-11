@@ -20,7 +20,7 @@ class Ley_educacion extends DataMapper {
     }
     
     function get_all_vigentes(){
-        return $this->where("in_vigente",1)->get()->all_to_array();        
+        return $this->include_all_related()->where("in_vigente",1)->get();        
     }
 
 }

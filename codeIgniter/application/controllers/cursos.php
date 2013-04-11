@@ -19,10 +19,16 @@ class Cursos extends CI_Controller {
         $this->load->helper('url');
         $this->load->library('form_validation');
         $this->form_validation->set_rules('id_ciclo_lectivo', 'Ciclo Lectivo', 'required');
-        $data['orientacion'] = new Orientation();
-        $data['orientacion'] = $data['orientacion']->get()->all_to_array();
-        $data['nivel_educativo'] = new Nivel_educativo();
-        $data['nivel_educativo'] = $data['nivel_educativo']->get()->all_to_array();
+        $ley = new Ley_educacion();
+        $leyes = $ley->get_all_vigentes();
+        $data["anios_niveles"] = array();
+        foreach ($leyes as $ley) {
+            foreach ($ley->nivel_educativos->get() as $nivel_educativo) {
+                foreach ($nivel_educativo->anio_nivels->get() as $anio) {
+                    $data["anios_niveles"][] = array("id" => $anio->id, "detalle" => $anio->detalle());
+                }
+            }
+        }
         $data['años_cursos'] = new Curso();
         $data['años_cursos'] = $data['años_cursos']->get_all_cursos_years();
         array_unshift($data['años_cursos'], $data['años_cursos'][0]);
@@ -36,13 +42,9 @@ class Cursos extends CI_Controller {
         } else {
             $c = new Curso();
             $c->from_array($_POST, '', false);
-            $o = new Orientation();
-            $o->where(id, $_POST['orientacion'])->get();
-            $ne = new Nivel_educativo();
-            $ne->where(id, $_POST['nivel'])->get();
             $an = new Anio_nivel();
-            $an->ds_anio = $_POST['year'];
-            $an->save(array($o, $ne));
+            $an->where(id, $_POST['anio_nivel'])->get();
+
             $c->establecimiento_id = 1;
             $c->save(array($an));
             foreach ($_POST['alumnos_seleccionados'] as $alumno) {
@@ -100,10 +102,16 @@ class Cursos extends CI_Controller {
         $this->load->helper('url');
         $this->load->library('form_validation');
         $this->form_validation->set_rules('id_ciclo_lectivo', 'Ciclo Lectivo', 'required');
-        $data['orientacion'] = new Orientation();
-        $data['orientacion'] = $data['orientacion']->get()->all_to_array();
-        $data['nivel_educativo'] = new Nivel_educativo();
-        $data['nivel_educativo'] = $data['nivel_educativo']->get()->all_to_array();
+        $ley = new Ley_educacion();
+        $leyes = $ley->get_all_vigentes();
+        $data["anios_niveles"] = array();
+        foreach ($leyes as $ley) {
+            foreach ($ley->nivel_educativos->get() as $nivel_educativo) {
+                foreach ($nivel_educativo->anio_nivels->get() as $anio) {
+                    $data["anios_niveles"][] = array("id" => $anio->id, "detalle" => $anio->detalle());
+                }
+            }
+        }
         $data['años_cursos'] = new Curso();
         $data['años_cursos'] = $data['años_cursos']->get_all_cursos_years();
         array_unshift($data['años_cursos'], $data['años_cursos'][0]);
@@ -118,14 +126,8 @@ class Cursos extends CI_Controller {
             $c = new Curso();
             $c->where('id', $id)->get();
             $c->from_array($_POST, '', false);
-            $o = new Orientation();
-            $o->where(id, $_POST['orientacion'])->get();
-            $ne = new Nivel_educativo();
-            $ne->where(id, $_POST['nivel'])->get();
             $an = new Anio_nivel();
-            $an->where('id', $c->anio_nivel->id)->get();
-            $an->ds_anio = $_POST['year'];
-            $an->save(array($o, $ne));
+            $an->where(id, $_POST['anio_nivel'])->get();            
             $c->establecimiento_id = 1;
             $c->save(array($an));
             redirect("cursos/curso_data/" . $c->id);
@@ -192,11 +194,19 @@ class Cursos extends CI_Controller {
     public function curso_data($id) {
         $this->load->helper('url');
         $c = new Curso();
-        $c->where('id', $id)->include_all_related()->get();
+        $c->where('id', $id)->include_all_related()->get();        
         $data = $this->cursolibrary->get_create_view_data();
         $data['curso'] = $c;
-        
-
+        $data["anios_niveles"] = array();
+        $ley = new Ley_educacion();
+        $leyes = $ley->get_all_vigentes();
+        foreach ($leyes as $ley) {
+            foreach ($ley->nivel_educativos->get() as $nivel_educativo) {
+                foreach ($nivel_educativo->anio_nivels->get() as $anio) {
+                    $data["anios_niveles"][] = array("id" => $anio->id, "detalle" => $anio->detalle());
+                }
+            }
+        }        
         $this->load->view('templates/header');
         $this->parser->parse('curso/datos_curso', $data);
         $this->load->view('templates/footer');
@@ -224,39 +234,41 @@ class Cursos extends CI_Controller {
         $data['orientacion'] = new Orientation();
         $data['orientacion'] = $data['orientacion']->get()->all_to_array();
         $data['nivel_educativo'] = new Nivel_educativo();
-        $data['nivel_educativo'] = $data['nivel_educativo']->get()->all_to_array();    
-        if ($this->input->post('busqueda') == 'si') {   
+        $data['nivel_educativo'] = $data['nivel_educativo']->get()->all_to_array();
+        if ($this->input->post('busqueda') == 'si') {
             $c = new Curso();
-            if($_POST['id_ciclo_lectivo'] != "")
-                $c->where('id_ciclo_lectivo',$_POST['id_ciclo_lectivo']);
-            if($_POST['year'] != "")
-                $c->where_related('anio_nivel','ds_anio',$_POST['year']);
-            if($_POST['nivel'] != "")
-                $c->where_related('anio_nivel','nivel_educativo_id',$_POST['nivel']);
-            if($_POST['orientacion'] != "")
-                $c->where_related('anio_nivel','orientation_id',$_POST['orientacion']);
-            if($_POST['cd_turno'] != "")
-                $c->where('cd_turno',$_POST['cd_turno']);
-            if($_POST['ds_seccion'] != "")
-                $c->where('ds_seccion',$_POST['ds_seccion']);
-            $c->get();            
+            if ($_POST['id_ciclo_lectivo'] != "")
+                $c->where('id_ciclo_lectivo', $_POST['id_ciclo_lectivo']);
+            if ($_POST['year'] != "")
+                $c->where_related('anio_nivel', 'ds_anio', $_POST['year']);
+            if ($_POST['nivel'] != "")
+                $c->where_related('anio_nivel', 'nivel_educativo_id', $_POST['nivel']);
+            if ($_POST['orientacion'] != "")
+                $c->where_related('anio_nivel', 'orientation_id', $_POST['orientacion']);
+            if ($_POST['cd_turno'] != "")
+                $c->where('cd_turno', $_POST['cd_turno']);
+            if ($_POST['ds_seccion'] != "")
+                $c->where('ds_seccion', $_POST['ds_seccion']);
+            $c->get();
             $data['cursos'] = $c;
         }
         $this->load->view('templates/header');
         $this->parser->parse('curso/buscar', $data);
         $this->load->view('templates/footer');
     }
-    function save_horarios(){
+
+    function save_horarios() {
         $t = new ScheduleTable();
-        $t->where('curso_id',$_POST['curso_id'])->get();
+        $t->where('curso_id', $_POST['curso_id'])->get();
         $t->delete();
         $t = new ScheduleTable();
         $t->html = $_POST['table'];
         $c = new Curso();
-        $c->where('id',$_POST['curso_id'])->get();
-        
+        $c->where('id', $_POST['curso_id'])->get();
+
         $t->save($c);
     }
+
 }
 
 ?>
