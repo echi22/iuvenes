@@ -4,10 +4,10 @@
     
     $(document).ready(function() 
     { 
-         $("#OpenDialog").click(function () {
-                $("#prueba").dialog({modal: true, height: 590, width: 1005 });
-                cursosView.getMateriasFromCurso(<?php $curso->id; ?>);
-            });
+        $("#OpenDialog").click(function () {
+            $("#prueba").dialog({modal: true, height: 590, width: 1005 });
+            cursosView.getMateriasFromCurso(<?php $curso->id; ?>);
+        });
         cursosView.actualizarPrestaciones($("#prestaciones"));
         $( "#tabs-docentes" ).tabs();
 
@@ -18,7 +18,7 @@
 <div id="tabs-docentes" style="width: 100%">
     <ul>
         <li><a href="#tabs-docentes-1">Listado Prestaciones</a></li>
-        <li><a href="#tabs-docentes-2">Agregar Nuevas</a></li>        
+        <li><a href="#tabs-docentes-2">Agregar Nuevas</a></li> 
     </ul>
     <div id="tabs-docentes-2">
         <form name="form2"  action="<?php echo base_url() . 'cursos/save_prestaciones/' . $curso->id; ?>" id="form2" method="post">    
@@ -27,23 +27,23 @@
                 <div class="subtitle">
                     Prestaciones:
                 </div>
-                <div class="row" style="display: none;">
-                    <div class="columna_ajustada">
-
-                        <select id="años_cursos">
-                            {años_cursos}
-                            <option value="{id_ciclo_lectivo}">{id_ciclo_lectivo}</option>
-                            {/años_cursos}
-                        </select>
-
-                    </div>
-                    <div class="columna_ajustada">
-
-                        <select id="cursos" onchange="cursosView.actualizarAlumnos(this,$('#alumnos'))">
-
-                        </select>
-                    </div>
-                </div>
+                <!--                <div class="row" style="display: none;">
+                                    <div class="columna_ajustada">
+                
+                                        <select id="años_cursos">
+                                            {años_cursos}
+                                            <option value="{id_ciclo_lectivo}">{id_ciclo_lectivo}</option>
+                                            {/años_cursos}
+                                        </select>
+                
+                                    </div>
+                                    <div class="columna_ajustada">
+                
+                                        <select id="cursos" onchange="cursosView.actualizarAlumnos(this,$('#alumnos'))">
+                
+                                        </select>
+                                    </div>
+                                </div>-->
             </div>
             <div >
                 <div class="columna_ajustada">
@@ -140,7 +140,7 @@
                     <p class="no_edit_<?php echo $prestacion->id; ?>" id="carga_horaria_no_edit_<?php echo $prestacion->id; ?>"><?php echo $prestacion->qt_horas; ?></p>
                     <input class="edit_<?php echo $prestacion->id; ?> hidden" size="5" type="text" id="carga_horaria_<?php echo $prestacion->id; ?>" value="<?php echo $prestacion->qt_horas; ?>" class="required"/>
                 </td>
-               
+
                 <td>
                     <div class="no_edit_<?php echo $prestacion->id; ?> "> 
                         <div id="icons" style="float: left">
@@ -165,8 +165,4 @@
             ?>
         </div>
     </div>
-</div>
-
-<div id="prueba"> 
-    <div class="titulo">Seleccionar Materias para <span id="prestacion_detalle"></span></div>    
 </div>

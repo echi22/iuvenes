@@ -15,6 +15,7 @@
         <li><a href="#tabs-2">Alumnos</a></li>
         <li><a href="#tabs-3">Docentes</a></li>
         <li><a href="#tabs-4">Horarios</a></li>
+        <li><a href="#tabs-5">Materias</a></li>
 
 
     </ul>
@@ -29,5 +30,8 @@
     </div>
     <div id="tabs-4">
         <?php $this->load->view('curso/horarios'); ?> 
+    </div>
+    <div id="tabs-5">
+        <?php $this->load->view('curso/materias'); ?> 
     </div>
 </div>

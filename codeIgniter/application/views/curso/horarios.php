@@ -81,12 +81,12 @@
     <div class="left">
         <table>
             <tr>
-                <td><div class="" draggable="false"  >Materias</div></td>
+                <td><div class="" draggable="false">Materias</div></td>
             </tr>     
             <?php                         
             foreach ($curso->anio_nivel->materiums->get() as $materia) { ?>
             <tr>
-                <td><div class="item" id="<?php echo $materia->nombre; ?>" ondragstart="drag(event)" draggable="true"  ><?php echo $materia->nombre; ?></div></td>
+                <td><div class="item" id="<?php echo $materia->nombre; ?>" style="cursor: pointer;" ondragstart="drag(event)" draggable="true"  ><?php echo $materia->nombre; ?></div></td>
             </tr>            
             <?php } ?>
         </table>
