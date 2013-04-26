@@ -1,5 +1,7 @@
 <?php
+
 include_once 'controlador.php';
+
 class Personales extends Controlador {
 
     public function __construct() {
@@ -27,6 +29,7 @@ class Personales extends Controlador {
             $p = $this->personalibrary->save_data();
             $personal = new Personal();
             $personal->CUIL = $_POST['cuil'];
+            $personal->establecimiento_id = $_SESSION['establecimiento_id'];
             $personal->save($p);
             for ($i = 0; $i < $_POST['cant_titulo']; $i++) {
                 if (isset($_POST['titulo_' . $i . '_'])) {
@@ -246,7 +249,8 @@ class Personales extends Controlador {
             $p->where_related('persona_identificacion', 'id', $identificacion);
             $p->get();
             $a = new Personal();
-            $a->where_related('persona', 'id', $p)->get();
+            $a->where_related('persona', 'id', $p);
+            $a->where_related("establecimiento", 'id', $_SESSION['establecimiento_id'])->get();
             $data['personales'] = $a;
         }
         $this->load->view('templates/header');

@@ -1,4 +1,6 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
+<?php 
+session_start();
+if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
 
 class PersonaLibrary {
     
@@ -55,8 +57,7 @@ class PersonaLibrary {
         $sexo = new Sexo();
         $sexo->where('id', $CI->input->post('sexo'))->get();  
 
-        $establecimiento = new Establecimiento();
-        $establecimiento->where('id',$CI->input->post('id_establecimiento'))->get();             
+                    
         $p = new Persona();        
         if($id != -1){     
             $p->where('id',$id)->get();
@@ -69,7 +70,7 @@ class PersonaLibrary {
         }
         $p->from_array($_POST,'',false);
         $p->foto = $target_path;
-        $p->save(array($estado_civil,$country, $establecimiento,$sexo));
+        $p->save(array($estado_civil,$country,$sexo));
         for($i = 0; $i < $_POST['cant_domicilio']; $i++){
             if (isset($_POST['domicilio_'.$i.'_'])){
                 $array = $_POST['domicilio_'.$i.'_'];            

@@ -1,5 +1,7 @@
 <?php
+
 include_once 'controlador.php';
+
 class Plan_estudios extends Controlador {
 
     public function __construct() {
@@ -22,6 +24,28 @@ class Plan_estudios extends Controlador {
             $l = new Ley_educacion();
             $l->in_vigente = 1;
             $l->from_array($_POST, "", true);
+            $this->load->view('templates/header');
+            $this->parser->parse('plan_estudio/create', $data);
+            $this->load->view('templates/footer');
+        }
+    }
+
+    public function add_orientation() {
+        $this->load->helper('form');
+        $this->load->helper('url');
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('ds_orientation', 'Nombre', 'required');
+        if ($this->form_validation->run() === FALSE) {
+            $this->load->view('templates/header');
+            $this->parser->parse('plan_estudio/add_orientation', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $o = new Orientation();
+            $o->ds_orientacion = $_POST['ds_orientation'];
+            $o->save();
+            $this->load->view('templates/header');
+            $this->parser->parse('plan_estudio/add_orientation', $data);
+            $this->load->view('templates/footer');
         }
     }
 
@@ -44,6 +68,9 @@ class Plan_estudios extends Controlador {
             $l->where(id, $_POST["ley_educacion"])->get();
             echo $l->ds_ley;
             $ne->save($l);
+            $this->load->view('templates/header');
+            $this->parser->parse('plan_estudio/add_nivel_educativo', $data);
+            $this->load->view('templates/footer');
         }
     }
 
@@ -73,8 +100,9 @@ class Plan_estudios extends Controlador {
             $an = new Anio_nivel();
             $an->ds_anio = $_POST['year'];
             $an->save(array($o, $ne));
-
-            redirect("cursos/curso_data/" . $c->id);
+            $this->load->view('templates/header');
+            $this->parser->parse('plan_estudio/add_anio_nivel', $data);
+            $this->load->view('templates/footer');
         }
     }
 
@@ -100,15 +128,17 @@ class Plan_estudios extends Controlador {
             $this->load->view('templates/footer');
         } else {
             $m = new Materium();
-            if($_POST['nueva_materia'] != ""){
+            if ($_POST['nueva_materia'] != "") {
                 $m->nombre = $_POST["nueva_materia"];
-            }else{
-                $m->where("id",$_POST["materia_selected"])->get();
-            }                    
+            } else {
+                $m->where("id", $_POST["materia_selected"])->get();
+            }
             $an = new Anio_nivel();
             $an->where("id", $_POST["anio_nivel"])->get();
             $m->save($an);
-            redirect("cursos/curso_data/" . $c->id);
+            $this->load->view('templates/header');
+            $this->parser->parse('plan_estudio/add_materia_to_anio_nivel', $data);
+            $this->load->view('templates/footer');
         }
     }
 

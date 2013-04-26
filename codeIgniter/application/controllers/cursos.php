@@ -45,7 +45,7 @@ class Cursos extends Controlador {
             $an = new Anio_nivel();
             $an->where(id, $_POST['anio_nivel'])->get();
 
-            $c->establecimiento_id = 1;
+            $c->establecimiento_id = $_SESSION['establecimiento_id'];
             $c->save(array($an));
             foreach ($_POST['alumnos_seleccionados'] as $alumno) {
                 echo $alumno;
@@ -128,7 +128,7 @@ class Cursos extends Controlador {
             $c->from_array($_POST, '', false);
             $an = new Anio_nivel();
             $an->where(id, $_POST['anio_nivel'])->get();
-            $c->establecimiento_id = 1;
+            $c->establecimiento_id = $_SESSION['establecimiento_id'];
             $c->save(array($an));
             redirect("cursos/curso_data/" . $c->id);
         }
@@ -136,7 +136,7 @@ class Cursos extends Controlador {
 
     function get_cursos_by_year() {
         $c = new Curso();
-        $c->where('id_ciclo_lectivo', $_POST['id_ciclo_lectivo'])->get();
+        $c->where('id_ciclo_lectivo', $_POST['id_ciclo_lectivo'])->where('establecimiento_id',$_SESSION['establecimiento_id'])->get();
         $result = array();
 
         foreach ($c as $curso) {
@@ -155,9 +155,9 @@ class Cursos extends Controlador {
                 $get_alumnos = new Alumno();
                 $subq = new Alumno();
                 $subq->select('id')->where_related('curso', 'id', $_POST['current_curso']);
-                $alumnos = $get_alumnos->include_all_related()->where_not_in_subquery('id', $subq)->order_by('persona_apellidos', 'persona_nombres')->get();
+                $alumnos = $get_alumnos->include_all_related()->where_not_in_subquery('id', $subq)->where('establecimiento_id',$_SESSION['establecimiento_id'])->order_by('persona_apellidos', 'persona_nombres')->get();
             } else {
-                $c->where('id_ciclo_lectivo', $_POST['anio_cursos'])->where('id !=', $_POST[current_curso])->get();
+                $c->where('id_ciclo_lectivo', $_POST['anio_cursos'])->where('establecimiento_id',$_SESSION['establecimiento_id'])->where('id !=', $_POST[current_curso])->get();
                 $c->alumno->include_all_related()->order_by('persona_apellidos', 'persona_nombres')->get();
                 $alumnos = $c->alumno;
             }
@@ -183,10 +183,12 @@ class Cursos extends Controlador {
         $prestaciones->where_related('curso', 'id !=', $_POST["id_curso"])->get();
         $result = array();
         foreach ($prestaciones as $prestacion) {
-            $p = array();
-            $p['detalle'] = $prestacion->detalle();
-            $p['id'] = $prestacion->id;
-            array_push($result, $p);
+            if($prestacion->personal->establecimiento_id == $_SESSION['establecimiento_id']){
+                $p = array();
+                $p['detalle'] = $prestacion->detalle();
+                $p['id'] = $prestacion->id;
+                array_push($result, $p);
+            }
         }
         echo json_encode($result);
     }
@@ -249,6 +251,7 @@ class Cursos extends Controlador {
                 $c->where('cd_turno', $_POST['cd_turno']);
             if ($_POST['ds_seccion'] != "")
                 $c->where('ds_seccion', $_POST['ds_seccion']);
+            $c->where_related("establecimiento",'id',$_SESSION['establecimiento_id']);
             $c->get();
             $data['cursos'] = $c;
         }

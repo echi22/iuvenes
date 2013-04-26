@@ -12,7 +12,7 @@
  */
 class Establecimiento extends DataMapper{
      var $table = 'establecimiento';
-     var $has_many = array('alumno');
+     var $has_many = array('alumno','user','personal');
      function __construct($id = NULL)
         {
             parent::__construct($id);

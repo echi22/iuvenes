@@ -3,10 +3,10 @@
        
         <li><a href="#" class="parent"><span>Establecimientos</span></a>
             <div><ul>
-                <li><a href="/iuvenes/establecimientos/nuevo.php" ><span>Nuevo</span></a>
+                <li><a  href="<?php echo base_url().'establecimientos/create'; ?>"><span>Nuevo</span></a>
                     
                 </li>
-                <li><a href="/iuvenes/establecimientos/seleccionar_para_modificar.php"><span>Modificación</span></a></li>
+                <li><a  href="<?php echo base_url().'establecimientos/listado'; ?>"><span>Modificación</span></a></li>
                 <li><a href="/iuvenes/establecimientos/seleccionar_para_trabajar.php"><span>Seleccionar</span></a></li>
             </ul></div>
         </li>
@@ -109,8 +109,10 @@
                 <li><a href="#" class="parent"><span>Ley de Educación</span></a>
                     <div><ul>
                         <li><a href="<?php echo base_url().'plan_estudios/create'; ?>"><span>Ley</span></a></li>
-                        <li><a href="/iuvenes/gestion/vehiculos_consulta.php"><span>Nivel</span></a></li>
-                        <li><a href="/iuvenes/gestion/vehiculos_baja.php"><span>Orientacion</span></a></li>
+                        <li><a href="<?php echo base_url().'plan_estudios/add_nivel_educativo'; ?>"><span>Nivel</span></a></li>
+                        <li><a href="<?php echo base_url().'plan_estudios/add_anio_nivel'; ?>"><span>Año</span></a></li>
+                        <li><a href="<?php echo base_url().'plan_estudios/add_materia_to_anio_nivel'; ?>"><span>Materias</span></a></li>                        
+                        <li><a href="<?php echo base_url().'plan_estudios/add_orientation'; ?>"><span>Orientacion</span></a></li>
                     </ul></div>
                 </li>
            </ul></div>

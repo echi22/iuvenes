@@ -100,7 +100,7 @@ class Alumnos extends Controlador {
                 $id = $p->id;
             }            
             $p = $this->personalibrary->save_data($id);
-            $a->establecimiento_id = 1;            
+            $a->establecimiento_id = $_SESSION['establecimiento_id'];            
             $a->save($p);
             return $a;
         }
@@ -205,6 +205,8 @@ class Alumnos extends Controlador {
                  $p->where_related('persona_identificacion','id',$identificacion);
                  $p->get();
                  $a = new Alumno();
+                 echo $_SESSION['establecimiento_id']."sdaf";
+                 $a->where_related("establecimiento",'id',$_SESSION['establecimiento_id']);
                  $a->where_related('persona','id',$p)->get();
                  $data['alumnos'] = $a;
              }
