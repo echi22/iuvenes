@@ -1,6 +1,6 @@
 <?php
-
-class Cursos extends CI_Controller {
+include_once 'controlador.php';
+class Cursos extends Controlador {
 
     public function __construct() {
         parent::__construct();
@@ -127,7 +127,7 @@ class Cursos extends CI_Controller {
             $c->where('id', $id)->get();
             $c->from_array($_POST, '', false);
             $an = new Anio_nivel();
-            $an->where(id, $_POST['anio_nivel'])->get();            
+            $an->where(id, $_POST['anio_nivel'])->get();
             $c->establecimiento_id = 1;
             $c->save(array($an));
             redirect("cursos/curso_data/" . $c->id);
@@ -194,7 +194,7 @@ class Cursos extends CI_Controller {
     public function curso_data($id) {
         $this->load->helper('url');
         $c = new Curso();
-        $c->where('id', $id)->include_all_related()->get();        
+        $c->where('id', $id)->include_all_related()->get();
         $data = $this->cursolibrary->get_create_view_data();
         $data['curso'] = $c;
         $data["anios_niveles"] = array();
@@ -206,7 +206,7 @@ class Cursos extends CI_Controller {
                     $data["anios_niveles"][] = array("id" => $anio->id, "detalle" => $anio->detalle());
                 }
             }
-        }        
+        }
         $this->load->view('templates/header');
         $this->parser->parse('curso/datos_curso', $data);
         $this->load->view('templates/footer');
@@ -267,6 +267,26 @@ class Cursos extends CI_Controller {
         $c->where('id', $_POST['curso_id'])->get();
 
         $t->save($c);
+    }
+
+    function save_materias_docentes() {
+        $data = json_decode($_POST[data]);
+        var_dump($data->materias);
+        for ($i = 0; $i < count($data->materias); $i++) {
+            $m = new Materium();
+            $m->where('id', $data->materias[$i])->get();
+            echo $m->nombre;
+            $c = new Curso();
+            $c->where('id', $_POST['curso_id'])->get();
+            $p = new Prestacion();
+            $p->where('id', $data->docentes[$i])->get();
+            $mcp = new Materium_curso_prestacion_personal();
+            $mcp->where('materium_id',$data->materias[$i])->where('curso_id',$_POST['curso_id'])->get();
+            $mcp->delete();
+            $mcp = new Materium_curso_prestacion_personal();
+            $mcp->vigente = 1;
+            $mcp->save(array($c, $m, $p));
+        }
     }
 
 }

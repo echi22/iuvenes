@@ -9,6 +9,7 @@
 <script type="text/javascript" src="<?php echo $js_path; ?>jquery-ui-1.9.1.custom.min.js"></script>
 <script type="text/javascript" src="<?php echo $js_path; ?>jquery.tablesorter.min.js"></script>
 <script type="text/javascript" src="<?php echo $js_path; ?>jquery.tablesorter.paginator.js"></script>
+<script type="text/javascript" src="<?php echo $js_path; ?>View.js"></script>
 
 <script type="text/javascript" src="<?php echo $js_path; ?>menu.js"></script>
 

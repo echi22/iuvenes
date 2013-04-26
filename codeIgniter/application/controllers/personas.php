@@ -1,6 +1,6 @@
 <?php
-
-class Personas extends CI_Controller {
+include_once 'controlador.php';
+class Personas extends Controlador {
         
         public function __construct()
 	{

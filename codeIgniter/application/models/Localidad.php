@@ -12,6 +12,7 @@
  */
 class Localidad extends DataMapper{
      var $table = 'localidad';
+     var $has_one = array('state');
      var $has_many = array('domicilio');
      function __construct($id = NULL)
         {

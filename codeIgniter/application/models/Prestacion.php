@@ -13,7 +13,7 @@
 class Prestacion extends DataMapper {
     var $table = 'prestacion_personal';
     var $has_one = array("personal","wsituacion_revista","tipo_liquidacion_sueldo","cargo");
-    var $has_many = array("curso","persona_licencia");
+    var $has_many = array("curso","persona_licencia","materium_curso_prestacion_personal");
     function __construct($id = NULL)
     {
         parent::__construct($id);

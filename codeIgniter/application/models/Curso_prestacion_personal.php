@@ -10,9 +10,8 @@
  *
  * @author echi
  */
-class Country extends DataMapper{
-     var $table = 'country';
-     var $has_many=array('persona','domicilio','state');
+class Curso_prestacion_personal extends DataMapper{
+     var $table = 'curso_prestacion_personal';     
      function __construct($id = NULL)
         {
             parent::__construct($id);

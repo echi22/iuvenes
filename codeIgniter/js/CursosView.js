@@ -105,23 +105,8 @@ function  CursosView(){
         }
         return false;
     };
-    this.selectAllOptionsFromSelectbox = function(selectbox_id){
-        $("#"+selectbox_id+">option").each(function(){
-            this.selected = true;
-        })
-    };
-    this.setSelectedIndex = function(value,selectBoxId){
     
-        $("#"+selectBoxId).find("option").each(function(i,elem){
-            if(elem.label == value){
-                elem.selected = true;             
-            }
-        });
-        
-    };
-    this.setSelectedIndexByValue = function(value,selectBoxId){
-        $("#"+selectBoxId).val(value);
-    };
+    
     this.deleteAlumno = function(elem,alumno_id,curso_id){
         if(confirm('¿Está seguro que desea eliminar al alumno de este curso?')){
             $.ajax({
@@ -180,5 +165,29 @@ function  CursosView(){
                     
                 }           
             });
+    };
+    
+    this.submitMaterias = function(curso_id){
+        var data = new Object();
+        data.materias = new Array();
+        data.docentes = new Array();
+        for(var i = 0; i < $(".materias").length; i++){
+            data.materias.push($(".materias")[i].value);
+            data.docentes.push($(".docentes")[i].value);
+        }
+        data = JSON.stringify(data);
+            $.ajax({
+                url : '../save_materias_docentes',
+                type: "POST",
+                data : {                    
+                    'curso_id':curso_id,
+                    'data':data
+                },
+                success : function(res){
+                    alert("Docentes guardados correctamente"); 
+                    
+                }           
+            });        
     }
 }
+CursosView.prototype = new View;

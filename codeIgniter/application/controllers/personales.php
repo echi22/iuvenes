@@ -1,6 +1,6 @@
 <?php
-
-class Personales extends CI_Controller {
+include_once 'controlador.php';
+class Personales extends Controlador {
 
     public function __construct() {
         parent::__construct();

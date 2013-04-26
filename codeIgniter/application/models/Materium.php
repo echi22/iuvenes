@@ -12,7 +12,7 @@
  */
 class Materium extends DataMapper{
      var $table = 'materium';
-     var $has_many = array('anio_nivel');
+     var $has_many = array('anio_nivel','materium_curso_prestacion_personal');
      function __construct($id = NULL)
         {
             parent::__construct($id);

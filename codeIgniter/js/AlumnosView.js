@@ -16,12 +16,7 @@ function  AlumnosView(){
         var highestCol = Math.max($('#'+klass+"1").height(),$('#'+klass+"2").height());
         $('.'+klass).height(highestCol);
     };
-    this.submitForm = function(id,enviar){
-        return this.verificar_form(id, enviar);
-    };
-    this.deleteRow = function(elem,rowId){
-        $(elem).closest("#"+rowId).remove();
-    };
+    
     this.addRelative = function(i){
         location.href= "update_parent/"+$('#persona_id'+i).val();
     };
@@ -73,6 +68,8 @@ function  AlumnosView(){
             var nameForward = splitedName[0];
             var nameBack = splitedName.slice(2).join("_");
             $(this).attr('name', nameForward+'_'+$('#cant_'+rowId).val()+'_'+nameBack);
+            var lastId = $(this).attr('id').split("_");
+            $(this).attr('id', lastId[0]+'_'+lastId[1]+'_'+(parseInt(lastId[2] + 1)));
             $(this).val('');
         });
         $('#cant_'+rowId).val(parseInt($('#cant_'+rowId).val()) +1);
@@ -80,27 +77,8 @@ function  AlumnosView(){
             '<li class="ui-state-default ui-corner-all" title="Eliminar"  onclick="alumnosView.deleteRow(this,\''+rowId+'\');"><span class="ui-icon ui-icon-close" style="margin: 0 4px;"></span></li>');
         $("#"+rowContainerId).append(contenido);
     };
-    this.setSelectedIndex = function(value,selectBoxId){
+   
     
-        $("#"+selectBoxId).find("option").each(function(i,elem){
-            if(elem.label == value){
-                elem.selected = true;             
-            }
-        });
-        
-    };
-    this.setSelectedIndexByValue = function(value,selectBoxId){
-        $("#"+selectBoxId).val(value);
-    };
-    
-    this.show_editable = function(id){
-        $(".edit_"+id).show();
-        $(".no_edit_"+id).hide();
-    };
-    this.hide_editable = function(id){
-        $(".no_edit_"+id).show();
-        $(".edit_"+id).hide();
-    };
     this.edit_related = function(vinculo_id){
         var parentesco = $("#parentesco"+vinculo_id).val();
         var autorizado = $("#autorizado"+vinculo_id).is(':checked');
@@ -181,37 +159,7 @@ function  AlumnosView(){
         $('body').append(form);
         $(form).submit();
     };
-    this.verificar_form = function(id, enviar){
-        var msg = 'Le falta llenar los siguientes campos:\n';
-        var av = this;
-        $('#'+id).find('.required').each(
-            function(){            
-                $(this).css("background-color", "white");
-                if ($(this).is("input") && ($(this).val() == '')){
-                    msg = av.verificar_input(msg, this);
-                }else{
-                    if($(this).is("select") && ($(this).val() == '-'))
-                        msg = av.verificar_selectbox(msg,this);
-                }                       
-            });
-        if(msg=='Le falta llenar los siguientes campos:\n'){
-            if (enviar)
-                $('#'+id).submit();
-            return true;
-        }else{
-            alert(msg);
-            return false;
-        }
-    };
-    this.verificar_input = function(msg,elem){
-        msg += ' - ';
-        msg += $(elem).siblings('label').text().replace(':', '')+'\n';        
-        $(elem).stop();
-        $(elem).effect("highlight",{
-            color : "#FF8484"
-        },200000);
-        return msg;
-    };
+    
     this.alumno_exists = function(id_persona){
         var cd_identificaciones = $(".cd_identificacion");
         var nu_identificaciones = $(".nu_identificacion");
@@ -228,20 +176,7 @@ function  AlumnosView(){
                 break;
         }
     }
-    this.verificar_selectbox = function(msg,elem){    
-        if ($(elem).val() == '-'){
-            msg += ' - ';
-            msg += $(elem).siblings('label').text().replace(':', '')+'\n';            
-            $(elem).stop();
-            $(elem).animate({
-                backgroundColor: "#FF8484"
-            }, 500);
-            $(elem).effect("highlight",{
-                color : "#FF8484"
-            },200000);
-        }        
-        return msg;
-    };
+   
     this.filtrarPrestaciones = function(){
         var num_prestacion = 0;
         for(var i = 0; i < parseInt($('#cant_prestaciones').val()); i++){
@@ -267,3 +202,5 @@ function  AlumnosView(){
     }
     
 }
+
+AlumnosView.prototype = new View;

@@ -74,7 +74,7 @@ echo validation_errors();
                                 alumnosView.setSelectedIndex('<?php echo $prestacion->cargo->ds_cargo; ?>','cargo_<?php echo $prestacion->id; ?>');
                             </script>
                         </td>
-                        <td>-<?php // echo $prestacion->establecimiento->ds_establecimiento;     ?>
+                        <td>-<?php // echo $prestacion->establecimiento->ds_establecimiento;      ?>
                             <select class="edit_<?php echo $prestacion->id; ?>" id="id_establecimiento_<?php echo $prestacion->id; ?>" >
                                 {establecimiento}
                                 <option value="{id_establecimiento}">{ds_establecimiento}</option>
@@ -158,6 +158,8 @@ echo validation_errors();
             <?php include('application/views/templates/pager.php'); ?>       
             <div class="row">
                 <button onclick="alumnosView.submitForm()">Guardar</button>
+                <button onclick=" return alumnosView.goBack(); " >Volver</button>
+
             </div>
         </div>
         </form>
