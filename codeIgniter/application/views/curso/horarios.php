@@ -44,7 +44,6 @@
 
 </style>
 <script>
-    cursosView = new CursosView();
     function dropOnChild(ev){
         var data=ev.dataTransfer.getData("Text");
         var node = document.getElementById(data).cloneNode(true);
@@ -75,6 +74,22 @@
     {
         ev.dataTransfer.setData("Text",ev.target.id);
     }    
+    $.contextMenu({
+        selector: '.drop', 
+        callback: function(key, options) {
+            var m = "clicked: " + key;
+            window.console && console.log(m) || alert(m); 
+        },
+        items: {            
+            "delete": {name: "Delete", icon: "delete", callback: function(key, opt){ opt.$trigger.html(""); }}           
+        }
+    });
+    function eliminar(){
+        $(this).remove();
+    }
+    $('.drop').on('click', function(e){
+        console.log('clicked', this);
+    })
 </script>
 
 <div style="width:750px; height: 100%">
@@ -83,11 +98,11 @@
             <tr>
                 <td><div class="" draggable="false">Materias</div></td>
             </tr>     
-            <?php                         
-            foreach ($curso->anio_nivel->materiums->get() as $materia) { ?>
-            <tr>
-                <td><div class="item" id="<?php echo $materia->nombre; ?>" style="cursor: pointer;" ondragstart="drag(event)" draggable="true"  ><?php echo $materia->nombre; ?></div></td>
-            </tr>            
+            <?php foreach ($curso->anio_nivel->materiums->get() as $materia) { ?>
+                <tr>          
+                    <td><div class="item <?php echo $materia->nombre; ?>"  id="<?php echo $materia->nombre; ?>" style="cursor: pointer;" ondragstart="drag(event)" draggable="true"  ><?php echo $materia->nombre; ?></div></td>
+
+                </tr>            
             <?php } ?>
         </table>
     </div>
@@ -180,7 +195,7 @@
                     <td class="drop" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
                     <td class="drop" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
                 </tr>
-                 <tr>
+                <tr>
                     <td class="time">17:00</td>
                     <td class="drop" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
                     <td class="drop" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
@@ -189,10 +204,12 @@
                     <td class="drop" ondrop="drop(event)" ondragover="allowDrop(event)"></td>
                 </tr>
             </table>
-<?php } else {
-    echo $curso->scheduletable->html;
-    echo "</table>";
-} ?>
+            <?php
+        } else {
+            echo $curso->scheduletable->html;
+            echo "</table>";
+        }
+        ?>
     </div>
 </div>
 <div style="clear: both"></div>

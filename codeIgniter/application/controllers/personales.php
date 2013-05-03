@@ -249,13 +249,24 @@ class Personales extends Controlador {
             $p->where_related('persona_identificacion', 'id', $identificacion);
             $p->get();
             $a = new Personal();
+            if ($_POST['vigente'] != "")
+                $a->where('vigente', $_POST['vigente']);
             $a->where_related('persona', 'id', $p);
             $a->where_related("establecimiento", 'id', $_SESSION['establecimiento_id'])->get();
             $data['personales'] = $a;
+            $data['parametros'] = $_POST;
         }
         $this->load->view('templates/header');
         $this->load->view('personal/buscar', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function change_state() {
+        $a = new Personal();
+        $a->where('id', $_POST['personal_id']);
+        $a->get();
+        $a->vigente = !$a->vigente;
+        $a->save();       
     }
 
 }

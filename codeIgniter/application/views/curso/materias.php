@@ -17,7 +17,7 @@
             }
             $materias_docentes = Array();
             foreach ($curso->materium_curso_prestacion_personals as $item) {
-                $materias_docentes[$item->materium->id] = $item->prestacion->id; 
+                $materias_docentes[$item->materium->id] = $item->prestacion->id;
             }
             $classes = Array("odd", "even");
             $i = 0;
@@ -30,6 +30,9 @@
                         </select>
                         <script type="text/javascript">
                             cursosView.setSelectedIndexByValue('<?php echo $materias_docentes[$materia->id]; ?>','<?php echo $materia->nombre . "_" . $materia->id; ?>');           
+                            cursosView.materias['<?php echo $materia->nombre; ?>'] = $("#<?php echo $materia->nombre . "_" . $materia->id; ?> option[value='<?php echo $materias_docentes[$materia->id]; ?>']").text();
+                            $(".<?php echo $materia->nombre; ?>").attr('title',cursosView.materias['<?php echo $materia->nombre; ?>']);
+
                         </script>
                     </td>
                 </tr>            

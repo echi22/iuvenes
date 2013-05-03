@@ -83,14 +83,14 @@ echo validation_errors();
                         {/sexo}
                     </select>
                 </div>
-                <div class="input">
+<!--                <div class="input">
                     <label for="id_establecimiento">Establecimiento:</label>                
                     <select id="id_establecimiento" name="id_establecimiento">
                         {establecimiento}
                         <option value="{id_establecimiento}">{ds_establecimiento}</option>
                         {/establecimiento}
                     </select>
-                </div>            
+                </div>            -->
             </div>
             <div class="row border_bottom">
                 <div class="input">

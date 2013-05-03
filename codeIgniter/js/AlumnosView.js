@@ -52,7 +52,7 @@ function  AlumnosView(){
                 type: "POST",
                 data : 'licencia_id='+licencia_id,
                 success : function(){
-                    $(elem).closest('.licencia').remove();                   
+                    $(elem).closest('.licencia').remove();                     
                 }           
             });
         }
@@ -175,7 +175,7 @@ function  AlumnosView(){
             if(exists)
                 break;
         }
-    }
+    };
    
     this.filtrarPrestaciones = function(){
         var num_prestacion = 0;
@@ -199,7 +199,23 @@ function  AlumnosView(){
             else
                 $("#prestacion"+i).show();
         }
-    }
+    };
+    
+    this.changeVigente = function(alumno_id,elem){
+        var vigente = ($("#estado"+alumno_id).html() == "Vigente")? true : false;
+        var pregunta = (vigente)? "¿Está seguro que desea marcar al alumno como NO vigente?"  : "¿Está seguro que desea marcar al alumno como  vigente?";        
+        var vigenteString = (vigente)?"No vigente" : "Vigente";
+        if(confirm(pregunta)){
+            $.ajax({
+                url : 'change_state',
+                type: "POST",
+                data : 'alumno_id='+alumno_id+'&vigente='+!vigente,
+                success : function(){
+                  $("#estado"+alumno_id).html(vigenteString);
+                }           
+            });
+        }
+    };
     
 }
 

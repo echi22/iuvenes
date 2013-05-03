@@ -24,24 +24,29 @@
                 <div class="input">
                     <label for="nivel">Nivel:</label>
                     <select id="nivel" name="nivel" class="required">
+                        <option value=''>Todos</option>
                         {nivel_educativo}
                         <option value="{id}">{ds_nivel}</option>
                         {/nivel_educativo}
                     </select>
                 </div>
-                <div class="input">
-                    <label for="orientacion">Orientacion:</label>
-                    <select id="orientacion" name="orientacion" class="required">
-                        {orientacion}
-                        <option value="{id}">{ds_orientacion}</option>
-                        {/orientacion}
-                    </select>
-                </div>                      
-</div>
+
+            </div>
+            <div class="input">
+                <label for="orientacion">Orientacion:</label>
+
+                <select id="orientacion" name="orientacion" class="required">
+                    <option value=''>Todos</option>
+                    {orientacion}
+                    <option value="{id}">{ds_orientacion}</option>
+                    {/orientacion}
+                </select>
+            </div>      
             <div class="row border_bottom">
                 <div class="input">
                     <label for="turno">Turno:</label>
                     <select name="cd_turno" id="turno" class="required">
+                        <option value=''>Todos</option>
                         <option value='m'>Mañana</option>
                         <option value='t'>Tarde</option>
                     </select>

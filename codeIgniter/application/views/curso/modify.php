@@ -1,12 +1,7 @@
 <?php
 echo validation_errors();
 ?>
-<script type="text/javascript" src="<?php echo base_url(); ?>js/CursosView.js"></script>
-<script type="text/javascript">
-    cursosView = new CursosView();
-    //first, detect when initial DD changes
-    
-</script>
+
 <div id="contenido">
     <form name="form"  action="<?php echo base_url() . 'cursos/modify/'.$curso->id; ?>" id="form" method="post">    
         <div id="insert_form" class="content-center">            

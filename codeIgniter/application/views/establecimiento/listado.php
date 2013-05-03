@@ -28,7 +28,7 @@
                 <tr class="<?php echo $classes[($i % 2)]; echo $c; ?> establecimiento" id="establecimiento<?php echo $i; ?>">
             <td>
                 <p class="no_edit_<?php echo $establecimiento->id; ?>" id="ds_establecimiento_no_edit_<?php echo $establecimiento->id; ?>"><?php echo $establecimiento->ds_establecimiento; ?> </p>
-                <input class="edit_<?php echo $establecimiento->id; ?> hidden" size="10" type="text" id="ds_establecimiento_<?php echo $establecimiento->id; ?>" value="<?php echo $establecimiento->ds_establecimiento; ?>" />
+                <input class="edit_<?php echo $establecimiento->id; ?> hidden" size="40" type="text" id="ds_establecimiento_<?php echo $establecimiento->id; ?>" value="<?php echo $establecimiento->ds_establecimiento; ?>" />
             </td>
             <input type="hidden" value="<?php echo $establecimiento->id; ?>" id="establecimiento<?php echo $i; ?>_id" />                  
 

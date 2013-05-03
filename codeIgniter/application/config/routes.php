@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "index";
+$route['default_controller'] = "users";
 $route['404_override'] = '';
 //$route['news/(:any)'] = 'news/view/$1';
 //$route['news'] = 'news';

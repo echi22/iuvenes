@@ -35,7 +35,7 @@
 </table>
 <div style="clear: both"></div>
 <?php
-$pagerName = "pager_doncentes";
+$pagerName = "pager_trayecto_escolar";
 include('application/views/templates/pager.php');
 ?>
  

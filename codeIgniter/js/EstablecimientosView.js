@@ -20,7 +20,7 @@ function  EstablecimientosView(){
                 success : function(data){
                     $(".establecimiento").removeClass("top").removeClass("row2").removeClass("bottom");
                     $(elem).closest('.establecimiento').addClass("top").addClass("row2").addClass("bottom");               
-                    $(".working_on").html("Trabajando en "+data)
+                    $(".working_on").html("Colegio "+data)
                 }           
             });
         }

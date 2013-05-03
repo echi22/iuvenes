@@ -5,9 +5,12 @@
 <link type="text/css" href="<?php echo $css_path; ?>jquery-ui-1.9.1.custom.min.css" rel="stylesheet" />
 <link type="text/css" href="<?php echo $css_path; ?>style.css" rel="stylesheet" />
 <link type="text/css" href="<?php echo $css_path; ?>/blue/style.css" rel="stylesheet" />
+<link type="text/css" href="<?php echo $css_path; ?>/jquery.contextMenu.css" rel="stylesheet" />
 <script type="text/javascript" src="<?php echo $js_path; ?>jquery-1.8.2.js"></script>
 <script type="text/javascript" src="<?php echo $js_path; ?>jquery-ui-1.9.1.custom.min.js"></script>
 <script type="text/javascript" src="<?php echo $js_path; ?>jquery.tablesorter.min.js"></script>
+<script type="text/javascript" src="<?php echo $js_path; ?>jquery.contextMenu.js"></script>
+<script type="text/javascript" src="<?php echo $js_path; ?>jquery.ui.position.js"></script>
 <script type="text/javascript" src="<?php echo $js_path; ?>jquery.tablesorter.paginator.js"></script>
 <script type="text/javascript" src="<?php echo $js_path; ?>View.js"></script>
 

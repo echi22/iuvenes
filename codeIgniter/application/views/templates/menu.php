@@ -6,8 +6,7 @@
                 <li><a  href="<?php echo base_url().'establecimientos/create'; ?>"><span>Nuevo</span></a>
                     
                 </li>
-                <li><a  href="<?php echo base_url().'establecimientos/listado'; ?>"><span>Modificación</span></a></li>
-                <li><a href="/iuvenes/establecimientos/seleccionar_para_trabajar.php"><span>Seleccionar</span></a></li>
+                <li><a  href="<?php echo base_url().'establecimientos/listado'; ?>"><span>Consulta</span></a></li>
             </ul></div>
         </li>
         <li><a href="#" class="parent"><span>Alumnos</span></a>

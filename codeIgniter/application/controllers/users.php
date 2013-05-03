@@ -1,4 +1,5 @@
 <?php
+
 include_once 'controlador.php';
 
 class Users extends Controlador {
@@ -9,7 +10,7 @@ class Users extends Controlador {
         $this->load->helper('form');
     }
 
-    public function login() {
+    public function index() {
         $this->load->helper('form');
         $this->load->helper('url');
         $this->load->library('form_validation');
@@ -28,10 +29,16 @@ class Users extends Controlador {
                 $_SESSION['user_id'] = $u->id;
                 $_SESSION['establecimiento'] = $u->establecimiento->ds_establecimiento;
                 $_SESSION['establecimiento_id'] = $u->establecimiento->id;
-                redirect("/");
+                redirect("index/");
+            } else {
+                $data['message'] = "Usuario o contraseña inválido";
+                $this->load->view('templates/header');
+                $this->parser->parse('user/login', $data);
+                $this->load->view('templates/footer');
             }
         }
     }
+
 }
 
 ?>

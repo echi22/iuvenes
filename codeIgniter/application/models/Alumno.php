@@ -36,6 +36,13 @@ class Alumno extends DataMapper {
         $identificacion = $this->get_identificacion_principal();
         return $this->persona->apellidos . " " . $this->persona->nombres . " - " . $identificacion->widentificacion->ds_identificacion . " " . $identificacion->numero_identificacion;
     }
+    
+    function isVigente(){
+        if($this->vigente)
+            return "Vigente";
+        else
+            return "No vigente";
+    }
 
 }
 

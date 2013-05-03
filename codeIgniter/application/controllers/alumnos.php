@@ -201,15 +201,17 @@ class Alumnos extends Controlador {
                  if($this->input->post('apellidos') <> "")
                     $p->like('apellidos',$this->input->post('apellidos'));
                  if($this->input->post('nombres')<> "")
-                    $p->like('nombres',$this->input->post('nombres'));
+                    $p->like('nombres',$this->input->post('nombres'));                 
                  $p->where_related('persona_identificacion','id',$identificacion);
                  $p->get();
                  $a = new Alumno();
-                 echo $_SESSION['establecimiento_id']."sdaf";
+                 if($_POST['vigente'] != "")
+                     $a->where("vigente",$_POST['vigente']);
                  $a->where_related("establecimiento",'id',$_SESSION['establecimiento_id']);
                  $a->where_related('persona','id',$p)->get();
                  $data['alumnos'] = $a;
              }
+             $data['parametros'] = $_POST;
              $this->load->view('templates/header');
              $this->load->view('alumno/buscar',$data);
              $this->load->view('templates/footer');
@@ -229,6 +231,14 @@ class Alumnos extends Controlador {
         
         public function alumno_exists($cd_identificacion,$nu_identificacion,$id_persona){             
             echo $this->personalibrary->person_exists($cd_identificacion,$nu_identificacion,$id_persona);                                
+        }
+        
+        public function change_state(){
+            $a = new Alumno();
+            $a->where('id',$_POST['alumno_id']);
+            $a->get();
+            $a->vigente = !$a->vigente;
+            $a->save();            
         }
 }       
 ?>

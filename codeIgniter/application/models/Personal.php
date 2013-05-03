@@ -27,6 +27,13 @@ class Personal extends DataMapper {
 
         return $this;
     }
+    
+    function isVigente(){
+        if($this->vigente)
+            return "Vigente";
+        else
+            return "No vigente";
+    }
 }
 
 ?>

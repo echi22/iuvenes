@@ -8,34 +8,34 @@
 <div class="row">
     <div class="input">
         <label for="estado" style="display: block;">Estado:</label>                        
-        <select id="estado" name="estado" class="filtro_igual">
+        <select id="estado" name="estado" class="filtro_igual" onchange="alumnosView.filtrarPrestaciones()">
             <option value="S">Vigentes</option>
             <option value="N">No vigentes</option>
             <option value="">Todas</option>
         </select>
     </div>
     <div class="input_grande">
-        <label for="id_establecimiento">Establecimiento:</label>                
+<!--        <label for="id_establecimiento">Establecimiento:</label>                
         <select id="id_establecimiento" name="id_establecimiento" class="filtro_igual">
             {establecimiento}
             <option value="{id_establecimiento}">{ds_establecimiento}</option>
             {/establecimiento}
-        </select>
+        </select>-->
     </div>    
     <div class="input">
         <label for="dt_inicio">Desde:</label>                
-        <input type="date" id="dt_inicio" name="dt_inicio" class="filtro_mayor">
+        <input type="date" id="dt_inicio" name="dt_inicio" class="filtro_mayor" onchange="alumnosView.filtrarPrestaciones()">
     </div>
     <div class="input">
         <label for="dt_fin">Hasta:</label>                
-        <input type="date" id="dt_fin" name="dt_fin" class="filtro_menor">
+        <input type="date" id="dt_fin" name="dt_fin" class="filtro_menor" onchange="alumnosView.filtrarPrestaciones()">
     </div>    
 </div>
 <div >
     <table id="myTable" class="table_data tablesorter">
         <thead>
             <tr class="table_header">
-                <th>Nombre Cargo</th> <th>Establecimiento</th> <th>Inicio Vigencia</th> <th>Fin Vigencia</th>
+                <th>Nombre Cargo</th> <!--<th>Establecimiento</th>--> <th>Inicio Vigencia</th> <th>Fin Vigencia</th>
                 <th>Estado</th> <th>Carga Horaria</th> <th>Secuencia</th><th>Liq. Sueldo</th> <th>Sit. Revista</th>
                 <th>Asig. Familiar</th><th>% Asig. Familiar</th>
             </tr>
@@ -61,13 +61,13 @@
                     alumnosView.setSelectedIndex('<?php echo $prestacion->cargo->ds_cargo; ?>','cargo_<?php echo $prestacion->id; ?>');
                 </script>
             </td>
-            <td>-<?php // echo $prestacion->establecimiento->ds_establecimiento;    ?>
+<!--            <td>-<?php // echo $prestacion->establecimiento->ds_establecimiento;    ?>
                 <select class="edit_<?php echo $prestacion->id; ?>" id="id_establecimiento_<?php echo $prestacion->id; ?>" >
                     {establecimiento}
                     <option value="{id_establecimiento}">{ds_establecimiento}</option>
                     {/establecimiento}
                 </select>
-            </td>
+            </td>-->
             <td>
                 <p class="no_edit_<?php echo $prestacion->id; ?>" id="dt_inicio_no_edit_<?php echo $prestacion->id; ?>"><?php echo $prestacion->dt_inicio; ?> </p>
                 <input class="edit_<?php echo $prestacion->id; ?> hidden" size="5" type="date" id="dt_inicio_<?php echo $prestacion->id; ?>" value="<?php echo $prestacion->dt_inicio; ?>" />

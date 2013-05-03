@@ -6,7 +6,7 @@ echo validation_errors();
     view = new View();
 </script>
 <div id="contenido">
-    <form name="form"  action="<?php echo base_url() . 'users/login'; ?>" id="form" method="post">    
+    <form name="form"  action="<?php echo base_url() . 'users/index'; ?>" id="form" method="post">    
         <div id="insert_form" class="content-center">
             <div class="titulo">
                 Login
@@ -21,7 +21,7 @@ echo validation_errors();
                     <input type="password" id="password" name="password" class="required"/>
                 </div>   
             </div>            
-            <div style="clear: both"></div>
+            <div style="clear: both"><?php echo $message; ?></div>
             
             <div class="row">
                 <button onclick="return view.submitForm('form',true)">Entrar</button>

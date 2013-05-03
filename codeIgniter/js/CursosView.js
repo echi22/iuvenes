@@ -3,6 +3,7 @@ function  CursosView(){
     this.listadoAlumnos = new Array();
     this.prestacionesSelected = new Array();
     this.listadoPrestaciones = new Array();
+    this.materias = new Object();
     this.selectMoveRows = function(SS1,SS2,selected,listado)
     {        
         var SelID='';
