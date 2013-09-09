@@ -8,11 +8,11 @@ echo validation_errors();
             <div class="row">
                 <div class="input">
                     <label for="ciclo_lectivo">Ciclo Lectivo:</label>
-                    <input type="text" id="ciclo_lectivo" name="id_ciclo_lectivo" value="<?php echo $curso->id_ciclo_lectivo; ?>" class="required"/>
+                    <input type="text" id="ciclo_lectivo" name="id_ciclo_lectivo" value="<?php echo $curso->id_ciclo_lectivo; ?>" class="required" required/>
                 </div>
                 <div class="input">
                     <label for="nivel">Nivel:</label>
-                    <select id="anio_nivel" name="anio_nivel" class="required">
+                    <select id="anio_nivel" name="anio_nivel" class="required" required>
                         <?php foreach ($anios_niveles as $anio) {?>
                             <option value="<?php echo $anio['id']; ?>"><?php echo $anio['detalle']; ?></option>
                         <?php } ?>
@@ -25,7 +25,7 @@ echo validation_errors();
             <div class="row">
                 <div class="input">
                     <label for="turno">Turno:</label>
-                    <select name="cd_turno" id="turno" class="required">
+                    <select name="cd_turno" id="turno" class="required" required>
                         <option value='m'>Mañana</option>
                         <option value='t'>Tarde</option>
                     </select>
@@ -35,7 +35,7 @@ echo validation_errors();
                 </div>
                 <div class="input">
                     <label for="seccion">Sección:</label>
-                    <input type="text" name="ds_seccion" id="seccion" value="<?php echo $curso->ds_seccion; ?>" class="required"/>
+                    <input type="text" name="ds_seccion" id="seccion" value="<?php echo $curso->ds_seccion; ?>" class="required" required/>
                 </div>                       
             </div>            
             <div style="clear: both"></div>

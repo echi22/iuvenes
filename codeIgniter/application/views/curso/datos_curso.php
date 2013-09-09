@@ -32,6 +32,6 @@
         <?php $this->load->view('curso/horarios'); ?> 
     </div>
     <div id="tabs-5">
-        <?php $this->load->view('curso/materias'); ?> 
+        <?php  $this->load->view('curso/materias'); ?> 
     </div>
 </div>

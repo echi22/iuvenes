@@ -1,11 +1,11 @@
 <?php
 echo validation_errors();
 ?>
-<script type="text/javascript" src="<?php echo base_url(); ?>js/AlumnosView.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>js/PersonalesView.js"></script>
 <script type="text/javascript">
     $(function() {
         $( "#tabs" ).tabs();});
-    alumnosView = new AlumnosView();
+    personalesView = new PersonalesView();
     
 </script>
 <div class="titulo">
@@ -41,7 +41,7 @@ echo validation_errors();
                 </div>
                 <div class="input">
                     <label for="carga_horaria">Carga Horaria:</label>
-                    <input type="text" id="carga_horaria" name="qt_horas" class="required"/>
+                    <input type="text" id="carga_horaria" name="qt_horas" class="required" required/>
                 </div>      
                 <div class="input">
                     <label for="estado">Estado</label>
@@ -54,7 +54,7 @@ echo validation_errors();
             <div class="row">
                 <div class="input">
                     <label for="nu_secuencia">N° Secuencia:</label>
-                    <input type="text" name="nu_secuencia" id="nu_secuencia" class="required"/>
+                    <input type="text" name="nu_secuencia" id="nu_secuencia" class="required" required/>
                 </div>
                 <div class="input">
                     <label for="tp_liq_sueldo">Liquidación Sueldo:</label>
@@ -87,8 +87,8 @@ echo validation_errors();
 
             </div>   
             <div class="row">
-                <button onclick="alumnosView.submitForm()">Guardar</button>
-                <button onclick=" return alumnosView.goBack(); " >Volver</button>
+                <button onclick="personalesView.submitForm()">Guardar</button>
+                <button onclick=" return personalesView.goBack(); " >Volver</button>
             </div>
         </div>
         </form>

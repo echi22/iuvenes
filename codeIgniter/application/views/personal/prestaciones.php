@@ -8,7 +8,7 @@
 <div class="row">
     <div class="input">
         <label for="estado" style="display: block;">Estado:</label>                        
-        <select id="estado" name="estado" class="filtro_igual" onchange="alumnosView.filtrarPrestaciones()">
+        <select id="estado" name="estado" class="filtro_igual" onchange="personalesView.filtrarPrestaciones()">
             <option value="S">Vigentes</option>
             <option value="N">No vigentes</option>
             <option value="">Todas</option>
@@ -24,11 +24,11 @@
     </div>    
     <div class="input">
         <label for="dt_inicio">Desde:</label>                
-        <input type="date" id="dt_inicio" name="dt_inicio" class="filtro_mayor" onchange="alumnosView.filtrarPrestaciones()">
+        <input type="date" id="dt_inicio" name="dt_inicio" class="filtro_mayor" onchange="personalesView.filtrarPrestaciones()">
     </div>
     <div class="input">
         <label for="dt_fin">Hasta:</label>                
-        <input type="date" id="dt_fin" name="dt_fin" class="filtro_menor" onchange="alumnosView.filtrarPrestaciones()">
+        <input type="date" id="dt_fin" name="dt_fin" class="filtro_menor" onchange="personalesView.filtrarPrestaciones()">
     </div>    
 </div>
 <div >
@@ -58,7 +58,7 @@
                     <?php } ?>
                 </select>
                 <script type="text/javascript">
-                    alumnosView.setSelectedIndex('<?php echo $prestacion->cargo->ds_cargo; ?>','cargo_<?php echo $prestacion->id; ?>');
+                    personalesView.setSelectedIndex('<?php echo $prestacion->cargo->ds_cargo; ?>','cargo_<?php echo $prestacion->id; ?>');
                 </script>
             </td>
 <!--            <td>-<?php // echo $prestacion->establecimiento->ds_establecimiento;    ?>
@@ -83,16 +83,16 @@
                     <option value="N">No Vigente</option>
                 </select>
                 <script type="text/javascript">
-                    alumnosView.setSelectedIndex('<?php echo $prestacion->estado; ?>','estado_no_edit_<?php echo $prestacion->id; ?>');
+                    personalesView.setSelectedIndex('<?php echo $prestacion->estado; ?>','estado_no_edit_<?php echo $prestacion->id; ?>');
                 </script>
             </td>
             <td>
                 <p class="no_edit_<?php echo $prestacion->id; ?>" id="carga_horaria_no_edit_<?php echo $prestacion->id; ?>"><?php echo $prestacion->qt_horas; ?></p>
-                <input class="edit_<?php echo $prestacion->id; ?> hidden" size="5" type="text" id="carga_horaria_<?php echo $prestacion->id; ?>" value="<?php echo $prestacion->qt_horas; ?>" class="required"/>
+                <input class="edit_<?php echo $prestacion->id; ?> hidden" size="5" type="text" id="carga_horaria_<?php echo $prestacion->id; ?>" value="<?php echo $prestacion->qt_horas; ?>" class="required" required/>
             </td>
             <td>
                 <p class="no_edit_<?php echo $prestacion->id; ?>" id="nu_secuencia_no_edit_<?php echo $prestacion->id; ?>"><?php echo $prestacion->nu_secuencia; ?></p>
-                <input type="text" class="edit_<?php echo $prestacion->id; ?> hidden" size="5"  id="nu_secuencia_<?php echo $prestacion->id; ?>" value="<?php echo $prestacion->nu_secuencia; ?>" class="required"/>
+                <input type="text" class="edit_<?php echo $prestacion->id; ?> hidden" size="5"  id="nu_secuencia_<?php echo $prestacion->id; ?>" value="<?php echo $prestacion->nu_secuencia; ?>" class="required" required/>
             </td>
             <td>
                 <p class="no_edit_<?php echo $prestacion->id; ?>" id="tp_liq_sueldo_no_edit_<?php echo $prestacion->id; ?>"><?php echo $prestacion->tipo_liquidacion_sueldo->detalle; ?></p>
@@ -104,7 +104,7 @@
                     <?php } ?>
                 </select>
                 <script type="text/javascript">
-                    alumnosView.setSelectedIndex('<?php echo $prestacion->tipo_liquidacion_sueldo->detalle; ?>','tp_liq_sueldo_<?php echo $prestacion->id; ?>');
+                    personalesView.setSelectedIndex('<?php echo $prestacion->tipo_liquidacion_sueldo->detalle; ?>','tp_liq_sueldo_<?php echo $prestacion->id; ?>');
                 </script>
             </td>
             <td>
@@ -117,7 +117,7 @@
                     <?php } ?>
                 </select>
                 <script type="text/javascript">
-                    alumnosView.setSelectedIndex('<?php echo $prestacion->wsituacion_revista->ds_sit_revista; ?>','revista_<?php echo $prestacion->id; ?>');
+                    personalesView.setSelectedIndex('<?php echo $prestacion->wsituacion_revista->ds_sit_revista; ?>','revista_<?php echo $prestacion->id; ?>');
                 </script>
             </td>
             <td>
@@ -132,18 +132,18 @@
             <td>
                 <div class="no_edit_<?php echo $prestacion->id; ?> ">
                     <div id="icons" style="float: left">
-                        <li class="ui-state-default ui-corner-all" title="Modificar" onclick="alumnosView.show_editable(<?php echo $prestacion->id; ?>);"><span class="ui-icon ui-icon-pencil" style="margin: 0 4px;"></span></li>
+                        <li class="ui-state-default ui-corner-all" title="Modificar" onclick="personalesView.show_editable(<?php echo $prestacion->id; ?>);"><span class="ui-icon ui-icon-pencil" style="margin: 0 4px;"></span></li>
                     </div> 
                     <div id="icons" style="float: left">
-                        <li class="ui-state-default ui-corner-all" title="Eliminar" onclick="alumnosView.deletePrestacion(this,<?php echo $prestacion->id; ?>);"><span class="ui-icon ui-icon-trash" style="margin: 0 4px;"></span></li>
+                        <li class="ui-state-default ui-corner-all" title="Eliminar" onclick="personalesView.deletePrestacion(this,<?php echo $prestacion->id; ?>);"><span class="ui-icon ui-icon-trash" style="margin: 0 4px;"></span></li>
                     </div>    
                 </div>
                 <div class="edit_<?php echo $prestacion->id; ?> hidden">
                     <div id="icons" style="float: left">
-                        <li class="ui-state-default ui-corner-all" title="Guardar" onclick="alumnosView.edit_prestacion(<?php echo $prestacion->id; ?>,<?php echo $personal->persona->id; ?>);"><span class="ui-icon ui-icon-check" style="margin: 0 4px;"></span></li>
+                        <li class="ui-state-default ui-corner-all" title="Guardar" onclick="personalesView.edit_prestacion(<?php echo $prestacion->id; ?>,<?php echo $personal->persona->id; ?>);"><span class="ui-icon ui-icon-check" style="margin: 0 4px;"></span></li>
                     </div> 
                     <div id="icons" style="float: left">
-                        <li class="ui-state-default ui-corner-all" title="Cancelar" onclick="alumnosView.hide_editable(<?php echo $prestacion->id; ?>);"><span class="ui-icon ui-icon-close" style="margin: 0 4px;"></span></li>
+                        <li class="ui-state-default ui-corner-all" title="Cancelar" onclick="personalesView.hide_editable(<?php echo $prestacion->id; ?>);"><span class="ui-icon ui-icon-close" style="margin: 0 4px;"></span></li>
                     </div>    
                 </div>
             </td>

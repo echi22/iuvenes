@@ -14,12 +14,12 @@ echo validation_errors();
             <div class="row border_top">
                 <div class="input">
                     <label for="year">Año:</label>
-                    <input type="text" id="year" name="year" class="required"/>
+                    <input type="text" id="year" name="year" class="required" required/>
                 </div>
 
                 <div class="input">
                     <label for="nivel">Nivel:</label>
-                    <select id="nivel" name="nivel" class="required">
+                    <select id="nivel" name="nivel" class="required" required>                        
                         {nivel_educativo}
                         <option value="{id}">{ds_nivel}</option>
                         {/nivel_educativo}
@@ -27,7 +27,8 @@ echo validation_errors();
                 </div>
                 <div class="input">
                     <label for="orientacion">Orientacion:</label>
-                    <select id="orientacion" name="orientacion" class="required">
+                    <select id="orientacion" name="orientacion" class="required" required>
+                        <option value="">Ninguna</option>
                         {orientacion}
                         <option value="{id}">{ds_orientacion}</option>
                         {/orientacion}
@@ -37,7 +38,7 @@ echo validation_errors();
             <div style="clear: both"></div>
 
             <div class="row">
-                <button onclick="return alumnosView.submitForm('form',true)">Guardar</button>
+                <button onclick="if(alumnosView.submitForm('form',true)){alert('Año nivel agregado con éxito');return true}else{return false;}">Guardar</button>
             </div>
         </div>
     </form>

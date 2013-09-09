@@ -43,7 +43,7 @@ tr.row2 td:last-child { border-right: 2px solid #002166; }
 #contenido_cuerpo {
     margin:0 auto;
     background-color: #ece5e5;
-    padding: 3% 1.5em;
+    padding: 1% 1.5em;
     height: auto;
     -moz-border-radius-bottomleft:  15px;
     -moz-border-radius-bottomright: 15px;
@@ -274,4 +274,20 @@ img{
     vertical-align: middle;
     min-height:100% !important;
     height:auto !important;
+}
+.lista{
+    padding: 0px;
+}
+.lista li {
+margin: 0 3px 3px 3px;
+padding: 0.4em;
+padding-left: 0.5em;
+padding-right: 1.5em;
+font-size: 1.4em;
+height: 18px;
+}
+
+.lista li span {
+float:right;
+cursor: pointer;
 }

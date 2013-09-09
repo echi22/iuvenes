@@ -14,11 +14,11 @@ echo validation_errors();
             <div class="row border_top">
                 <div class="input">
                     <label for="ciclo_lectivo">N° de ley:</label>
-                    <input type="text" id="ds_ley" name="ds_ley" class="required"/>
+                    <input type="text" id="ds_ley" name="ds_ley" class="required" required/>
                 </div>
                 <div class="input">
                     <label for="year">Fecha de Inicio Vigencia:</label>
-                    <input type="date" id="dt_inicio_vig" name="dt_ini_vig" class="required"/>
+                    <input type="date" id="dt_inicio_vig" name="dt_ini_vig" class="required" required/>
                 </div>
 
                 <div class="input">
@@ -30,7 +30,7 @@ echo validation_errors();
             <div style="clear: both"></div>
             
             <div class="row">
-                <button onclick="return alumnosView.submitForm('form',true)">Guardar</button>
+                <button onclick="if(alumnosView.submitForm('form',true)){alert('Ley de educación agregada con éxito'); return true}else{return false;}">Guardar</button>
             </div>
         </div>
     </form>

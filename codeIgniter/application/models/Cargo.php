@@ -13,7 +13,7 @@
 class Cargo extends DataMapper {
     var $table = 'cargo';
     var $has_many = array("prestacion");
-    
+    var $default_order_by = array('ds_cargo');
     function __construct($id = NULL)
     {
         parent::__construct($id);

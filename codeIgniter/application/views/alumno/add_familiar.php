@@ -1,9 +1,11 @@
 <script type="text/javascript">
-    $(document).ready(function() 
-    { 
-        $("#myTable").tablesorter().tablesorterPager({container: $("#pager")}); 
-    } 
-); 
+    $(document).ready(function()
+    {
+        $("#myTable").tablesorter();
+        alumnosView.setUpPaginator("pager");
+
+    }
+    );
 </script>
 <div id="contenido">    
     <script type="text/javascript" src="<?php echo base_url(); ?>js/AlumnosView.js"></script>
@@ -32,7 +34,7 @@
                         <?php } ?>
                     </select>
                     <script type="text/javascript">
-                        alumnosView.setSelectedIndexByValue('<?php echo $cd_identificacion; ?>','cd_identificacion');           
+                        alumnosView.setSelectedIndexByValue('<?php echo $cd_identificacion; ?>', 'cd_identificacion');
                     </script>
                 </div>
                 <div class="input">
@@ -41,7 +43,10 @@
                 </div>    
                 <div class="input" style="padding-top: 20px">
                     <input type="hidden" value="si" name="busqueda"/>
-                    <button onclick="form.submit()">Siguiente</button>
+                    <input type="hidden" value="<?php if(isset($page)){echo $page;}else{echo 1; } ?>" name="page" id="page"/>
+                    <input type="hidden" value="<?php if(isset($last_page)){echo $last_page;}else{echo 1; } ?>" name="last_page" id="last_page"/>
+
+                    <button onclick="alumnosView.submitForm('form')">Buscar</button>
                 </div>
             </div>
         </div>
@@ -69,12 +74,12 @@
                                 <td><?php echo $p->nombres; ?></td>
                                 <td><?php echo $p->apellidos; ?></td>
                                 <td><?php
-                    foreach ($p->persona_identificacion as $identificacion) {
-                        if ($identificacion->principal) {
-                            echo $identificacion->widentificacion->ds_identificacion . " " . $identificacion->numero_identificacion;
-                        }
-                    }
-                            ?>                    
+                                    foreach ($p->persona_identificacion as $identificacion) {
+                                        if ($identificacion->principal) {
+                                            echo $identificacion->widentificacion->ds_identificacion . " " . $identificacion->numero_identificacion;
+                                        }
+                                    }
+                                    ?>                    
                                 </td>
                                 <td><?php echo $p->dt_nac; ?></td>
                                 <td><?php echo $p->sexo->ds_sexo; ?></td>

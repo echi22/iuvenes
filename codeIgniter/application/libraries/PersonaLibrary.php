@@ -18,7 +18,9 @@ class PersonaLibrary {
         $CI->load->model('Wtipo_telefono');
 
         $data['estado_civil'] = new Estado_civil();
-        $data['estado_civil']->get();               
+        $data['estado_civil']->get();   
+        $data['nivel_estudio'] = new Nivel_estudio();
+        $data['nivel_estudio'] = $data['nivel_estudio']->get()->all_to_array();   
         $data['sexo'] = new Sexo();
         $data['sexo'] = $data['sexo']->get()->all_to_array();
         $sql = new Country();
@@ -56,8 +58,7 @@ class PersonaLibrary {
         $estado_civil->where('id', 1)->get();                        
         $sexo = new Sexo();
         $sexo->where('id', $CI->input->post('sexo'))->get();  
-
-                    
+                           
         $p = new Persona();        
         if($id != -1){     
             $p->where('id',$id)->get();
@@ -71,6 +72,11 @@ class PersonaLibrary {
         $p->from_array($_POST,'',false);
         $p->foto = $target_path;
         $p->save(array($estado_civil,$country,$sexo));
+        if($_POST['nivel_estudio'] != ""){
+            $nivel_estudio = new Nivel_estudio();
+            $nivel_estudio->where("id",$_POST['nivel_estudio'])->get();
+            $p->save(array($nivel_estudio));
+        }
         for($i = 0; $i < $_POST['cant_domicilio']; $i++){
             if (isset($_POST['domicilio_'.$i.'_'])){
                 $array = $_POST['domicilio_'.$i.'_'];            

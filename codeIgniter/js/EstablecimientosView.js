@@ -19,8 +19,9 @@ function  EstablecimientosView(){
                 data : 'establecimiento_id='+establecimiento_id,
                 success : function(data){
                     $(".establecimiento").removeClass("top").removeClass("row2").removeClass("bottom");
-                    $(elem).closest('.establecimiento').addClass("top").addClass("row2").addClass("bottom");               
-                    $(".working_on").html("Colegio "+data)
+                    $(elem).closest('.establecimiento').addClass("top").addClass("row2").addClass("bottom");  
+                    $(".working_on").html("Colegio "+data);
+
                 }           
             });
         }

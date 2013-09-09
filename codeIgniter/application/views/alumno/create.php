@@ -8,6 +8,14 @@ echo validation_errors();
     $(document).ready(function()
     {
         $('.image').preimage();
+
+//        $("#persona_existente").autocomplete({
+//            source: alumnosView.existingPersons
+//        });
+//        $("#apellidos").change(alumnosView.getExistingPersons);
+//        $("#nombres").change(alumnosView.getExistingPersons);
+//        $("#cd_identificacion").change(alumnosView.getExistingPersons);
+//        $("#ds_identificacion").change(alumnosView.getExistingPersons);
     });
 </script>
 <style>
@@ -20,7 +28,7 @@ echo validation_errors();
     .prev_thumb{
         margin: 10px;
         max-width: 200px;
-    height: 200px;
+        height: 200px;
     }
 </style>
 <div id="contenido">
@@ -36,11 +44,15 @@ echo validation_errors();
             <div class="row">
                 <div class="input">
                     <label for="apellidos">Apellidos:</label>
-                    <input type="text" id="apellidos" name="apellidos" class="required"/>
+                    <input type="text" id="apellidos" name="apellidos" class="required" required/>
                 </div>
                 <div class="input">
                     <label for="nombres">Nombres:</label>
-                    <input type="text" id="nombres" name="nombres" class="required"/>
+                    <input type="text" id="nombres" name="nombres" class="required" required/>
+                </div>
+                <div class="input">
+                    <label for="apellidos">Seleccionar persona existente:</label>
+                    <input type="text" id="persona_existente" name="persona_existente" />
                 </div>
                 <div id="prev_image" class="foto_container"></div><br/>
             </div>
@@ -63,11 +75,15 @@ echo validation_errors();
             <div class="row">
                 <div class="input">
                     <label for="dt_nac">Fecha de Nacimiento:</label>
-                    <input type="date" name="dt_nac" id="dt_nac" class="required"/>
+                    <input type="date" name="dt_nac" id="dt_nac" class="required" required/>
+                </div>
+                <div class="input">
+                    <label for="dt_ingreso">Fecha de Ingreso:</label>
+                    <input type="date" name="dt_ingreso" id="dt_ingreso" value="<?php echo date('Y-m-d'); ?>" class="required" required/>
                 </div>
                 <div class="input">
                     <label for="nacionalidad">Nacionalidad:</label>
-                    <select name="nacionalidad" id="nacionalidad" class="required">
+                    <select name="nacionalidad" id="nacionalidad" class="required" required>
                         {nacionalidad}
                         <option value="{id}">{ds_pais}</option>
                         {/nacionalidad}
@@ -75,7 +91,7 @@ echo validation_errors();
                 </div>
                 <div class="input">
                     <label for="sexo">Sexo:</label>
-                    <select name="sexo" id="sexo" class="required">                    
+                    <select name="sexo" id="sexo" class="required" required>                    
                         {sexo}
                         <option value="{id}">
                             {ds_sexo}
@@ -83,22 +99,45 @@ echo validation_errors();
                         {/sexo}
                     </select>
                 </div>
-<!--                <div class="input">
-                    <label for="id_establecimiento">Establecimiento:</label>                
-                    <select id="id_establecimiento" name="id_establecimiento">
-                        {establecimiento}
-                        <option value="{id_establecimiento}">{ds_establecimiento}</option>
-                        {/establecimiento}
-                    </select>
-                </div>            -->
+                <!--                <div class="input">
+                                    <label for="id_establecimiento">Establecimiento:</label>                
+                                    <select id="id_establecimiento" name="id_establecimiento">
+                                        {establecimiento}
+                                        <option value="{id_establecimiento}">{ds_establecimiento}</option>
+                                        {/establecimiento}
+                                    </select>
+                                </div>            -->
             </div>
             <div class="row border_bottom">
                 <div class="input">
                     <label for="image">Foto:</label>
                     <input type="file" name="image" id="image" class="image"/>
-                    
+
                 </div>
             </div>
+            <div class="subtitle">
+                Teléfonos
+            </div>
+            <div id="telefonosContainer">
+                <div class="row" id="telefonoData"> 
+                    <div class="div_input_chico">
+                        <input type="number" name="cod_area[]" id="cod_area" class="input_chico" placeholder="Cod. Area" >                 
+                    </div>
+                    <div class="input">
+                        <input type="number" name="telefono[]"  id="telefono" placeholder="Número" >                
+                    </div>
+                    <div class="input">
+                        <select id="tipo_telefono" name="tipo_tel[]" >
+                            {telefono}
+                            <option value="{id}">{tipo_telefono}</option>
+                            {/telefono}
+                        </select>                
+                    </div>               
+                    <div class="input" id="icons">
+                        <li class="ui-state-default ui-corner-all" title="Agregar" id="agregarTelefono" onclick="alumnosView.addPhone();"><span class="ui-icon ui-icon-plus" style="margin: 0 4px;"></span></li>
+                    </div>
+                </div>
+            </div>       
             <div class="subtitle">
                 Domicilio
             </div>
@@ -107,11 +146,11 @@ echo validation_errors();
                     <div class="row">
                         <div class="input">
                             <label for="calle" >Calle:</label>
-                            <input type="text" name="domicilio_0_[ds_calle]" id="calle" class="required"/>
+                            <input type="text" name="domicilio_0_[ds_calle]" id="calle" class="required" required/>
                         </div>
                         <div class="input">
                             <label for="num_casa">Número:</label>
-                            <input type="number" name="domicilio_0_[ds_numeral]" id="num_casa" class="required"/>
+                            <input type="number" name="domicilio_0_[ds_numeral]" id="num_casa" class="required" required/>
                         </div>
                         <div class="input">
                             <label for="entre1">Entre:</label>
@@ -159,31 +198,9 @@ echo validation_errors();
                     </div>
                 </div>
             </div>
-            <div class="subtitle">
-                Teléfonos
-            </div>
-            <div id="telefonosContainer">
-                <div class="row" id="telefonoData"> 
-                    <div class="div_input_chico">
-                        <input type="number" name="cod_area[]" id="cod_area" class="input_chico" placeholder="Cod. Area" >                 
-                    </div>
-                    <div class="input">
-                        <input type="number" name="telefono[]"  id="telefono" placeholder="Número" >                
-                    </div>
-                    <div class="input">
-                        <select id="tipo_telefono" name="tipo_tel[]" >
-                            {telefono}
-                            <option value="{id}">{tipo_telefono}</option>
-                            {/telefono}
-                        </select>                
-                    </div>               
-                    <div class="input" id="icons">
-                        <li class="ui-state-default ui-corner-all" title="Agregar" id="agregarTelefono" onclick="alumnosView.addPhone();"><span class="ui-icon ui-icon-plus" style="margin: 0 4px;"></span></li>
-                    </div>
-                </div>
-            </div>                   
+
             <div class="row">
-                <button onclick="return alumnosView.submitForm('form',true)">Guardar</button>
+                <button onclick="return alumnosView.submitForm('form', true)">Guardar</button>
             </div>
         </div>
     </form>

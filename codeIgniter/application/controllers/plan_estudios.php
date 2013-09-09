@@ -66,7 +66,6 @@ class Plan_estudios extends Controlador {
             $ne->in_vigente = 1;
             $l = new Ley_educacion();
             $l->where(id, $_POST["ley_educacion"])->get();
-            echo $l->ds_ley;
             $ne->save($l);
             $this->load->view('templates/header');
             $this->parser->parse('plan_estudio/add_nivel_educativo', $data);
@@ -106,6 +105,25 @@ class Plan_estudios extends Controlador {
         }
     }
 
+    function add_materia() {
+        $this->load->helper('form');
+        $this->load->helper('url');
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('nueva_materia', 'Nombre', 'required');
+        if ($this->form_validation->run() === FALSE) {
+            $this->load->view('templates/header');
+            $this->parser->parse('plan_estudio/add_materia', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $m = new Materium();
+            $m->nombre = $_POST["nueva_materia"];
+            $m->save();
+            $this->load->view('templates/header');
+            $this->parser->parse('plan_estudio/add_materia', $data);
+            $this->load->view('templates/footer');
+        }
+    }
+
     function add_materia_to_anio_nivel() {
         $this->load->helper('form');
         $this->load->helper('url');
@@ -126,20 +144,19 @@ class Plan_estudios extends Controlador {
             $this->load->view('templates/header');
             $this->parser->parse('plan_estudio/add_materia_to_anio_nivel', $data);
             $this->load->view('templates/footer');
-        } else {
-            $m = new Materium();
-            if ($_POST['nueva_materia'] != "") {
-                $m->nombre = $_POST["nueva_materia"];
-            } else {
-                $m->where("id", $_POST["materia_selected"])->get();
-            }
-            $an = new Anio_nivel();
-            $an->where("id", $_POST["anio_nivel"])->get();
-            $m->save($an);
-            $this->load->view('templates/header');
-            $this->parser->parse('plan_estudio/add_materia_to_anio_nivel', $data);
-            $this->load->view('templates/footer');
         }
+    }
+
+    function add_materias_to_anio_nivel() {
+        foreach ($_POST['niveles'] as $nivel){
+            $n = new Anio_nivel();
+            $n->where('id',$nivel)->get();
+            foreach ($_POST['materias'] as $materia) {
+                $m = new Materium();
+                $m->where('id',$materia)->get();
+                $n->save($m);                
+            }
+        }        
     }
 
 }

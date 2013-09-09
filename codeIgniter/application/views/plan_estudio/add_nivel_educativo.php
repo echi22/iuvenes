@@ -14,11 +14,11 @@ echo validation_errors();
             <div class="row border_top">
                 <div class="input">
                     <label for="ciclo_lectivo">Nivel educativo</label>
-                    <input type="text" id="ds_nivel" name="ds_nivel" class="required"/>
+                    <input type="text" id="ds_nivel" name="ds_nivel" class="required" required/>
                 </div>
                 <div class="input">
                     <label for="year">Fecha de Inicio Vigencia:</label>
-                    <input type="date" id="dt_inicio_vig" name="dt_ini_vig" class="required"/>
+                    <input type="date" id="dt_inicio_vig" name="dt_ini_vig" class="required" required/>
                 </div>
 
                 <div class="input">
@@ -27,7 +27,7 @@ echo validation_errors();
                 </div>
                 <div class="input">
                     <label for="orientacion">Ley de educación:</label>
-                    <select id="ley_educacion" name="ley_educacion" class="required">
+                    <select id="ley_educacion" name="ley_educacion" class="required" required>
                         {ley}
                         <option value="{id}">{ds_ley}</option>
                         {/ley}
@@ -37,7 +37,7 @@ echo validation_errors();
             <div style="clear: both"></div>
 
             <div class="row">
-                <button onclick="return alumnosView.submitForm('form',true)">Guardar</button>
+                <button onclick="if(alumnosView.submitForm('form',true)){alert('Nivel educativo agregado con éxito');return true;}else{return false;}">Guardar</button>
             </div>
         </div>
     </form>

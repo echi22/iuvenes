@@ -16,6 +16,34 @@
             </tr>
         </thead>
         <tbody>
+            <?php 
+            if( $_SESSION['establecimiento_id']  == 0)
+                    $c= " top row2 bottom ";
+            else
+                $c = "";
+            ?>
+             <tr class="even establecimiento <?php echo $c; ?>" id="establecimiento0">
+            <td>
+                <p >Visión global</p>
+            </td>
+            <input type="hidden" value="0" id="establecimiento0" />                  
+
+            <td>
+                <div class="no_edit_0">
+                    <div id="icons" style="float: left">
+                        <li class="ui-state-default ui-corner-all" title="Trabajar aquí" onclick="establecimientosView.work_here(this,0);"><span class="ui-icon ui-icon-arrowthick-1-e" style="margin: 0 4px;"></span></li>
+                    </div>                       
+                </div>
+                <div class="edit_<?php echo $establecimiento->id; ?> hidden">
+                    <div id="icons" style="float: left">
+                        <li class="ui-state-default ui-corner-all" title="Guardar" onclick="establecimientosView.edit_establecimiento(<?php echo $establecimiento->id; ?>);"><span class="ui-icon ui-icon-check" style="margin: 0 4px;"></span></li>
+                    </div> 
+                    <div id="icons" style="float: left">
+                        <li class="ui-state-default ui-corner-all" title="Cancelar" onclick="establecimientosView.hide_editable(<?php echo $establecimiento->id; ?>);"><span class="ui-icon ui-icon-close" style="margin: 0 4px;"></span></li>
+                    </div>    
+                </div>
+            </td>
+            </tr>
             <?php
             $classes = Array("odd", "even");
             $i = 0;

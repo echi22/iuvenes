@@ -14,6 +14,7 @@ class Ley_educacion extends DataMapper {
 
     var $table = 'ley_educacion';
     var $has_many = array('nivel_educativo');
+    var $default_order_by = array('dt_ini_vig'=>'desc');
 
     function __construct($id = NULL) {
         parent::__construct($id);

@@ -1,12 +1,13 @@
 <?php
 echo validation_errors();
 ?>
-<script type="text/javascript" src="<?php echo base_url(); ?>js/AlumnosView.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>js/PersonalesView.js"></script>
 <script type="text/javascript">
     $(function() {
-        $( "#tabs" ).tabs();});
-    alumnosView = new AlumnosView();
-    
+        $("#tabs").tabs();
+    });
+    personalesView = new PersonalesView();
+
 </script>
 <div class="titulo">
     Personal - <?php echo $personal->persona->apellidos . " " . $personal->persona->nombres; ?>
@@ -17,7 +18,7 @@ echo validation_errors();
         <li><a href="#tabs-1">Nueva Licencia</a></li>
     </ul>
     <div id="tabs-1">
-        <?php echo form_open_multipart('personales/addLicencia/' . $persona_id); ?>
+<?php echo form_open_multipart('personales/addLicencia/' . $persona_id); ?>
         <div id="insert_form" >        
             <div class="row">            
                 <div class="input">
@@ -27,20 +28,20 @@ echo validation_errors();
                 </div>
                 <div class="input">
                     <label for="cant_dias">Cantidad de Días:</label>
-                    <input type="text" name="cant_dias" id="cant_dias" />
+                    <input type="text" name="cant_dias" id="cant_dias" onkeyup="personalesView.addDays('dt_inicio', this.value, 'dt_fin')" />
                 </div>
                 <div class="input">
                     <label for="dt_fin">Fecha fin:</label>
-                    <input type="date" name="dt_fin" id="dt_fin" />
+                    <input type="date" name="dt_fin" id="dt_fin" onchange="personalesView.getDiffDays('dt_inicio', 'dt_fin', 'cant_dias')"/>
                 </div>  
                 <div class="input">
                     <label for="tp_liq_sueldo">Tipo:</label>
                     <select name="tipo_licencia" id="tipo_licencia">
-                        <?php foreach ($tipo_licencia as $tl) { ?>
+                            <?php foreach ($tipo_licencia as $tl) { ?>
                             <option value="<?php echo $tl->id; ?>">
-                                <?php echo $tl->detalle; ?>
+                            <?php echo $tl->detalle; ?>
                             </option>
-                        <?php } ?>
+<?php } ?>
                     </select>
                 </div>                        
             </div>   
@@ -48,9 +49,10 @@ echo validation_errors();
                 <table id="myTable" class="table_data tablesorter">
                     <thead>
                         <tr class="table_header">
-                            <th>Nombre Cargo</th> <th>Establecimiento</th> <th>Inicio Vigencia</th> <th>Fin Vigencia</th>
+                            <th>Nombre Cargo</th>  <th>Inicio Vigencia</th> <th>Fin Vigencia</th>
                             <th>Estado</th> <th>Carga Horaria</th> <th>Secuencia</th><th>Liq. Sueldo</th> <th>Sit. Revista</th>
-                            <th>Asig. Familiar</th><th>% Asig. Familiar</th>
+                            <th>Asig. Familiar</th><th>% Asig. Familiar</th><td> <input id="p" type="checkbox" onclick="personalesView.selectAllCheckboxes('prestacion',this.checked)"/>Todas
+                            </td>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,23 +66,16 @@ echo validation_errors();
                         <td>
                             <p class="no_edit_<?php echo $prestacion->id; ?>" id="cargo_no_edit_<?php echo $prestacion->id; ?>" ><?php echo $prestacion->cargo->ds_cargo; ?></p>
                             <select  id="cargo_<?php echo $prestacion->id; ?>"  class="edit_<?php echo $prestacion->id; ?> hidden">
-                                <?php foreach ($cargo as $c) { ?>
+                                    <?php foreach ($cargo as $c) { ?>
                                     <option value="<?php echo $c->id; ?>">
-                                        <?php echo $c->ds_cargo; ?>
+                                    <?php echo $c->ds_cargo; ?>
                                     </option>
-                                <?php } ?>
+    <?php } ?>
                             </select>
                             <script type="text/javascript">
-                                alumnosView.setSelectedIndex('<?php echo $prestacion->cargo->ds_cargo; ?>','cargo_<?php echo $prestacion->id; ?>');
+        personalesView.setSelectedIndex('<?php echo $prestacion->cargo->ds_cargo; ?>', 'cargo_<?php echo $prestacion->id; ?>');
                             </script>
-                        </td>
-                        <td>-<?php // echo $prestacion->establecimiento->ds_establecimiento;      ?>
-                            <select class="edit_<?php echo $prestacion->id; ?>" id="id_establecimiento_<?php echo $prestacion->id; ?>" >
-                                {establecimiento}
-                                <option value="{id_establecimiento}">{ds_establecimiento}</option>
-                                {/establecimiento}
-                            </select>
-                        </td>
+                        </td>                        
                         <td>
                             <p class="no_edit_<?php echo $prestacion->id; ?>" id="dt_inicio_no_edit_<?php echo $prestacion->id; ?>"><?php echo $prestacion->dt_inicio; ?> </p>
                             <input class="edit_<?php echo $prestacion->id; ?> hidden" size="5" type="date" id="dt_inicio_<?php echo $prestacion->id; ?>" value="<?php echo $prestacion->dt_inicio; ?>" />
@@ -96,41 +91,41 @@ echo validation_errors();
                                 <option value="N">No Vigente</option>
                             </select>
                             <script type="text/javascript">
-                                alumnosView.setSelectedIndex('<?php echo $prestacion->estado; ?>','estado_no_edit_<?php echo $prestacion->id; ?>');
+                                personalesView.setSelectedIndex('<?php echo $prestacion->estado; ?>', 'estado_no_edit_<?php echo $prestacion->id; ?>');
                             </script>
                         </td>
                         <td>
                             <p class="no_edit_<?php echo $prestacion->id; ?>" id="carga_horaria_no_edit_<?php echo $prestacion->id; ?>"><?php echo $prestacion->qt_horas; ?></p>
-                            <input class="edit_<?php echo $prestacion->id; ?> hidden" size="5" type="text" id="carga_horaria_<?php echo $prestacion->id; ?>" value="<?php echo $prestacion->qt_horas; ?>" class="required"/>
+                            <input class="edit_<?php echo $prestacion->id; ?> hidden" size="5" type="text" id="carga_horaria_<?php echo $prestacion->id; ?>" value="<?php echo $prestacion->qt_horas; ?>" class="required" required/>
                         </td>
                         <td>
                             <p class="no_edit_<?php echo $prestacion->id; ?>" id="nu_secuencia_no_edit_<?php echo $prestacion->id; ?>"><?php echo $prestacion->nu_secuencia; ?></p>
-                            <input type="text" class="edit_<?php echo $prestacion->id; ?> hidden" size="5"  id="nu_secuencia_<?php echo $prestacion->id; ?>" value="<?php echo $prestacion->nu_secuencia; ?>" class="required"/>
+                            <input type="text" class="edit_<?php echo $prestacion->id; ?> hidden" size="5"  id="nu_secuencia_<?php echo $prestacion->id; ?>" value="<?php echo $prestacion->nu_secuencia; ?>" class="required" required/>
                         </td>
                         <td>
                             <p class="no_edit_<?php echo $prestacion->id; ?>" id="tp_liq_sueldo_no_edit_<?php echo $prestacion->id; ?>"><?php echo $prestacion->tipo_liquidacion_sueldo->detalle; ?></p>
                             <select class="edit_<?php echo $prestacion->id; ?> hidden"  id="tp_liq_sueldo_<?php echo $prestacion->id; ?>">
-                                <?php foreach ($liquidacion_sueldo as $tp) { ?>
+                                    <?php foreach ($liquidacion_sueldo as $tp) { ?>
                                     <option value="<?php echo $tp->id; ?>">
-                                        <?php echo $tp->detalle; ?>
+                                    <?php echo $tp->detalle; ?>
                                     </option>
-                                <?php } ?>
+    <?php } ?>
                             </select>
                             <script type="text/javascript">
-                                alumnosView.setSelectedIndex('<?php echo $prestacion->tipo_liquidacion_sueldo->detalle; ?>','tp_liq_sueldo_<?php echo $prestacion->id; ?>');
+                                personalesView.setSelectedIndex('<?php echo $prestacion->tipo_liquidacion_sueldo->detalle; ?>', 'tp_liq_sueldo_<?php echo $prestacion->id; ?>');
                             </script>
                         </td>
                         <td>
                             <p class="no_edit_<?php echo $prestacion->id; ?>" id="revista_no_edit_<?php echo $prestacion->id; ?>"><?php echo $prestacion->wsituacion_revista->ds_sit_revista; ?></p>
                             <select id="revista_<?php echo $prestacion->id; ?>"  class="edit_<?php echo $prestacion->id; ?> hidden">
-                                <?php foreach ($wsituacion_revista as $rev) { ?>
+                                    <?php foreach ($wsituacion_revista as $rev) { ?>
                                     <option value="<?php echo $rev->id; ?>">
-                                        <?php echo $rev->ds_sit_revista; ?>
+                                    <?php echo $rev->ds_sit_revista; ?>
                                     </option>
-                                <?php } ?>
+    <?php } ?>
                             </select>
                             <script type="text/javascript">
-                                alumnosView.setSelectedIndex('<?php echo $prestacion->wsituacion_revista->ds_sit_revista; ?>','revista_<?php echo $prestacion->id; ?>');
+                                personalesView.setSelectedIndex('<?php echo $prestacion->wsituacion_revista->ds_sit_revista; ?>', 'revista_<?php echo $prestacion->id; ?>');
                             </script>
                         </td>
                         <td>
@@ -143,7 +138,7 @@ echo validation_errors();
 
                         </td>
                         <td>
-                            <input type="checkbox" name="prestacion[<?php echo $prestacion->id; ?>]"/>
+                            <input type="checkbox" name="prestacion[<?php echo $prestacion->id; ?>]" class="prestacion"/>
                         </td>
                         </tr>
                         <?php
@@ -155,10 +150,10 @@ echo validation_errors();
 
             </div>
             <div style="clear: both"></div>
-            <?php include('application/views/templates/pager.php'); ?>       
+<?php include('application/views/templates/pager.php'); ?>       
             <div class="row">
-                <button onclick="alumnosView.submitForm()">Guardar</button>
-                <button onclick=" return alumnosView.goBack(); " >Volver</button>
+                <button onclick="personalesView.submitForm()">Guardar</button>
+                <button onclick=" return personalesView.goBack();" >Volver</button>
 
             </div>
         </div>

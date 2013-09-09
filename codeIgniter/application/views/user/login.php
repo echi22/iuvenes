@@ -14,11 +14,11 @@ echo validation_errors();
             <div class="row border_top">
                 <div class="input">
                     <label for="username">Nombre de usuario:</label>
-                    <input type="text" id="username" name="username" class="required"/>
+                    <input type="text" id="username" name="username" class="required" required/>
                 </div>   
                 <div class="input">
                     <label for="password">Contraseña:</label>
-                    <input type="password" id="password" name="password" class="required"/>
+                    <input type="password" id="password" name="password" class="required" required/>
                 </div>   
             </div>            
             <div style="clear: both"><?php echo $message; ?></div>

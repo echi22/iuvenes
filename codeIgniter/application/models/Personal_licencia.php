@@ -35,9 +35,8 @@ class Personal_licencia extends DataMapper {
             $p = new Prestacion();
             $p->where('id',$prestacion_licencia->prestacion_id)->get();
             $out[] = $p;
-        }
-                    
-        return $p;
+        }                   
+        return $out;
     }
 }
 

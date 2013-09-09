@@ -14,7 +14,7 @@ echo validation_errors();
             <div class="row border_top">
                 <div class="input">
                     <label for="ds_establecimientos">Nombre:</label>
-                    <input type="text" id="ds_establecimiento" name="ds_establecimiento" class="required"/>
+                    <input type="text" id="ds_establecimiento" name="ds_establecimiento" class="required" required/>
                 </div>                
             </div>            
             <div style="clear: both"></div>

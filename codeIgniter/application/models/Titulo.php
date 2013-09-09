@@ -13,6 +13,7 @@
 class Titulo extends DataMapper {
     var $table = 'titulo';
     var $has_one = array("persona");
+    var $default_order_by = array('fecha'=>'desc');
     
     function __construct($id = NULL)
     {

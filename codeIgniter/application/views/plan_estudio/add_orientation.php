@@ -14,13 +14,13 @@ echo validation_errors();
             <div class="row border_top">
                 <div class="input">
                     <label for="ds_orientation">Nombre:</label>
-                    <input type="text" id="ds_orientation" name="ds_orientation" class="required"/>
+                    <input type="text" id="ds_orientation" name="ds_orientation" class="required" required/>
                 </div>                
             </div>            
             <div style="clear: both"></div>
             
             <div class="row">
-                <button onclick="return view.submitForm('form',true)">Guardar</button>
+                <button onclick="if(view.submitForm('form',true)){alert('Orientación agregada con éxito');return true;}else{return false;}">Guardar</button>
             </div>
         </div>
     </form>

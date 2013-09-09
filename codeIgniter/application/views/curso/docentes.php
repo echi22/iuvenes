@@ -8,7 +8,7 @@
             $("#prueba").dialog({modal: true, height: 590, width: 1005 });
             cursosView.getMateriasFromCurso(<?php $curso->id; ?>);
         });
-        cursosView.actualizarPrestaciones($("#prestaciones"));
+        cursosView.actualizarPrestaciones($("#prestaciones"),<?php echo $curso->id; ?>);
         $( "#tabs-docentes" ).tabs();
 
         $("#docentes").tablesorter().tablesorterPager({container: $("#pager_docentes")}); 
@@ -61,7 +61,7 @@
                             <?php } ?>   
                         </select>
                         <div style="clear: both"></div>
-                        <label for="filtro_alumno" style="display: inline">Nombre o DNI:</label><input id="filtro_prestacion" type="text" onkeyup="cursosView.actualizarPrestaciones($('#prestaciones'))" onchange="cursosView.actualizarPrestaciones($('#prestaciones'))">
+                        <label for="filtro_alumno" style="display: inline">Nombre o DNI:</label><input id="filtro_prestacion" type="text" onkeyup="cursosView.actualizarPrestaciones($('#prestaciones'),<?php echo $curso->id; ?>)" onchange="cursosView.actualizarPrestaciones($('#prestaciones'))">
 
                     </div>
                     <div class="columna_ajustada valign-middle">
@@ -138,7 +138,7 @@
                 </td>
                 <td>
                     <p class="no_edit_<?php echo $prestacion->id; ?>" id="carga_horaria_no_edit_<?php echo $prestacion->id; ?>"><?php echo $prestacion->qt_horas; ?></p>
-                    <input class="edit_<?php echo $prestacion->id; ?> hidden" size="5" type="text" id="carga_horaria_<?php echo $prestacion->id; ?>" value="<?php echo $prestacion->qt_horas; ?>" class="required"/>
+                    <input class="edit_<?php echo $prestacion->id; ?> hidden" size="5" type="text" id="carga_horaria_<?php echo $prestacion->id; ?>" value="<?php echo $prestacion->qt_horas; ?>" class="required" required/>
                 </td>
 
                 <td>

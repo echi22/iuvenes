@@ -14,6 +14,7 @@ class Localidad extends DataMapper{
      var $table = 'localidad';
      var $has_one = array('state');
      var $has_many = array('domicilio');
+     var $default_order_by = array('ds_localidad');
      function __construct($id = NULL)
         {
             parent::__construct($id);

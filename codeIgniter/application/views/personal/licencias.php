@@ -38,7 +38,7 @@
                     <?php } ?>
                 </select>
                 <script type="text/javascript">
-                    alumnosView.setSelectedIndex('<?php echo $licencia->getTipoLicencia()->detalle; ?>','tp_licencia_<?php echo $licencia->id; ?>');
+                    personalesView.setSelectedIndex('<?php echo $licencia->getTipoLicencia()->detalle; ?>','tp_licencia_<?php echo $licencia->id; ?>');
                 </script>
             </td>
             <td>
@@ -56,18 +56,18 @@
             <td>
                 <div class="no_edit_<?php echo $licencia->id; ?> ">
                     <div id="icons" style="float: left">
-                        <li class="ui-state-default ui-corner-all" title="Modificar" onclick="alumnosView.show_editable(<?php echo $licencia->id; ?>);"><span class="ui-icon ui-icon-pencil" style="margin: 0 4px;"></span></li>
+                        <li class="ui-state-default ui-corner-all" title="Modificar" onclick="personalesView.show_editable(<?php echo $licencia->id; ?>);"><span class="ui-icon ui-icon-pencil" style="margin: 0 4px;"></span></li>
                     </div> 
                     <div id="icons" style="float: left">
-                        <li class="ui-state-default ui-corner-all" title="Eliminar" onclick="alumnosView.delete_licencia(this,<?php echo $licencia->id; ?>);"><span class="ui-icon ui-icon-trash" style="margin: 0 4px;"></span></li>
+                        <li class="ui-state-default ui-corner-all" title="Eliminar" onclick="personalesView.delete_licencia(this,<?php echo $licencia->id; ?>);"><span class="ui-icon ui-icon-trash" style="margin: 0 4px;"></span></li>
                     </div>    
                 </div>
                 <div class="edit_<?php echo $licencia->id; ?> hidden">
                     <div id="icons" style="float: left">
-                        <li class="ui-state-default ui-corner-all" title="Guardar" onclick="alumnosView.edit_licencia(<?php echo $licencia->id; ?>,<?php echo $personal->persona->id; ?>);"><span class="ui-icon ui-icon-check" style="margin: 0 4px;"></span></li>
+                        <li class="ui-state-default ui-corner-all" title="Guardar" onclick="personalesView.edit_licencia(<?php echo $licencia->id; ?>,<?php echo $personal->persona->id; ?>);"><span class="ui-icon ui-icon-check" style="margin: 0 4px;"></span></li>
                     </div> 
                     <div id="icons" style="float: left">
-                        <li class="ui-state-default ui-corner-all" title="Cancelar" onclick="alumnosView.hide_editable(<?php echo $licencia->id; ?>);"><span class="ui-icon ui-icon-close" style="margin: 0 4px;"></span></li>
+                        <li class="ui-state-default ui-corner-all" title="Cancelar" onclick="personalesView.hide_editable(<?php echo $licencia->id; ?>);"><span class="ui-icon ui-icon-close" style="margin: 0 4px;"></span></li>
                     </div>    
                 </div>
             </td>

@@ -14,14 +14,17 @@ class Alumno extends DataMapper {
 
     var $table = 'alumno';
     var $has_one = array("persona", "establecimiento");
-    var $has_many = array("curso");
-
+    var $has_many = array("curso","alumno_vigencia");
     function __construct($id = NULL) {
         parent::__construct($id);
     }
 
     function get_identificacion_principal() {
-        return $this->persona->persona_identificacion->where('principal', 1)->get();
+//        return $this->persona->persona_identificacion->where('principal', 1)->get();
+        foreach ($this->persona->persona_identificacion as $identificacion) {
+            if($identificacion->principal)
+                return $identificacion;
+        }        
     }
 
     function include_all_related() {

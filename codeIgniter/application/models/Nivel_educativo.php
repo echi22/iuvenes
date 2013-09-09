@@ -14,6 +14,7 @@ class Nivel_educativo extends DataMapper{
     var $table = 'nivel_educativo';
     var $has_one = array('ley_educacion');
     var $has_many = array('anio_nivel');
+    var $default_order_by = array('ds_nivel');
      function __construct($id = NULL)
         {
             parent::__construct($id);

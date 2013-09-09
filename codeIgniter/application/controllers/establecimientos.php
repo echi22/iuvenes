@@ -22,17 +22,25 @@ class Establecimientos extends Controlador {
         } else {
             $e = new Establecimiento();
             $e->from_array($_POST, "", true);
+            redirect("establecimientos/listado");
         }
     }
 
     public function work_here() {
-        $u = new User();
-        $u->where('id', $_SESSION['user_id'])->get();
-        $u->establecimiento_id = $_POST['establecimiento_id'];
-        $u->save();
-        $_SESSION['user'] = $u;
-        $_SESSION['establecimiento'] = $_SESSION['user']->establecimiento->ds_establecimiento;
-        $_SESSION['establecimiento_id'] = $_SESSION['user']->establecimiento->id;
+        $id = $_SESSION['user_id'];
+        $data = array('establecimiento_id' => $_POST['establecimiento_id']);
+        $this->ion_auth->update($id, $data);
+              
+        $_SESSION['user'] = $this->ion_auth->user()->row();
+        if ($_POST['establecimiento_id'] != 0){
+            $e = new Establecimiento();
+            $e->where('id',$_SESSION['user']->establecimiento_id)->get();
+            $_SESSION['establecimiento'] = $e->ds_establecimiento;
+            
+        }else
+            $_SESSION['establecimiento'] = "Visión global";
+
+        $_SESSION['establecimiento_id'] = $_SESSION['user']->establecimiento_id;
 
         echo $_SESSION['establecimiento'];
     }

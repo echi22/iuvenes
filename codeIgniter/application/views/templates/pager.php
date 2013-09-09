@@ -9,7 +9,7 @@
         <span class="pagedisplay"></span>
         <img src="<?php echo CSS_PATH; ?>blue/next.png" class="next">
         <img src="<?php echo CSS_PATH; ?>blue/last.png" class="last">
-        <select class="pagesize">
+        <select class="pagesize" hidden="true">
             <option selected="selected" value="10">10</option>
             <option value="20">20</option>
             <option value="30">30</option>

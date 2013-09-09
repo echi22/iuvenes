@@ -1,5 +1,10 @@
 function  View(){
-    this.submitForm = function(id,enviar){
+    var _self =this;
+    this.submitForm = function(id,enviar,newUrl){
+        if(typeof newUrl !== 'undefined')
+            document.getElementById(id).action = newUrl;
+        if(typeof $("#page").val() !== 'undefined')
+            $("#page").val(1);
         return this.verificar_form(id, enviar);
     };
     this.verificar_form = function(id, enviar){
@@ -113,6 +118,45 @@ function  View(){
             $("#"+select_id).append('<option value="'+options[i].id+'">'+options[i][name]+'</option>')
         }
         $("#"+select_id).trigger('change');
-    }
-    
+    };
+    this.setUpPaginator = function(name){
+        v = this;
+        _self.actualPage = parseInt($("#page").val());
+        _self.lastPage = parseInt($("#last_page").val());
+        $("#"+name+" .first").click(v.goToFirstPage);
+        $("#"+name+" .last").click(v.goToLastPage);
+        $("#"+name+" .prev").click(v.goToPreviousPage);
+        $("#"+name+" .next").click(v.goToNextPage);
+    };
+    this.goToFirstPage = function(){
+        _self.goToPage(1);
+    };
+    this.goToLastPage = function(){
+        _self.goToPage(_self.lastPage);       
+    };
+    this.goToNextPage = function(){
+        _self.goToPage(_self.actualPage+1);
+    };
+    this.goToPreviousPage = function(){
+        _self.goToPage(_self.actualPage-1);
+    };
+    this.goToPage = function(page){
+        if(page < 1)
+            page = 1;
+        if(page > _self.lastPage)
+            page = _self.lastPage;
+        $("#page").val(page);
+        $("#form").submit();
+    };
+    this.actualPage = 1;
+    this.selectAllCheckboxes = function(klass,value){
+        $("."+klass).each(function(){
+            if(value){
+                $(this).attr("checked","checked");
+            }else{
+                $(this).removeAttr("checked");
+            }
+            
+        });
+    };
 }

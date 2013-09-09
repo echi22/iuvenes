@@ -25,6 +25,9 @@ class Controlador extends CI_Controller {
         $l->where_related('state','id',$_POST['state_id'])->order_by("ds_localidad")->get();
         echo json_encode($l->all_to_array());
     }
+    public function in_group($array){
+        return (($this->ion_auth->in_group($array)) || $this->ion_auth->is_admin());
+    }
 }
 
 ?>

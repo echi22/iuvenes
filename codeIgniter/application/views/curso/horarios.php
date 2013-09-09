@@ -81,7 +81,7 @@
             window.console && console.log(m) || alert(m); 
         },
         items: {            
-            "delete": {name: "Delete", icon: "delete", callback: function(key, opt){ opt.$trigger.html(""); }}           
+            "delete": {name: "Eliminar", icon: "delete", callback: function(key, opt){ opt.$trigger.html(""); }}           
         }
     });
     function eliminar(){
@@ -100,7 +100,7 @@
             </tr>     
             <?php foreach ($curso->anio_nivel->materiums->get() as $materia) { ?>
                 <tr>          
-                    <td><div class="item <?php echo $materia->nombre; ?>"  id="<?php echo $materia->nombre; ?>" style="cursor: pointer;" ondragstart="drag(event)" draggable="true"  ><?php echo $materia->nombre; ?></div></td>
+                    <td><div class="item <?php echo str_replace(' ','',$materia->nombre); ?>"  id="<?php echo str_replace(' ','',$materia->nombre); ?>" style="cursor: pointer;" ondragstart="drag(event)" draggable="true"  ><?php echo $materia->nombre; ?></div></td>
 
                 </tr>            
             <?php } ?>

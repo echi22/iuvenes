@@ -13,7 +13,7 @@
 class Domicilio extends DataMapper{
     var $table = 'domicilio'; 
     var $has_one = array('localidad','country','state');
-    var $has_many = array('persona');
+    var $has_many = array('persona');    
      function __construct($id = NULL)
         {
             parent::__construct($id);

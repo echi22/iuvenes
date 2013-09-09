@@ -42,11 +42,11 @@ echo validation_errors();
             <div class="row border_top">
                 <div class="input">
                     <label for="ciclo_lectivo">Ciclo Lectivo:</label>
-                    <input type="text" id="ciclo_lectivo" name="id_ciclo_lectivo" class="required"/>
+                    <input type="text" id="ciclo_lectivo" name="id_ciclo_lectivo" class="required" required/>
                 </div>
                 <div class="input">
                     <label for="nivel">Nivel:</label>
-                    <select id="anio_nivel" name="anio_nivel" class="required">
+                    <select id="anio_nivel" name="anio_nivel" class="required" required>
                         {anios_niveles}
                         <option value="{id}">{detalle}</option>
                         {/anios_niveles}
@@ -57,14 +57,14 @@ echo validation_errors();
             <div class="row border_bottom">
                 <div class="input">
                     <label for="turno">Turno:</label>
-                    <select name="cd_turno" id="turno" class="required">
+                    <select name="cd_turno" id="turno" class="required" required>
                         <option value='m'>Mañana</option>
                         <option value='t'>Tarde</option>
                     </select>
                 </div>
                 <div class="input">
                     <label for="seccion">Sección:</label>
-                    <input type="text" name="ds_seccion" id="seccion" class="required"/>
+                    <input type="text" name="ds_seccion" id="seccion" class="required" required/>
                 </div>                       
             </div>            
             <div style="clear: both"></div>
