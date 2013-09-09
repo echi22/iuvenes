@@ -117,6 +117,7 @@ class Plan_estudios extends Controlador {
         } else {
             $m = new Materium();
             $m->nombre = $_POST["nueva_materia"];
+            $m->color = $_POST["color"];
             $m->save();
             $this->load->view('templates/header');
             $this->parser->parse('plan_estudio/add_materia', $data);

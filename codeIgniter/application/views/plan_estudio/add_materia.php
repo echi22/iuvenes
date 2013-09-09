@@ -16,6 +16,10 @@ echo validation_errors();
                     <label for="year">Materia :</label>
                     <input type="text" id="nueva_materia" name="nueva_materia" onchange="alumnosView.setSelectedIndexByValue('', 'materia_selected')" />
                 </div>
+                <div class="input"> 
+                    <label for="color">Color:</label>
+                    <input type="color" id="color" name="color" />
+                </div>
 
                 
             </div>            

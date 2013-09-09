@@ -10,7 +10,7 @@
 
     }
 
-    );
+);
 </script>
 <div style="width: 100%">
     <form id="form" action="<?php echo base_url() . 'aspirantes/preadmitir_fase4'; ?>" method="post">  
@@ -67,14 +67,12 @@
                                             <div style="width: 20%; float:left;">Certificado de Bautismo <input type="checkbox" data-row="fase3_<?php echo $a->id; ?>" name="aspirante[<?php echo $a->id; ?>][cert_bautismo]" <?php if ($a->documentacion->cert_bautismo) echo "checked"; ?>></div>
                                             <div style="width: 20%; float:left;">Certificado de Nacimiento <input type="checkbox" data-row="fase3_<?php echo $a->id; ?>" name="aspirante[<?php echo $a->id; ?>][cert_nacimiento]" <?php if ($a->documentacion->cert_nacimiento) echo "checked"; ?>></div>
                                             <div style="width: 20%; float:left;">Certificado buena salud <input type="checkbox" data-row="fase3_<?php echo $a->id; ?>" name="aspirante[<?php echo $a->id; ?>][cert_buena_salud]" <?php if ($a->documentacion->cert_buena_salud) echo "checked"; ?>></div>
-                                            <div style="width: 20%; float:left;">Certificado buco dental <input type="checkbox" data-row="fase3_<?php echo $a->id; ?>" name="aspirante[<?php echo $a->id; ?>][cert_buco_dental]" <?php if ($a->documentacion->cert_buco_dental) echo "checked"; ?>></div>
                                         </div>
                                         <div class="row">
+                                            <div style="width: 20%; float:left;">Certificado buco dental <input type="checkbox" data-row="fase3_<?php echo $a->id; ?>" name="aspirante[<?php echo $a->id; ?>][cert_buco_dental]" <?php if ($a->documentacion->cert_buco_dental) echo "checked"; ?>></div>
                                             <div style="width: 20%; float:left;">Plan de vacunación <input type="checkbox" data-row="fase3_<?php echo $a->id; ?>" name="aspirante[<?php echo $a->id; ?>][plan_vacunacion]" <?php if ($a->documentacion->plan_vacunacion) echo "checked"; ?>></div>
                                             <div style="width: 20%; float:left;">Fotos carnet <input type="checkbox" data-row="fase3_<?php echo $a->id; ?>" name="aspirante[<?php echo $a->id; ?>][fotos_carnet]" <?php if ($a->documentacion->fotos_carnet) echo "checked"; ?>></div>
                                             <div style="width: 20%; float:left;">Solicitud inscripción <input type="checkbox" data-row="fase3_<?php echo $a->id; ?>" name="aspirante[<?php echo $a->id; ?>][solicitud_inscripcion]" <?php if ($a->documentacion->solicitud_inscripcion) echo "checked"; ?>></div>
-                                            <div style="width: 20%; float:left;">Pago matrícula <input type="checkbox" data-row="fase3_<?php echo $a->id; ?>" name="aspirante[<?php echo $a->id; ?>][pago_matricula]" <?php if ($a->documentacion->pago_matricula) echo "checked"; ?>></div>
-                                            <div style="width: 20%; float:left;">Solicitud reserva de vacante <input type="checkbox" data-row="fase3_<?php echo $a->id; ?>" name="aspirante[<?php echo $a->id; ?>][reserva_vacante]" <?php if ($a->documentacion->reserva_vacante) echo "checked"; ?>></div>
                                         </div>
 
 

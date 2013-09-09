@@ -35,7 +35,6 @@
     .item{
         text-align:center;
         border:1px solid #499B33;
-        background:#fafafa;
         width:100px;
     }
     .assigned{
@@ -100,7 +99,7 @@
             </tr>     
             <?php foreach ($curso->anio_nivel->materiums->get() as $materia) { ?>
                 <tr>          
-                    <td><div class="item <?php echo str_replace(' ','',$materia->nombre); ?>"  id="<?php echo str_replace(' ','',$materia->nombre); ?>" style="cursor: pointer;" ondragstart="drag(event)" draggable="true"  ><?php echo $materia->nombre; ?></div></td>
+                    <td><div class="item <?php echo str_replace(' ','',$materia->nombre); ?>" style="background: <?php echo $materia->color; ?>"  id="<?php echo str_replace(' ','',$materia->nombre); ?>" style="cursor: pointer;" ondragstart="drag(event)" draggable="true"  ><?php echo $materia->nombre; ?></div></td>
 
                 </tr>            
             <?php } ?>

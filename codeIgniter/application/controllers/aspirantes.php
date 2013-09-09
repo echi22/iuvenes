@@ -253,6 +253,9 @@ class Aspirantes extends Controlador {
             $a = new Aspirante();
             $a->where("estado", 1)->get();
             $data['aspirantes'] = $a;
+            $pre_inscriptos = new Aspirante();
+            $pre_inscriptos->where("estado",2)->get();
+            $data['pre_inscriptos'] = $pre_inscriptos;
             $data['parametros'] = $_POST;
             $this->load->view('aspirante/inscriptos', $data);
         } else {

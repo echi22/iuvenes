@@ -18,10 +18,10 @@
 <div id="tabs" style="width: 100%">
     <ul>
         <li><a href="#get_inscriptos">Inscriptos</a></li>
-        <li><a href="#get_preadmitidos_fase1">Completa Dirección del Nivel</a></li>
-        <li><a href="#get_preadmitidos_fase2">Completa Administación</a></li>
-        <li><a href="#get_preadmitidos_fase3">Completa Secretaría del Nivel</a></li>
-        <li><a href="#get_admitidos">Admitidos</a></li>
+        <li><a href="#get_preadmitidos_fase1"><b>1</b> - Completa Dirección del Nivel</a></li>
+        <li><a href="#get_preadmitidos_fase2"><b>2</b> - Completa Administación</a></li>
+        <li><a href="#get_preadmitidos_fase3"><b>3</b> - Completa Secretaría del Nivel</a></li>
+        <li><a href="#get_admitidos"><b>4</b> - Admitidos</a></li>
     </ul>
     <div id="get_inscriptos">   
     </div>
