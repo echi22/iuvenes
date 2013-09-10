@@ -29,6 +29,14 @@ class Plan_estudios extends Controlador {
             $this->load->view('templates/footer');
         }
     }
+    
+    public function show_ley_educacion(){
+        $ley = new Ley_educacion();        
+        $data["ley"] = $ley->get();
+        $this->load->view('templates/header');
+        $this->parser->parse('plan_estudio/show_ley_educacion',$data);
+        $this->load->view('templates/footer');
+    }
 
     public function add_orientation() {
         $this->load->helper('form');
@@ -49,6 +57,14 @@ class Plan_estudios extends Controlador {
         }
     }
 
+    public function show_orientacion(){
+        $o = new Orientation();        
+        $data["orientation"] = $o->get();
+        $this->load->view('templates/header');
+        $this->parser->parse('plan_estudio/show_orientation',$data);
+        $this->load->view('templates/footer');
+    }
+    
     public function add_nivel_educativo() {
         $this->load->helper('form');
         $this->load->helper('url');
