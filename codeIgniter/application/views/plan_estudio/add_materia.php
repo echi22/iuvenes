@@ -1,13 +1,14 @@
 <?php
 echo validation_errors();
 ?>
-<script type="text/javascript" src="<?php echo base_url(); ?>js/AlumnosView.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>js/PlanEstudioView.js"></script>
 <script type="text/javascript">
-    alumnosView = new AlumnosView();
+    planEstudioView = new PlanEstudioView();
 </script>
 <div id="contenido">
-    <form name="form"  action="<?php echo base_url() . 'plan_estudios/add_materia'; ?>" id="form" method="post">    
-        <div id="insert_form" class="content-center">
+
+    <div id="insert_form" class="content-center">
+        <form name="form"  action="<?php echo base_url() . 'plan_estudios/add_materia'; ?>" id="form" method="post">    
             <div class="titulo">
                 Alta de Materia
             </div>
@@ -21,13 +22,15 @@ echo validation_errors();
                     <input type="color" id="color" name="color" />
                 </div>
 
-                
+
             </div>            
             <div style="clear: both"></div>
 
-            <div class="row">
-                <button onclick="if(alumnosView.submitForm('form',true)){alert('Materia agregada con éxito');return}else{return false;}">Guardar</button>
-            </div>
+        </form>
+        <div class="row">
+            <button onclick="if(planEstudioView.check_inputs('form',true)){alert('Materia agregada con éxito');return}else{return false;}">Guardar</button>
+            <button onclick="window.location.href = 'show_materium'">Volver</button>
+
         </div>
-    </form>
+    </div>
 </div>        

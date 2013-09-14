@@ -6,8 +6,9 @@ echo validation_errors();
     view = new View();
 </script>
 <div id="contenido">
-    <form name="form"  action="<?php echo base_url() . 'plan_estudios/add_orientation'; ?>" id="form" method="post">    
-        <div id="insert_form" class="content-center">
+    <div id="insert_form" class="content-center">
+        <form name="form"  action="<?php echo base_url() . 'plan_estudios/add_orientation'; ?>" id="form" method="post">    
+
             <div class="titulo">
                 Alta de Orientación
             </div>
@@ -18,10 +19,12 @@ echo validation_errors();
                 </div>                
             </div>            
             <div style="clear: both"></div>
-            
-            <div class="row">
-                <button onclick="if(view.submitForm('form',true)){alert('Orientación agregada con éxito');return true;}else{return false;}">Guardar</button>
-            </div>
+        </form>
+
+        <div class="row">
+            <button onclick="if(view.submitForm('form',true)){alert('Orientación agregada con éxito');return true;}else{return false;}">Guardar</button>
+            <button onclick="window.location.href = 'show_orientation'">Volver</button>
+
         </div>
-    </form>
+    </div>
 </div>        

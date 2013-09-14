@@ -38,6 +38,8 @@ echo validation_errors();
 
             <div class="row">
                 <button onclick="if(alumnosView.submitForm('form',true)){alert('Nivel educativo agregado con éxito');return true;}else{return false;}">Guardar</button>
+                <button onclick="window.location.href = 'show_nivel_educativo'">Volver</button>
+
             </div>
         </div>
     </form>

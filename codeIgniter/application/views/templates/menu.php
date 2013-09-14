@@ -123,11 +123,11 @@
                     <li><a href="/iuvenes/gestion/tablas_auxiliares.php" ><span>Tablas Auxiliares</span></a></li>
                     <li><a href="#" class="parent"><span>Ley de Educación</span></a>
                         <div><ul>
-                                <li><a href="<?php echo base_url() . 'plan_estudios/create'; ?>"><span>Ley</span></a></li>
+                                <li><a href="<?php echo base_url() . 'plan_estudios/show_ley_educacion'; ?>"><span>Ley</span></a></li>
                                 <li><a href="<?php echo base_url() . 'plan_estudios/add_nivel_educativo'; ?>"><span>Nivel</span></a></li>                     
-                                <li><a href="<?php echo base_url() . 'plan_estudios/add_orientation'; ?>"><span>Orientacion</span></a></li>
+                                <li><a href="<?php echo base_url() . 'plan_estudios/show_orientation'; ?>"><span>Orientacion</span></a></li>
                                 <li><a href="<?php echo base_url() . 'plan_estudios/add_anio_nivel'; ?>"><span>Año</span></a></li>
-                                <li><a href="<?php echo base_url() . 'plan_estudios/add_materia'; ?>"><span>Materias</span></a></li>   
+                                <li><a href="<?php echo base_url() . 'plan_estudios/show_materia'; ?>"><span>Materias</span></a></li>   
                                 <li><a href="<?php echo base_url() . 'plan_estudios/add_materia_to_anio_nivel'; ?>"><span>Agregar materias a niveles</span></a></li>   
                             </ul></div>
                     </li>

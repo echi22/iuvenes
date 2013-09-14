@@ -39,6 +39,7 @@ echo validation_errors();
 
             <div class="row">
                 <button onclick="if(alumnosView.submitForm('form',true)){alert('Año nivel agregado con éxito');return true}else{return false;}">Guardar</button>
+                <button onclick="window.location.href = 'show_anio_nivel'">Volver</button>
             </div>
         </div>
     </form>

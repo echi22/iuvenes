@@ -6,8 +6,9 @@ echo validation_errors();
     alumnosView = new AlumnosView();
 </script>
 <div id="contenido">
-    <form name="form"  action="<?php echo base_url() . 'plan_estudios/create'; ?>" id="form" method="post">    
-        <div id="insert_form" class="content-center">
+    <div id="insert_form" class="content-center">
+        <form name="form"  action="<?php echo base_url() . 'plan_estudios/create'; ?>" id="form" method="post">    
+
             <div class="titulo">
                 Alta de Ley de Educación
             </div>
@@ -25,13 +26,15 @@ echo validation_errors();
                     <label for="year">Fecha de Fin Vigencia:</label>
                     <input type="date" id="dt_fin_vig" name="dt_fin_vig"/>
                 </div>
-                   
+
             </div>            
             <div style="clear: both"></div>
-            
-            <div class="row">
-                <button onclick="if(alumnosView.submitForm('form',true)){alert('Ley de educación agregada con éxito'); return true}else{return false;}">Guardar</button>
-            </div>
+        </form>
+        <div class="row">
+            <button onclick="if(alumnosView.submitForm('form',true)){alert('Ley de educación agregada con éxito'); return true}else{return false;}">Guardar</button>
+            <button onclick="window.location.href = 'show_ley_educacion'">Volver</button>
+
         </div>
-    </form>
+    </div>
+
 </div>        
