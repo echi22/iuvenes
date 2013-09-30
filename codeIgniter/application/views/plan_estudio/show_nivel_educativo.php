@@ -42,12 +42,12 @@
                     </script>
                 </td>
                 <td>
-                    <p class="no_edit_<?php echo $l->id; ?>" id="dt_ini_no_edit_<?php echo $l->id; ?>"><?php echo $l->dt_ini_vig; ?> </p>
-                    <input class="edit_<?php echo $l->id; ?> hidden"  type="date" id="dt_ini_<?php echo $l->id; ?>" value="<?php echo $l->dt_ini_vig; ?>" />
+                    <p class="no_edit_<?php echo $n->id; ?>" id="dt_ini_no_edit_<?php echo $n->id; ?>"><?php echo $n->dt_ini_vig; ?> </p>
+                    <input class="edit_<?php echo $n->id; ?> hidden"  type="date" id="dt_ini_<?php echo $n->id; ?>" value="<?php echo $n->dt_ini_vig; ?>" />
                 </td>
                 <td>
-                    <p class="no_edit_<?php echo $l->id; ?>" id="dt_fin_no_edit_<?php echo $l->id; ?>"><?php echo $l->dt_fin_fic; ?> </p>
-                    <input class="edit_<?php echo $l->id; ?> hidden"  type="date" id="dt_fin_<?php echo $l->id; ?>" value="<?php echo $l->dt_fin_fic; ?>" />
+                    <p class="no_edit_<?php echo $n->id; ?>" id="dt_fin_no_edit_<?php echo $n->id; ?>"><?php echo $n->dt_fin_fic; ?> </p>
+                    <input class="edit_<?php echo $n->id; ?> hidden"  type="date" id="dt_fin_<?php echo $n->id; ?>" value="<?php echo $n->dt_fin_fic; ?>" />
                 </td>
 
                 <td>

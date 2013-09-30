@@ -305,6 +305,7 @@ class Cursos extends Controlador {
                     $c->where('ds_seccion', $_POST['ds_seccion']);
                 $c->where_related("establecimiento", 'id', $_SESSION['establecimiento_id']);
                 $c->get();
+                
                 $data['cursos'] = $c;
             }
             $data['parametros'] = $_POST;

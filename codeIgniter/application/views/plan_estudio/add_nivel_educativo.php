@@ -6,8 +6,9 @@ echo validation_errors();
     alumnosView = new AlumnosView();
 </script>
 <div id="contenido">
-    <form name="form"  action="<?php echo base_url() . 'plan_estudios/add_nivel_educativo'; ?>" id="form" method="post">    
-        <div id="insert_form" class="content-center">
+    <div id="insert_form" class="content-center">
+        <form name="form"  action="<?php echo base_url() . 'plan_estudios/add_nivel_educativo'; ?>" id="form" method="post">    
+
             <div class="titulo">
                 Alta de Nivel Educativo
             </div>
@@ -35,12 +36,13 @@ echo validation_errors();
                 </div>
             </div>            
             <div style="clear: both"></div>
+        </form>
 
-            <div class="row">
-                <button onclick="if(alumnosView.submitForm('form',true)){alert('Nivel educativo agregado con éxito');return true;}else{return false;}">Guardar</button>
-                <button onclick="window.location.href = 'show_nivel_educativo'">Volver</button>
 
-            </div>
+        <div class="row">
+            <button onclick="if(view.submitForm('form',true)){alert('Nivel agregado con éxito');return true;}else{return false;}">Guardar</button>
+            <button onclick="window.location.href = 'show_nivel_educativo'">Volver</button>
+
         </div>
-    </form>
+    </div>
 </div>        

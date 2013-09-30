@@ -441,6 +441,12 @@ class Personales extends Controlador {
             redirect("users/error");
         }
     }
+    
+    public function view_licencia_explanation(){
+         $this->load->view('templates/header');
+            $this->parser->parse('personal/tipos_licencias_explicaciones', $data);
+            $this->load->view('templates/footer');
+    }
 
 }
 

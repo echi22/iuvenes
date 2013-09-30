@@ -196,24 +196,23 @@ class Plan_estudios extends Controlador {
     }
 
     public function edit_anio_nivel() {
-        $n = new Nivel_educativo();
-        $n->where('id', $_POST['id'])->include_related('ley_educacion')->get();
-        $n->ley_educacion_id = $_POST['ley'];
-        $n->ds_nivel = $_POST['nivel'];
-        $n->dt_ini_vig = $_POST['dt_ini_vig'];
-        $n->dt_fin_fic = $_POST['dt_fin_fic'];
-        $n->in_vigente = $_POST['in_vigente'];
-        $n->save();
+        $an = new Anio_nivel();
+        $an->where('id', $_POST['id'])->include_all_related()->get();
+        $an->nivel_educativo_id = $_POST['nivel'];
+        $an->ds_anio = $_POST['anio'];
+        $an->orientation_id = $_POST['orientacion'];       
+        $an->save();
         //Es necesario recuperar el objeto de nuevo porque si no no se actualiza la ley
-        $nivel = new Nivel_educativo();
-        $nivel->where('id', $_POST['id'])->include_related('ley_educacion')->get();
+        $anio_nivel = new Anio_nivel();
+        $anio_nivel->where('id', $_POST['id'])->include_all_related()->get();
         //esta linea es necesaria para que devuelva la ley con toda su información.
-        $a = $nivel->ley_educacion->id;
-        echo json_encode($nivel);
+        $a = $anio_nivel->orientation->id;
+        $a = $anio_nivel->nivel_educativo->id;
+        echo json_encode($anio_nivel);
     }
 
     public function delete_anio_nivel() {
-        $n = new Nivel_educativo();
+        $n = new Anio_nivel();
         $n->where("id", $_POST['id'])->get();
         $n->delete();
     }

@@ -101,11 +101,29 @@ function  PlanEstudioView(){
             data : 'id='+id+'&ley='+ley+'&dt_ini_vig='+dt_ini+'&dt_fin_fic='+dt_fin+'&in_vigente='+in_vigente+'&nivel='+nivel,
             success : function(data){
                 data = jQuery.parseJSON(data);
-                $("#ds_nivel_educativo_no_edit_"+id).html(data['ds_nivel']);  
+                $("#nivel_educativo_no_edit_"+id).html(data['ds_nivel']);  
                 $("#dt_ini_no_edit_"+id).html(data['dt_ini_vig']);              
                 $("#dt_fin_no_edit_"+id).html(data['dt_fin_fic']);              
                 $("#vigente_no_edit_"+id).html((data['in_vigente'] == 'true' ? "Vigente" : "No vigente"));          
                 $("#ley_educacion_no_edit_"+id).html(data['ley_educacion'].ds_ley);
+                _self.hide_editable(id);
+            }           
+        });
+        
+    },
+    this.edit_anio_nivel = function(id){        
+        var anio = $("#anio_"+id).val();
+        var nivel = $("#nivel_educativo_"+id).val();
+        var orientacion = $("#orientation_"+id).val();        
+        $.ajax({
+            url : 'edit_anio_nivel',
+            type: "POST",
+            data : 'id='+id+'&anio='+anio+'&nivel='+nivel+'&orientacion='+orientacion,
+            success : function(data){
+                data = jQuery.parseJSON(data);
+                $("#anio_no_edit_"+id).html(data['ds_anio']);  
+                $("#nivel_educativo_no_edit_"+id).html(data['nivel_educativo'].ds_nivel);
+                $("#orientation_no_edit_"+id).html(data['orientation'].ds_orientacion);
                 _self.hide_editable(id);
             }           
         });
