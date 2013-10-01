@@ -254,7 +254,7 @@ class Aspirantes extends Controlador {
             $a->where("estado", 1)->get();
             $data['aspirantes'] = $a;
             $pre_inscriptos = new Aspirante();
-            $pre_inscriptos->where("estado",2)->get();
+            $pre_inscriptos->where("estado", 2)->get();
             $data['pre_inscriptos'] = $pre_inscriptos;
             $data['parametros'] = $_POST;
             $this->load->view('aspirante/inscriptos', $data);
@@ -401,7 +401,7 @@ class Aspirantes extends Controlador {
             foreach ($_POST['aspirante'] as $key => $value) {
                 if ($value['changed'] == 'on') {
                     $a->where('id', $key)->get();
-                    if ($value['dt_admision'] != "") {
+                    if (($value['dt_admision'] != "") and (isset($value['dni'])) and (isset($value['cert_nacimiento']))  and (isset($value['cert_buco_dental'])) and (isset($value['cert_buena_salud'])) and (isset($value['plan_vacunacion'])) and (isset($value['fotos_carnet'])) and (isset($value['solicitud_inscripcion']))) {
                         $a->estado = 3;
                         $a->dt_admision = $value['dt_admision'];
                         $a->save();
@@ -416,8 +416,6 @@ class Aspirantes extends Controlador {
                     $d->plan_vacunacion = isset($value['plan_vacunacion']);
                     $d->fotos_carnet = isset($value['fotos_carnet']);
                     $d->solicitud_inscripcion = isset($value['solicitud_inscripcion']);
-                    $d->reserva_vacante = isset($value['reserva_vacante']);
-                    $d->pago_matricula = isset($value['pago_matricula']);
                     $d->save($a);
                 }
             }

@@ -34,8 +34,6 @@ class Cursos extends Controlador {
             }
             $data['años_cursos'] = new Curso();
             $data['años_cursos'] = $data['años_cursos']->get_all_cursos_years();
-            array_unshift($data['años_cursos'], $data['años_cursos'][0]);
-            $data['años_cursos'][0]['id_ciclo_lectivo'] = 'Todos';
             $data['curso'] = new Curso();
             $data['curso'] = $data['curso']->get()->all_to_array();
             if ($this->form_validation->run() === FALSE) {
@@ -142,8 +140,6 @@ class Cursos extends Controlador {
             }
             $data['años_cursos'] = new Curso();
             $data['años_cursos'] = $data['años_cursos']->get_all_cursos_years();
-            array_unshift($data['años_cursos'], $data['años_cursos'][0]);
-            $data['años_cursos'][0]['id_ciclo_lectivo'] = 'Todos';
             $data['curso'] = new Curso();
             $data['curso'] = $data['curso']->get()->all_to_array();
             if ($this->form_validation->run() === FALSE) {
@@ -218,6 +214,32 @@ class Cursos extends Controlador {
         echo json_encode($result);
     }
 
+    function get_alumnos_from_ciclo_lectivo() {
+        
+        ini_set('memory_limit', '-1');
+        $c = new Curso();
+        $c->select("id")->where("id !=",-1)->get();
+        
+        $current_curso = new Curso();
+        $current_curso->where('id',$_POST['current_curso'])->get();
+        $a = new Aspirante();
+        $a->select("persona_id")->where("ciclo_lectivo",$current_curso->id_ciclo_lectivo)->where("anio_nivel",$current_curso->anio_nivel_id)->where("estado",4);
+        $sub_al = new Alumno();
+        $sub_al->select('id')->where_related_curso("id", $c);        
+        $alumnos = new Alumno();
+        $alumnos->where_in_subquery('persona_id', $a)->where_not_in_subquery("id", $sub_al)->get();       
+        $result = array();
+
+        foreach ($alumnos as $alumno) {
+            $a = array();
+            $a['detalle'] = $alumno->detalle();
+            $a['id'] = $alumno->id;
+            array_push($result, $a);
+        }
+        echo json_encode($result);
+    }
+
+    
     public function get_prestaciones() {
         $subq2 = new Persona();
         $subq2->select('id')->like("apellidos", $_POST['filtro'])->or_like("nombres", $_POST['filtro'])->or_like_related("persona_identificacion", "numero_identificacion", $_POST['filtro']);
@@ -270,8 +292,6 @@ class Cursos extends Controlador {
         $this->load->helper('url');
         $data['años_cursos'] = new Curso();
         $data['años_cursos'] = $data['años_cursos']->get_all_cursos_years();
-        array_unshift($data['años_cursos'], $data['años_cursos'][0]);
-        $data['años_cursos'][0]['id_ciclo_lectivo'] = 'Todos';
         $data['all_cursos'] = new Curso();
         $data['all_cursos'] = $data['all_cursos']->get()->all_to_array();
         $data['curso'] = new Curso();

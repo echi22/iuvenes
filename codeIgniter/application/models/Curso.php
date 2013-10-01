@@ -29,7 +29,7 @@ class Curso extends DataMapper{
     }
     
     function get_all_cursos_years(){
-        $query = "SELECT DISTINCT id_ciclo_lectivo FROM curso WHERE establecimiento_id = ".$_SESSION['establecimiento_id'];
+        $query = "SELECT DISTINCT id_ciclo_lectivo FROM curso WHERE establecimiento_id = ".$_SESSION['establecimiento_id']." order by id_ciclo_lectivo DESC";
         $result = mysql_query($query);
         while($row = mysql_fetch_array($result)){            
             $data[] = $row;

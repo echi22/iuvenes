@@ -10,7 +10,7 @@
         });
         cursosView.actualizarPrestaciones($("#prestaciones"),<?php echo $curso->id; ?>);
         $( "#tabs-docentes" ).tabs();
-
+        if($("#docentes tr").length > 1)
         $("#docentes").tablesorter().tablesorterPager({container: $("#pager_docentes")}); 
     }); 
 

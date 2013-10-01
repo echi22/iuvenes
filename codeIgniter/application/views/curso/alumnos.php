@@ -32,8 +32,7 @@
             });
             cursosView.actualizarAlumnos($("#años_cursos").val(),$("#cursos"),$('#alumnos'),<?php echo $curso->id; ?>);
         });
-        cursosView.actualizarAlumnos($("#años_cursos").val(),$("#cursos"),$('#alumnos'),<?php echo $curso->id; ?>);
-        if($("#myTable tr").length > 1)
+    cursosView.getAlumnosFromCicloLectivo($('#alumnos'),<?php echo $curso->id; ?>);        if($("#myTable tr").length > 1)
             $("#myTable").tablesorter().tablesorterPager({container: $("#pager")}); 
     }); 
 </script>
@@ -48,7 +47,10 @@
 
             <div >
                 <div class="subtitle">
-                    Cursos:
+                    Ver alumnos inscriptos para este ciclo lectivo: <input type="radio" value="nuevos" name="select_from" onclick="cursosView.getAlumnosFromCicloLectivo($('#alumnos'),<?php echo $curso->id; ?>);" id="select_from" checked="checked"/>
+                </div>
+                <div class="subtitle">
+                    Seleccionar alumnos de cursos existentes: <input type="radio" value="nuevos" name="select_from" onclick="cursosView.enableSearchByCursos(<?php echo $curso->id; ?>);" />
                 </div>
                 <div class="row">
                     <div class="columna_ajustada">

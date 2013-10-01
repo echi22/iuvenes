@@ -14,9 +14,7 @@ class CursoLibrary {
         $data['nivel_educativo'] = new Nivel_educativo();
         $data['nivel_educativo'] = $data['nivel_educativo']->get()->all_to_array();                              
         $data['años_cursos'] = new Curso();                                
-        $data['años_cursos'] = $data['años_cursos']->get_all_cursos_years();                                           
-        array_unshift($data['años_cursos'], $data['años_cursos'][0]);
-        $data['años_cursos'][0]['id_ciclo_lectivo'] = 'Todos';
+        $data['años_cursos'] = $data['años_cursos']->get_all_cursos_years();    
         $data['cursos'] = new Curso(); 
         $data['cursos'] = $data['cursos']->get()->all_to_array();
         return $data;
