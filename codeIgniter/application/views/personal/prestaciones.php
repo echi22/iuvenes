@@ -160,7 +160,7 @@
 <div>
 <?php include('application/views/templates/pager.php'); ?>
 <input type="hidden" id="cant_prestaciones" value="<?php echo $i; ?>" />
-<a href="<?php echo base_url(); ?>/personales/add_prestacion/<?php echo $personal->persona->id; ?>">
+<a href="<?php echo base_url(); ?>personales/add_prestacion/<?php echo $personal->persona->id; ?>">
     <button>Nueva Prestación</button></a>
 </div>
 

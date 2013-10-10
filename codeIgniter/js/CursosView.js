@@ -5,7 +5,9 @@ function  CursosView() {
     this.listadoPrestaciones = new Array();
     this.materias = new Object();
     this.ajaxRequests = new Array();
+    this.errorMessage = "";
     var _self = this;
+    this.horarios = {};
     this.selectMoveRows = function(SS1, SS2, selected, listado)
     {
         var SelID = '';
@@ -210,6 +212,20 @@ function  CursosView() {
             }
         });
     };
+    
+     this.saveHorariosModifications = function(curso_id) {
+        $.ajax({
+            url: '../save_horarios_modifications',
+            type: "POST",
+            data: {
+                'horarios': JSON.stringify(this.horarios),
+                'curso_id': curso_id
+            },
+            success: function() {
+                alert("Horarios guardados exitosamente");
+            }
+        });
+    };
     this.getMateriasFromCurso = function(curso_id) {
         $.ajax({
             url: '../get_materias_from_curso',
@@ -255,6 +271,33 @@ function  CursosView() {
                 $("#"+$('.docentes')[i].id+"_suplente").show();
             }
         }
+    };
+    this.addMateriaToHour = function(materia_id,hora_id){
+        this.horarios[hora_id] = materia_id;
+    };
+    this.checkProfessorFree = function(curso_id,materia_id,hora_id){
+        var check = $.ajax({
+            url: '../check_professor_free',
+            type: "POST",
+            data: {
+                'curso_id': curso_id,
+                'materia_id':materia_id,
+                'hora_id':hora_id                
+            },
+            async: false,
+            success: function(res) {
+               res = jQuery.parseJSON(res);
+               if(res == "true" || res == true)
+                   return true;
+               else{
+                   _self.errorMessage = res;
+                   return false;
+               }
+                   
+               
+            }
+        });
+        return check.responseText;
     }
 }
 CursosView.prototype = new View;

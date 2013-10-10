@@ -10,10 +10,10 @@
  *
  * @author echi
  */
-class Materium extends DataMapper{
-     var $table = 'materium';
-     var $has_many = array('anio_nivel','materium_curso_prestacion_personal','horario');
-     var $default_order_by = array('nombre');
+class Hora extends DataMapper{
+    var $table = 'hora';    
+    var $default_order_by = array('id');
+    var $has_many = array('horario');
      function __construct($id = NULL)
         {
             parent::__construct($id);

@@ -12,7 +12,7 @@
  */
 class Curso extends DataMapper{
     var $table = 'curso';
-    var $has_many = array('alumno','prestacion','materium_curso_prestacion_personal');
+    var $has_many = array('alumno','prestacion','materium_curso_prestacion_personal', 'horario');
     var $has_one = array('establecimiento','anio_nivel','scheduletable');    
     var $default_order_by = array('id_ciclo_lectivo'=>'desc');
     function __construct($id = NULL)

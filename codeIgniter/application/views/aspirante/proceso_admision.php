@@ -4,6 +4,7 @@
         $("#tabs").tabs();
     });
     aspiranteView = new AspiranteView();
+    aspiranteView.loadView("get_all_from_year");
     aspiranteView.loadView("get_inscriptos");
     aspiranteView.loadView("get_preadmitidos_fase1");
     aspiranteView.loadView("get_preadmitidos_fase2");
@@ -17,12 +18,15 @@
 </h3>
 <div id="tabs" style="width: 100%">
     <ul>
+        <li><a href="#get_all_from_year">Ver todos los del ciclo lectivo</a></li>
         <li><a href="#get_inscriptos">Inscriptos</a></li>
         <li><a href="#get_preadmitidos_fase1"><b>1</b> - Completa Dirección del Nivel</a></li>
         <li><a href="#get_preadmitidos_fase2"><b>2</b> - Completa Administación</a></li>
         <li><a href="#get_preadmitidos_fase3"><b>3</b> - Completa Secretaría del Nivel</a></li>
         <li><a href="#get_admitidos"><b>4</b> - Admitidos</a></li>
     </ul>
+    <div id="get_all_from_year">   
+    </div>
     <div id="get_inscriptos">   
     </div>
     <div id="get_preadmitidos_fase1"> 

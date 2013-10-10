@@ -29,7 +29,7 @@
         <?php $this->load->view('curso/docentes'); ?> 
     </div>
     <div id="tabs-4">
-        <?php $this->load->view('curso/horarios'); ?> 
+        <?php $this->load->view('curso/horarios_1'); ?> 
     </div>
     <div id="tabs-5">
         <?php  $this->load->view('curso/materias'); ?> 
