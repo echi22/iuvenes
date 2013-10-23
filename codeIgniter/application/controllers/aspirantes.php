@@ -252,7 +252,7 @@ class Aspirantes extends Controlador {
             $this->load->helper('form');
             $this->load->helper('url');
             $a = new Aspirante();
-            $a->where("ciclo_lectivo", 2013)->get();
+            $a->where("ciclo_lectivo", $_POST['ciclo_lectivo'])->get();
             $data['aspirantes'] = $a;        
             $data['parametros'] = $_POST;   
             $this->load->view('aspirante/all_from_year', $data);

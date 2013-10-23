@@ -21,7 +21,7 @@
                 <tr class="<?php echo $classes[($i % 2)]; ?> adelanto" id="adelanto<?php echo $i; ?>">
             <input type="hidden" value="<?php echo $adelanto->id; ?>" id="adelanto<?php echo $i; ?>_id" />                  
             <td>
-                <p class="no_edit_<?php echo $adelanto->id; ?>" id="dt_adelanto_no_edit_<?php echo $adelanto->id; ?>"><?php echo $adelanto->dt_adelanto; ?> </p>
+                <p class="no_edit_<?php echo $adelanto->id; ?>" id="dt_adelanto_no_edit_<?php echo $adelanto->id; ?>"><?php echo date_format(date_create($adelanto->dt_adelanto), 'd-m-Y');   ?> </p>
                 <input class="edit_<?php echo $adelanto->id; ?> hidden" size="5" type="date" id="dt_adelanto_<?php echo $adelanto->id; ?>" value="<?php echo $adelanto->dt_adelanto; ?>" />
             </td>
             <td>

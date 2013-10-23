@@ -21,11 +21,11 @@
                 <tr class="<?php echo $classes[($i % 2)]; ?> licencia" id="licencia<?php echo $i; ?>">
             <input type="hidden" value="<?php echo $licencia->id; ?>" id="licencia<?php echo $i; ?>_id" />                  
             <td>
-                <p class="no_edit_<?php echo $licencia->id; ?>" id="dt_inicio_no_edit_<?php echo $licencia->id; ?>"><?php echo $licencia->dt_inicio; ?> </p>
+                <p class="no_edit_<?php echo $licencia->id; ?>" id="dt_inicio_no_edit_<?php echo $licencia->id; ?>"><?php echo date_format(date_create($licencia->dt_inicio), 'd-m-Y');  ?> </p>
                 <input class="edit_<?php echo $licencia->id; ?> hidden" size="5" type="date" id="dt_inicio_<?php echo $licencia->id; ?>" value="<?php echo $licencia->dt_inicio; ?>" />
             </td>
             <td>
-                <p class="no_edit_<?php echo $licencia->id; ?>" id="dt_fin_no_edit_<?php echo $licencia->id; ?>"><?php echo $licencia->dt_fin; ?> </p>
+                <p class="no_edit_<?php echo $licencia->id; ?>" id="dt_fin_no_edit_<?php echo $licencia->id; ?>"><?php echo date_format(date_create($licencia->dt_fin), 'd-m-Y');  ?> </p>
                 <input class="edit_<?php echo $licencia->id; ?> hidden" size="5" type="date" id="dt_fin_<?php echo $licencia->id; ?>" value="<?php echo $licencia->dt_fin; ?>" />
             </td>          
             <td>

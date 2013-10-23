@@ -119,11 +119,11 @@
                     </script>
                 </td>
                 <td>
-                    <p class="no_edit_<?php echo $prestacion->id; ?>" id="dt_inicio_no_edit_<?php echo $prestacion->id; ?>"><?php echo $prestacion->dt_inicio; ?> </p>
+                    <p class="no_edit_<?php echo $prestacion->id; ?>" id="dt_inicio_no_edit_<?php echo $prestacion->id; ?>"><?php echo date_format(date_create($prestacion->dt_inicio), 'd-m-Y'); ?> </p>
                     <input class="edit_<?php echo $prestacion->id; ?> hidden" size="5" type="date" id="dt_inicio_<?php echo $prestacion->id; ?>" value="<?php echo $prestacion->dt_inicio; ?>" />
                 </td>
                 <td>
-                    <p class="no_edit_<?php echo $prestacion->id; ?>" id="dt_fin_no_edit_<?php echo $prestacion->id; ?>"><?php echo $prestacion->dt_fin; ?> </p>
+                    <p class="no_edit_<?php echo $prestacion->id; ?>" id="dt_fin_no_edit_<?php echo $prestacion->id; ?>"><?php echo date_format(date_create($prestacion->dt_fin), 'd-m-Y'); ?> </p>
                     <input class="edit_<?php echo $prestacion->id; ?> hidden" size="5" type="date" id="dt_fin_<?php echo $prestacion->id; ?>" value="<?php echo $prestacion->dt_fin; ?>" />
                 </td>
                 <td>

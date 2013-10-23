@@ -134,7 +134,7 @@
                             }
                             ?>
                         </td>
-                        <td><?php echo $a->persona->dt_nac; ?></td>
+                        <td><?php echo date_format(date_create($a->persona->dt_nac), 'd-m-Y'); ?></td>
                         <td><?php echo $a->persona->country->ds_pais; ?></td>
                         <td> <div id="icons">
                                 <a href="<?php echo base_url() . 'alumnos/alumno_data/' . $a->persona->id; ?>"><li class="ui-state-default ui-corner-all" title="Ver más" ><span class="ui-icon ui-icon-search" style="margin: 0 4px;"></span></li></a>

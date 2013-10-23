@@ -20,9 +20,7 @@
 
 
     <div style="width:90%; margin: auto;">
-        <form id="form" action="<?php echo base_url() . 'aspirantes/get_all_from_year'; ?>" method="post">
-            <input name="ciclo" value="<?php echo date('Y'); ?>" /> <input type="submit" value="Ver" />
-        </form>
+           Ciclo: <input name="ciclo" id="ciclo" value="<?php echo $parametros['ciclo_lectivo']; ?>" /> <input type="submit" value="Ver" onclick="aspiranteView.loadView('get_all_from_year',{'ciclo_lectivo':$('#ciclo').val()})"/>
         <table class="content-center tablesorter" id="myTable">
             <thead>
                 <tr class="table_header">

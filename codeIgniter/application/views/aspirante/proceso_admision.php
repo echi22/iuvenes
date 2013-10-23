@@ -4,7 +4,7 @@
         $("#tabs").tabs();
     });
     aspiranteView = new AspiranteView();
-    aspiranteView.loadView("get_all_from_year");
+    aspiranteView.loadView("get_all_from_year",{'ciclo_lectivo':2014});
     aspiranteView.loadView("get_inscriptos");
     aspiranteView.loadView("get_preadmitidos_fase1");
     aspiranteView.loadView("get_preadmitidos_fase2");

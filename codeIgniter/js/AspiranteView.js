@@ -1,8 +1,9 @@
 function  AspiranteView() {
-    this.loadView = function(view){
+    this.loadView = function(view,data){
         var av = this;
         $.ajax({
                 url: view,
+                data:data,
                 type: "POST",               
                 success: function(data) {
                     $("#"+view).html(data);

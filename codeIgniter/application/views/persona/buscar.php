@@ -75,7 +75,7 @@
                 }
                         ?>                    
                             </td>
-                            <td><?php echo $p->dt_nac; ?></td>
+                            <td><?php echo date_format(date_create($p->dt_nac), 'd-m-Y') ; ?></td>
                             <td><?php echo $p->sexo->ds_sexo; ?></td>
                             <td>
                                 <input type="hidden" id="persona_id<?php echo $i; ?>" value="<?php echo $p->id; ?>" />

@@ -1,4 +1,4 @@
-    <table  class="table_data tablesorter">
+<table  class="table_data tablesorter" style="width: 300px">
         <thead>
             <tr class="table_header">
                 <th>Fecha</th> <th>Estado</th>
@@ -14,7 +14,7 @@
             foreach ($alumno->alumno_vigencia as $periodo) {
                 ?>
                 <tr class="<?php echo $classes[($i % 2)]; ?>">
-                    <td><?php echo $periodo->fecha; ?></td>
+                    <td><?php  echo date_format(date_create($periodo->fecha), 'd-m-Y'); ?></td>
                     <td><?php echo ($periodo->estado) ? "Vigente" : "No Vigente"; ?></td>
                 </tr>            
             <?php } ?>

@@ -116,7 +116,7 @@
                                 }
                                 ?>
                             </td>
-                            <td><?php echo $a->persona->dt_nac; ?></td>
+                            <td><?php  echo date_format(date_create($a->persona->dt_nac), 'd-m-Y'); ?></td>
                             <td><?php echo $a->persona->country->ds_pais; ?></td>
                             <td class="estado" id="estado<?php echo $a->id; ?>"><?php echo $a->isVigente(); ?></td>
                             <td> <div id="icons">

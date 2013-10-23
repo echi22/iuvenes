@@ -262,6 +262,7 @@ function  CursosView() {
                 alert("Docentes guardados correctamente");
                 res = jQuery.parseJSON(res);
                 _self.updateShowingSuplente(res);
+                
             }
         });
     };

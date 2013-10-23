@@ -377,8 +377,10 @@ class Cursos extends Controlador {
            $cpp->where("curso_id",$_POST['curso_id'])->where("materium_id",$_POST['materia_id'])->get();
            $p = new Personal();
            $p = $cpp->prestacion->personal;
+           $c = new Curso();
+           $c = $cpp->curso;           
            $materias = new Materium_curso_prestacion_personal();
-           $materias->where_related('prestacion','personal_id',$p->id)->get();
+           $materias->where_related('prestacion','personal_id',$p->id)->where_related('curso','id_ciclo_lectivo',$c->id_ciclo_lectivo)->get();
            foreach ($materias as $materia) {
                $h = new Horario();
                $h->where("curso_id",$materia->curso_id)->where("curso_id !=",$_POST['curso_id'])->where("hora_id",$hora)->get();
@@ -438,13 +440,21 @@ class Cursos extends Controlador {
         $c->where('id_ciclo_lectivo',$_POST['id_ciclo_lectivo'])->get();
         foreach ($c as $curso) {
             $newCurso = $curso->get_copy();
-            $alumnos = new Alumno();
-            $alumnos = $curso->alumnos;
-            $newCurso->id_ciclo_lectivo = $newCurso->id_ciclo_lectivo +1;
-            $newCurso->delete($alumnos->all);
-            $newCurso->save();
+            $newCurso->id_ciclo_lectivo = $newCurso->id_ciclo_lectivo +1;            
+            $newCurso->save($curso->anio_nivel);
+            
             foreach ($curso->prestacions as $prestacion) {
                 $newCurso->save($prestacion);
+            }
+            foreach ($curso->materium_curso_prestacion_personals as $mcpp) {
+                $newMcpp = $mcpp->get_copy();
+                $newMcpp->curso_id = $newCurso->id;
+                $newMcpp->save();
+            }
+            foreach ($curso->horarios as $hora){                
+                $newHorario = $hora->get_copy();
+                $newHorario->curso_id = $newCurso->id;
+                $newHorario->save();
             }
             
         }
