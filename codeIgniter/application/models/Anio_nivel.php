@@ -12,8 +12,8 @@
  */
 class Anio_nivel extends DataMapper {
     var $table = 'anio_nivel';
-    var $has_one = array("nivel_educativo","orientation","curso");
-    var $has_many = array("materium");
+    var $has_one = array("nivel_educativo","orientation");
+    var $has_many = array("materium","curso");
     function __construct($id = NULL)
     {
         parent::__construct($id);

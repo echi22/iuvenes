@@ -11,19 +11,15 @@
     <form id="form" action="<?php echo base_url() . 'cursos/generate_cursos_automatically'; ?>" method="post">
         <div id="insert_form" class="content-center">
             <div class="titulo">
-                Crear automaticamente
+                Generar cursos automáticamente
             </div>
             <div class="row ">
-                <div class="input">
-                    <label for="ciclo_lectivo">Ciclo Lectivo:</label>
+                    Ciclo Lectivo a partir del que se generarán los nuevos cursos:
                     <input type="text" id="ciclo_lectivo" name="id_ciclo_lectivo" value="<?php echo $parametros['id_ciclo_lectivo']; ?>" />
-                </div>
+                                    <button onclick="if(confirm('¿Estás seguro que querés generar los cursos automáticamente a partir del ciclo lectivo '+$('#ciclo_lectivo').val() +'?')){cursosView.submitForm('form');}else{return false;}">Generar</button>
+
             </div>
-            <div class="row" style="padding-top: 20px">
-                <input type="hidden" value="si" name="busqueda"/>
-                <button onclick="cursosView.submitForm('form')">Buscar</button>
-            </div>
-            <div style="clear: both"></div>
+            
     </form>
    
 

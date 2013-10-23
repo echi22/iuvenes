@@ -46,7 +46,7 @@ class Cursos extends Controlador {
                 $an = new Anio_nivel();
                 $an->where(id, $_POST['anio_nivel'])->get();
                 $c->establecimiento_id = $_SESSION['establecimiento_id'];
-                $c->save(array($an));
+                $c->save($an);
                 $this->generate_schedule($c);
                 foreach ($_POST['alumnos_seleccionados'] as $alumno) {
                     echo $alumno;
@@ -437,7 +437,7 @@ class Cursos extends Controlador {
     }
     function generate_cursos_automatically(){
         $c= new Curso();
-        $c->where('id_ciclo_lectivo',$_POST['id_ciclo_lectivo'])->get();
+        $c->where('id_ciclo_lectivo',$_POST['id_ciclo_lectivo'])->where('establecimiento_id',$_SESSION['establecimiento_id'])->get();
         foreach ($c as $curso) {
             $newCurso = $curso->get_copy();
             $newCurso->id_ciclo_lectivo = $newCurso->id_ciclo_lectivo +1;            
@@ -456,7 +456,12 @@ class Cursos extends Controlador {
                 $newHorario->curso_id = $newCurso->id;
                 $newHorario->save();
             }
-            
+            $curso_anterior = $newCurso->get_previous_curso();
+            if($curso_anterior != null){
+                foreach ($curso_anterior->alumnos as $alumno) {
+                    $newCurso->save($alumno);
+                }
+            }
         }
     }
     function save_materias_docentes() {

@@ -43,6 +43,14 @@ class Curso extends DataMapper{
         else
             return 'Tarde';
     }
+    
+    function get_previous_curso(){
+        $c = new Curso();
+        $a = new Anio_nivel();
+        $a->where('ds_anio',$this->anio_nivel->ds_anio-1)->where('nivel_educativo_id',$this->anio_nivel->nivel_educativo_id)->where('orientation_id',$this->anio_nivel->orientation_id)->get();
+        $c->where('ds_seccion',$this->ds_seccion)->where('id_ciclo_lectivo',$this->id_ciclo_lectivo-1)->where('anio_nivel_id',$a->id)->get();
+        return $c;
+    }
 }
 
 ?>
