@@ -213,7 +213,7 @@ function  CursosView() {
         });
     };
     
-     this.saveHorariosModifications = function(curso_id) {
+    this.saveHorariosModifications = function(curso_id) {
         $.ajax({
             url: '../save_horarios_modifications',
             type: "POST",
@@ -287,18 +287,69 @@ function  CursosView() {
             },
             async: false,
             success: function(res) {
-               res = jQuery.parseJSON(res);
-               if(res == "true" || res == true)
-                   return true;
-               else{
-                   _self.errorMessage = res;
-                   return false;
-               }
+                res = jQuery.parseJSON(res);
+                if(res == "true" || res == true)
+                    return true;
+                else{
+                    _self.errorMessage = res;
+                    return false;
+                }
                    
                
             }
         });
         return check.responseText;
+    };
+    this.toogle_all_trimestres= function(checkbox){
+        if(!$(checkbox).is(":checked")){
+            $(".todos").hide();
+        }else{
+            $(".todos").show();
+        }
+    };
+    this.toogle_trimestre= function(n,checkbox){
+        if(!$(checkbox).is(":checked")){
+            $(".trimestre"+n).hide();
+            $("."+n).hide();
+        }else{
+            $(".trimestre"+n).show();
+            $("."+n).show();
+        }
+    };
+    this.toogle_materia = function(materia,checkbox){
+        if(!$(checkbox).is(":checked")){
+            $("."+materia).hide();        
+        //$("."+materia).closest(".td_container").width($("."+materia).closest(".td_container").width()-150)        
+        }else{
+            $("."+materia).show();            
+        // $("."+materia).closest(".td_container").width($("."+materia).closest(".td_container").width()+150)        
+        }
+    };
+    this.set_alumnos_seleccionados = function(){
+        entro = false;
+        $(".seleccionado").each(function(){
+            if(!$(this).is(":checked")){
+                $(this).closest("tr").find('td').each(
+                    function(i){
+                        if(i ==0) 
+                            $(this).css('background-color', 'rgba(255,255,255,0.3)'); 
+                        else 
+                            $(this).css('opacity', 0.3)
+                            });
+            } else{
+                $(this).closest("tr").find('td').each(function(i){
+                    if(i ==0) $(this).css('background-color', 'rgba(255,255,255,1)'); else $(this).css('opacity', 1)
+                        });
+                entro= true;
+            }
+        });
+        if(entro == false)
+            $(".seleccionado").each(function(){
+                $(this).closest("tr").find('td').each(function(i){
+                    if(i !=0)$(this).css('opacity', 1)
+                        });
+            });
+            
     }
 }
 CursosView.prototype = new View;

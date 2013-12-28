@@ -40,6 +40,8 @@
                         <div><ul>
                                 <li><a href="<?php echo base_url() . 'cursos/create'; ?>"><span>Nuevo</span></a></li>
                                 <li><a href="<?php echo base_url() . 'cursos/buscar'; ?>"><span>Consulta - Modificación</span></a></li>
+                                <li><a href="<?php echo base_url() . 'cursos/generate_automatically'; ?>"><span>Generar Automáticamente</span></a></li>
+
                             </ul></div>
                     </li>
                     <li><a href="/iuvenes/cursos/novedades.php" ><span>Novedades</span></a></li>

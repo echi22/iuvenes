@@ -430,9 +430,9 @@ class Cursos extends Controlador {
 
     function generate_automatically(){
         
-         $this->load->view('templates/header');
-                $this->parser->parse('curso/create_automatically', $data);
-                $this->load->view('templates/footer');
+        $this->load->view('templates/header');
+        $this->parser->parse('curso/create_automatically', $data);
+        $this->load->view('templates/footer');
                 
     }
     function generate_cursos_automatically(){
@@ -463,6 +463,9 @@ class Cursos extends Controlador {
                 }
             }
         }
+        $this->load->view('templates/header');
+        $this->parser->parse('curso/created_automatically', $data);
+        $this->load->view('templates/footer');
     }
     function save_materias_docentes() {
         if (parent::in_group("secretaria")) {
@@ -495,6 +498,14 @@ class Cursos extends Controlador {
         } else {
             $_SESSION['error_message'] = "Usted no tiene permiso para acceder a esta sección";
             redirect("users/error");
+        }
+    }
+    
+    function generate_horarios(){
+        $c = new Curso();
+        $c->get();
+        foreach ($c as $curso){
+            $this->generate_schedule($curso);
         }
     }
 
