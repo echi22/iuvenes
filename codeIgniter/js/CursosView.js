@@ -303,8 +303,14 @@ function  CursosView() {
     this.toogle_all_trimestres= function(checkbox){
         if(!$(checkbox).is(":checked")){
             $(".todos").hide();
+            $(".check_trimestre").each(function(){
+               $(this).prop("checked",false); 
+            });
         }else{
             $(".todos").show();
+            $(".check_trimestre").each(function(){
+               $(this).prop("checked",true); 
+            });
         }
     };
     this.toogle_trimestre= function(n,checkbox){

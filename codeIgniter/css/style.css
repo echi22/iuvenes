@@ -34,7 +34,7 @@ tr.bottom td { border-bottom: 2px solid #002166; }
 tr.row2 td:first-child { border-left: 2px solid #002166; }
 tr.row2 td:last-child { border-right: 2px solid #002166; }
 #cuerpo{
-    width: 100%;
+    min-width: 100%;
     margin: auto;
     height: auto;
     float: left;

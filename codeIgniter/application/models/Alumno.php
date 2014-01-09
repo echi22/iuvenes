@@ -14,7 +14,7 @@ class Alumno extends DataMapper {
 
     var $table = 'alumno';
     var $has_one = array("persona", "establecimiento");
-    var $has_many = array("curso","alumno_vigencia");
+    var $has_many = array("curso","alumno_vigencia",'nota');
     function __construct($id = NULL) {
         parent::__construct($id);
     }

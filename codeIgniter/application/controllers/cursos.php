@@ -44,9 +44,18 @@ class Cursos extends Controlador {
                 $c = new Curso();
                 $c->from_array($_POST, '', false);
                 $an = new Anio_nivel();
+                $primer_trimestre = new Trimestre();
+                $primer_trimestre->nombre = 'Primer Trimestre';
+                $segundo_trimestre = new Trimestre();
+                $segundo_trimestre->nombre = 'Segundo Trimestre';
+                $tercer_trimestre = new Trimestre();
+                $tercer_trimestre->nombre = 'Tercer Trimestre';
                 $an->where(id, $_POST['anio_nivel'])->get();
                 $c->establecimiento_id = $_SESSION['establecimiento_id'];
                 $c->save($an);
+                $primer_trimestre->save($c);
+                $segundo_trimestre->save($c);
+                $tercer_trimestre->save($c);
                 $this->generate_schedule($c);
                 foreach ($_POST['alumnos_seleccionados'] as $alumno) {
                     echo $alumno;
@@ -367,82 +376,81 @@ class Cursos extends Controlador {
         }
     }
 
-    function check_professor_free(){
-         if (parent::in_group("secretaria")) {
-           $libre = true;  
-           $hora = explode("_",$_POST['hora_id']);
-           $dia = $hora[0];
-           $hora = $hora[1];
-           $cpp = new Materium_curso_prestacion_personal();
-           $cpp->where("curso_id",$_POST['curso_id'])->where("materium_id",$_POST['materia_id'])->get();
-           $p = new Personal();
-           $p = $cpp->prestacion->personal;
-           $c = new Curso();
-           $c = $cpp->curso;           
-           $materias = new Materium_curso_prestacion_personal();
-           $materias->where_related('prestacion','personal_id',$p->id)->where_related('curso','id_ciclo_lectivo',$c->id_ciclo_lectivo)->get();
-           foreach ($materias as $materia) {
-               $h = new Horario();
-               $h->where("curso_id",$materia->curso_id)->where("curso_id !=",$_POST['curso_id'])->where("hora_id",$hora)->get();
-               foreach ($h as $horario) {
-                   $horario = array($horario);
-                   if($horario[0]->$dia== $materia->materium_id){
-                       $libre = false;
-                       $curso = new Curso();
-                       $curso->where('id',$materia->curso_id)->get();
-                       $errorMessage = "El profesor ya dicta clases en este horario en el curso ".$curso->detalle();
-                       break;
-                   }
-               }
-               if(!$libre)
-                   break;
-           }
-           if($libre){
-               echo "true";
-           }else{
-              echo json_encode($errorMessage);
-           }
-        } else {
-         $_SESSION['error_message'] = "Usted no tiene permiso para acceder a esta sección";
-         redirect("users/error");
-        }
-    }
-    
-    
-    function save_horarios_modifications() {
+    function check_professor_free() {
         if (parent::in_group("secretaria")) {
-           $horarios = json_decode($_POST['horarios']);
-           foreach ($horarios as $key=>$materia) {
-               $h = new Horario();
-               $key = explode("_", $key);
-               $horario_id = $key[1];
-               $dia = $key[0];
-               $h->where('curso_id',$_POST['curso_id'])->where('hora_id',$horario_id)->get();
-               $m = new Materium();               
-               $h->$dia = $materia;
-               $h->save();
-           }
+            $libre = true;
+            $hora = explode("_", $_POST['hora_id']);
+            $dia = $hora[0];
+            $hora = $hora[1];
+            $cpp = new Materium_curso_prestacion_personal();
+            $cpp->where("curso_id", $_POST['curso_id'])->where("materium_id", $_POST['materia_id'])->get();
+            $p = new Personal();
+            $p = $cpp->prestacion->personal;
+            $c = new Curso();
+            $c = $cpp->curso;
+            $materias = new Materium_curso_prestacion_personal();
+            $materias->where_related('prestacion', 'personal_id', $p->id)->where_related('curso', 'id_ciclo_lectivo', $c->id_ciclo_lectivo)->get();
+            foreach ($materias as $materia) {
+                $h = new Horario();
+                $h->where("curso_id", $materia->curso_id)->where("curso_id !=", $_POST['curso_id'])->where("hora_id", $hora)->get();
+                foreach ($h as $horario) {
+                    $horario = array($horario);
+                    if ($horario[0]->$dia == $materia->materium_id) {
+                        $libre = false;
+                        $curso = new Curso();
+                        $curso->where('id', $materia->curso_id)->get();
+                        $errorMessage = "El profesor ya dicta clases en este horario en el curso " . $curso->detalle();
+                        break;
+                    }
+                }
+                if (!$libre)
+                    break;
+            }
+            if ($libre) {
+                echo "true";
+            } else {
+                echo json_encode($errorMessage);
+            }
         } else {
             $_SESSION['error_message'] = "Usted no tiene permiso para acceder a esta sección";
             redirect("users/error");
         }
     }
 
-    function generate_automatically(){
-        
+    function save_horarios_modifications() {
+        if (parent::in_group("secretaria")) {
+            $horarios = json_decode($_POST['horarios']);
+            foreach ($horarios as $key => $materia) {
+                $h = new Horario();
+                $key = explode("_", $key);
+                $horario_id = $key[1];
+                $dia = $key[0];
+                $h->where('curso_id', $_POST['curso_id'])->where('hora_id', $horario_id)->get();
+                $m = new Materium();
+                $h->$dia = $materia;
+                $h->save();
+            }
+        } else {
+            $_SESSION['error_message'] = "Usted no tiene permiso para acceder a esta sección";
+            redirect("users/error");
+        }
+    }
+
+    function generate_automatically() {
+
         $this->load->view('templates/header');
         $this->parser->parse('curso/create_automatically', $data);
         $this->load->view('templates/footer');
-                
     }
-    function generate_cursos_automatically(){
-        $c= new Curso();
-        $c->where('id_ciclo_lectivo',$_POST['id_ciclo_lectivo'])->where('establecimiento_id',$_SESSION['establecimiento_id'])->get();
+
+    function generate_cursos_automatically() {
+        $c = new Curso();
+        $c->where('id_ciclo_lectivo', $_POST['id_ciclo_lectivo'])->where('establecimiento_id', $_SESSION['establecimiento_id'])->get();
         foreach ($c as $curso) {
             $newCurso = $curso->get_copy();
-            $newCurso->id_ciclo_lectivo = $newCurso->id_ciclo_lectivo +1;            
+            $newCurso->id_ciclo_lectivo = $newCurso->id_ciclo_lectivo + 1;
             $newCurso->save($curso->anio_nivel);
-            
+
             foreach ($curso->prestacions as $prestacion) {
                 $newCurso->save($prestacion);
             }
@@ -451,13 +459,13 @@ class Cursos extends Controlador {
                 $newMcpp->curso_id = $newCurso->id;
                 $newMcpp->save();
             }
-            foreach ($curso->horarios as $hora){                
+            foreach ($curso->horarios as $hora) {
                 $newHorario = $hora->get_copy();
                 $newHorario->curso_id = $newCurso->id;
                 $newHorario->save();
             }
             $curso_anterior = $newCurso->get_previous_curso();
-            if($curso_anterior != null){
+            if ($curso_anterior != null) {
                 foreach ($curso_anterior->alumnos as $alumno) {
                     $newCurso->save($alumno);
                 }
@@ -467,6 +475,7 @@ class Cursos extends Controlador {
         $this->parser->parse('curso/created_automatically', $data);
         $this->load->view('templates/footer');
     }
+
     function save_materias_docentes() {
         if (parent::in_group("secretaria")) {
             $data = json_decode($_POST[data]);
@@ -500,12 +509,56 @@ class Cursos extends Controlador {
             redirect("users/error");
         }
     }
-    
-    function generate_horarios(){
+
+    function generate_horarios() {
         $c = new Curso();
         $c->get();
-        foreach ($c as $curso){
+        foreach ($c as $curso) {
             $this->generate_schedule($curso);
+        }
+    }
+
+    function save_notas() {
+        $trimestres = new Trimestre();
+        $trimestres->where('curso_id', $_POST['curso_id'])->get();
+        $c = new Curso();
+        $c->where('id', $_POST['curso_id'])->get();
+        foreach ($trimestres as $t) {
+            foreach ($c->anio_nivel->materiums->get() as $materia) {
+                foreach ($c->alumnos as $a) {
+                    $nota = new Nota();
+                    $nota->where('materium_id', $materia->id)->where('alumno_id', $a->id)->where('trimestre_id', $t->id)->get();
+                    $nota->nota = $_POST[$a->id . "_" . $t->id . "_" . $materia->id];
+                    $nota->save(array($a, $materia, $t));
+                }
+            }
+        }
+        redirect("cursos/curso_data/" . $_POST['curso_id']);
+    }
+
+    function new_trimestre() {
+        $trimestre = new Trimestre();
+        $trimestre->nombre = $_POST['nombre'];
+        $curso = new Curso();
+        $curso->where('id', $_POST['curso_id'])->get();
+        $trimestre->save($curso);
+        redirect("cursos/curso_data/" . $_POST['curso_id']);
+    }
+
+    function generate_trimestres_for_cursos() {
+        $curso = new Curso();
+        $curso->get();
+        foreach ($curso as $c) {
+            $primer_trimestre = new Trimestre();
+            $primer_trimestre->nombre = 'Primer Trimestre';
+            $segundo_trimestre = new Trimestre();
+            $segundo_trimestre->nombre = 'Segundo Trimestre';
+            $tercer_trimestre = new Trimestre();
+            $tercer_trimestre->nombre = 'Tercer Trimestre';
+
+            $primer_trimestre->save($c);
+            $segundo_trimestre->save($c);
+            $tercer_trimestre->save($c);
         }
     }
 
